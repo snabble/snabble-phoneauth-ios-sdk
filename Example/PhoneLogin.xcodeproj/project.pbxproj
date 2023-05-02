@@ -1,0 +1,431 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		7631E2E2297FC9CE006AAF0C /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7631E2E1297FC9CE006AAF0C /* Endpoint.swift */; };
+		768915E02A010BA500C4799A /* SnabblePhoneAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 768915DF2A010BA500C4799A /* SnabblePhoneAuth */; };
+		768AAC3E2979613900EA3831 /* StateMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 768AAC3D2979613900EA3831 /* StateMachine.swift */; };
+		7691BA9B2976C3F400477EDD /* PhoneLoginApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7691BA9A2976C3F400477EDD /* PhoneLoginApp.swift */; };
+		7691BA9D2976C3F400477EDD /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7691BA9C2976C3F400477EDD /* ContentView.swift */; };
+		7691BA9F2976C3F500477EDD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7691BA9E2976C3F500477EDD /* Assets.xcassets */; };
+		7691BAA32976C3F500477EDD /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7691BAA22976C3F500477EDD /* Preview Assets.xcassets */; };
+		7691BAAA2977AD1700477EDD /* EnterPhoneNumberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7691BAA92977AD1700477EDD /* EnterPhoneNumberView.swift */; };
+		7691BAAC2977AD2A00477EDD /* EnterCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7691BAAB2977AD2A00477EDD /* EnterCodeView.swift */; };
+		7691BAAE2977AD3900477EDD /* PhoneLoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7691BAAD2977AD3900477EDD /* PhoneLoginModel.swift */; };
+		7691BAB02977AD8500477EDD /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7691BAAF2977AD8500477EDD /* Utilities.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		7631E2E1297FC9CE006AAF0C /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
+		763438EA2A01062900C99AD5 /* snabble-phoneauth-ios-sdk */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "snabble-phoneauth-ios-sdk"; path = ..; sourceTree = "<group>"; };
+		768AAC3D2979613900EA3831 /* StateMachine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateMachine.swift; sourceTree = "<group>"; };
+		7691BA972976C3F400477EDD /* PhoneLogin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhoneLogin.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7691BA9A2976C3F400477EDD /* PhoneLoginApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneLoginApp.swift; sourceTree = "<group>"; };
+		7691BA9C2976C3F400477EDD /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		7691BA9E2976C3F500477EDD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		7691BAA02976C3F500477EDD /* PhoneLogin.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PhoneLogin.entitlements; sourceTree = "<group>"; };
+		7691BAA22976C3F500477EDD /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		7691BAA92977AD1700477EDD /* EnterPhoneNumberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterPhoneNumberView.swift; sourceTree = "<group>"; };
+		7691BAAB2977AD2A00477EDD /* EnterCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterCodeView.swift; sourceTree = "<group>"; };
+		7691BAAD2977AD3900477EDD /* PhoneLoginModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneLoginModel.swift; sourceTree = "<group>"; };
+		7691BAAF2977AD8500477EDD /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		7691BA942976C3F400477EDD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				768915E02A010BA500C4799A /* SnabblePhoneAuth in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		763438E92A01062900C99AD5 /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				763438EA2A01062900C99AD5 /* snabble-phoneauth-ios-sdk */,
+			);
+			name = Packages;
+			sourceTree = "<group>";
+		};
+		763438EB2A01066100C99AD5 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				7631E2E1297FC9CE006AAF0C /* Endpoint.swift */,
+				768AAC3D2979613900EA3831 /* StateMachine.swift */,
+				7691BAAD2977AD3900477EDD /* PhoneLoginModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		763438EC2A01079B00C99AD5 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				7691BA9C2976C3F400477EDD /* ContentView.swift */,
+				7691BAAB2977AD2A00477EDD /* EnterCodeView.swift */,
+				7691BAA92977AD1700477EDD /* EnterPhoneNumberView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		768915DE2A010BA500C4799A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7691BA8E2976C3F400477EDD = {
+			isa = PBXGroup;
+			children = (
+				763438E92A01062900C99AD5 /* Packages */,
+				7691BA992976C3F400477EDD /* PhoneLogin */,
+				7691BA982976C3F400477EDD /* Products */,
+				768915DE2A010BA500C4799A /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		7691BA982976C3F400477EDD /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7691BA972976C3F400477EDD /* PhoneLogin.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		7691BA992976C3F400477EDD /* PhoneLogin */ = {
+			isa = PBXGroup;
+			children = (
+				7691BA9A2976C3F400477EDD /* PhoneLoginApp.swift */,
+				7691BAAF2977AD8500477EDD /* Utilities.swift */,
+				763438EC2A01079B00C99AD5 /* Views */,
+				763438EB2A01066100C99AD5 /* Models */,
+				7691BA9E2976C3F500477EDD /* Assets.xcassets */,
+				7691BAA02976C3F500477EDD /* PhoneLogin.entitlements */,
+				7691BAA12976C3F500477EDD /* Preview Content */,
+			);
+			path = PhoneLogin;
+			sourceTree = "<group>";
+		};
+		7691BAA12976C3F500477EDD /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				7691BAA22976C3F500477EDD /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		7691BA962976C3F400477EDD /* PhoneLogin */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7691BAA62976C3F500477EDD /* Build configuration list for PBXNativeTarget "PhoneLogin" */;
+			buildPhases = (
+				7691BA932976C3F400477EDD /* Sources */,
+				7691BA942976C3F400477EDD /* Frameworks */,
+				7691BA952976C3F400477EDD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PhoneLogin;
+			packageProductDependencies = (
+				768915DF2A010BA500C4799A /* SnabblePhoneAuth */,
+			);
+			productName = PhoneLogin;
+			productReference = 7691BA972976C3F400477EDD /* PhoneLogin.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		7691BA8F2976C3F400477EDD /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1420;
+				LastUpgradeCheck = 1420;
+				TargetAttributes = {
+					7691BA962976C3F400477EDD = {
+						CreatedOnToolsVersion = 14.2;
+					};
+				};
+			};
+			buildConfigurationList = 7691BA922976C3F400477EDD /* Build configuration list for PBXProject "PhoneLogin" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 7691BA8E2976C3F400477EDD;
+			packageReferences = (
+			);
+			productRefGroup = 7691BA982976C3F400477EDD /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				7691BA962976C3F400477EDD /* PhoneLogin */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		7691BA952976C3F400477EDD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7691BAA32976C3F500477EDD /* Preview Assets.xcassets in Resources */,
+				7691BA9F2976C3F500477EDD /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		7691BA932976C3F400477EDD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7691BAB02977AD8500477EDD /* Utilities.swift in Sources */,
+				7691BA9D2976C3F400477EDD /* ContentView.swift in Sources */,
+				7631E2E2297FC9CE006AAF0C /* Endpoint.swift in Sources */,
+				7691BA9B2976C3F400477EDD /* PhoneLoginApp.swift in Sources */,
+				7691BAAC2977AD2A00477EDD /* EnterCodeView.swift in Sources */,
+				7691BAAE2977AD3900477EDD /* PhoneLoginModel.swift in Sources */,
+				768AAC3E2979613900EA3831 /* StateMachine.swift in Sources */,
+				7691BAAA2977AD1700477EDD /* EnterPhoneNumberView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		7691BAA42976C3F500477EDD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		7691BAA52976C3F500477EDD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		7691BAA72976C3F500477EDD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = PhoneLogin/PhoneLogin.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"PhoneLogin/Preview Content\"";
+				DEVELOPMENT_TEAM = 53K7JS449L;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 13.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = io.snabble..PhoneLogin;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		7691BAA82976C3F500477EDD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = PhoneLogin/PhoneLogin.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"PhoneLogin/Preview Content\"";
+				DEVELOPMENT_TEAM = 53K7JS449L;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 13.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = io.snabble..PhoneLogin;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		7691BA922976C3F400477EDD /* Build configuration list for PBXProject "PhoneLogin" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7691BAA42976C3F500477EDD /* Debug */,
+				7691BAA52976C3F500477EDD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7691BAA62976C3F500477EDD /* Build configuration list for PBXNativeTarget "PhoneLogin" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7691BAA72976C3F500477EDD /* Debug */,
+				7691BAA82976C3F500477EDD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		768915DF2A010BA500C4799A /* SnabblePhoneAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SnabblePhoneAuth;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 7691BA8F2976C3F400477EDD /* Project object */;
+}
