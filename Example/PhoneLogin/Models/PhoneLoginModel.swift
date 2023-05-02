@@ -45,7 +45,7 @@ class PhoneLoginModel: ObservableObject {
         didSet { enterState(state) }
     }
     
-    init(countryCode: String = "+49", stateMachine: StateMachine, loginService: LoginService) {
+    public init(countryCode: String = "+49", stateMachine: StateMachine = StateMachine(state: .start), loginService: LoginService = LoginService(session: .shared)) {
         self.countryCode = countryCode
         self.stateMachine = stateMachine
         self.loginService = loginService

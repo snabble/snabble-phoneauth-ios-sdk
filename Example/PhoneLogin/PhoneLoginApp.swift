@@ -10,7 +10,7 @@ import SnabblePhoneAuth
 
 @main
 struct PhoneLoginApp: App {
-    let loginModel = PhoneLoginModel(stateMachine: StateMachine(state: .start), loginService: LoginService(session: .shared))
+    let loginModel = PhoneLoginModel()
 
     var body: some Scene {
         WindowGroup {
