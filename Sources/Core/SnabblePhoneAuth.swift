@@ -6,7 +6,7 @@ public protocol SnabblePhoneAuthDelegate: AnyObject {
 
 //    /// Tells the delegate that the SnabblePhoneAuth did update the credentials
 //    /// - Parameters:
-//    ///   - snabblePay: The SnabblePhoneAuth object that received the updated credentials
+//    ///   - phoneAuth: The SnabblePhoneAuth object that received the updated credentials
 //    ///   - credentials: The updated `Credentials`
 //    func phoneAuth(_ phoneAuth: SnabblePhoneAuth, didUpdateCredentials credentials: Credentials?)
 }

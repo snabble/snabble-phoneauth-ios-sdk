@@ -32,19 +32,13 @@ struct ContentView: View {
     
     var body: some View {
         NavigationView {
-            content
+            if loginModel.state == .loggedIn {
+                LoggedInView()
+            } else {
+                EnterPhoneNumberView()
+            }
         }
     }
-    private var content: some View {
-        switch loginModel.state {
-        case .loggedIn:
-            return AnyView(LoggedInView())
-            
-        default:
-            return AnyView(EnterPhoneNumberView())
-        }
-    }
-
 }
 
 struct ContentView_Previews: PreviewProvider {
