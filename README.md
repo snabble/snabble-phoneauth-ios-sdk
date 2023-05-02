@@ -1,3 +1,3 @@
-# snabble-phoneauth-ios-sdk
+# SnabblePhoneAuth
 
-A description of this package.
+A package providing a phone authentication and login service.
