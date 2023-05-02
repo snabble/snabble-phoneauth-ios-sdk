@@ -8,31 +8,31 @@
 import Foundation
 import Combine
 
-protocol EndpointKind {
+public protocol EndpointKind {
     associatedtype RequestData
     
     static func prepare(_ request: inout URLRequest, with data: RequestData)
     static func prepare(_ request: inout URLRequest)
 }
 
-enum EndpointKinds {
-    enum Public: EndpointKind {
-        static func prepare(_ request: inout URLRequest) {
+public enum EndpointKinds {
+    public enum Public: EndpointKind {
+        public static func prepare(_ request: inout URLRequest) {
             request.cachePolicy = .reloadIgnoringLocalCacheData
         }
-        static func prepare(_ request: inout URLRequest, with _: Void) {
+        public static func prepare(_ request: inout URLRequest, with _: Void) {
             self.prepare(&request)
         }
     }
 }
 
-struct Endpoint<Kind: EndpointKind, Response: Decodable> {
+public struct Endpoint<Kind: EndpointKind, Response: Decodable> {
     var path: String
     var queryItems = [URLQueryItem]()
 }
 
-extension Endpoint {
-    var components : URLComponents {
+public extension Endpoint {
+    var components: URLComponents {
         var components = URLComponents()
         components.scheme = "https"
         components.host = "httpbin.org"
@@ -56,7 +56,7 @@ extension Endpoint {
     }
 }
 
-struct NetworkResponse<Wrapped: Decodable>: Decodable {
+public struct NetworkResponse<Wrapped: Decodable>: Decodable {
     var result: Wrapped
     
     enum CodingKeys: String, CodingKey {
@@ -64,11 +64,11 @@ struct NetworkResponse<Wrapped: Decodable>: Decodable {
     }
 }
 
-enum URLSessionError: Error {
+public enum URLSessionError: Error {
     case invalidEndpoint
 }
 
-extension URLSession {
+public extension URLSession {
     func publisher<K, R>(
         for endpoint: Endpoint<K, R>,
         using requestData: K.RequestData,
@@ -107,18 +107,18 @@ extension URLSession {
     }
 }
 
-extension Endpoint where Kind == EndpointKinds.Public, Response == PhoneResponse {
-    static func send(phoneNumber: String) -> Self {
+public extension Endpoint where Kind == EndpointKinds.Public, Response == PhoneResponse {
+     static func send(phoneNumber: String) -> Self {
         let code = Int.random(in: 1000..<9999)
         
-        return Endpoint(path: "delay/4", queryItems: [
+        return Endpoint(path: "delay/2", queryItems: [
             URLQueryItem(name: "phoneNumber", value: phoneNumber.replacingOccurrences(of: "+", with: "00")),
             URLQueryItem(name: "code", value: "\(code)")
         ])
     }
 }
 
-extension Endpoint where Kind == EndpointKinds.Public, Response == Login {
+public extension Endpoint where Kind == EndpointKinds.Public, Response == Login {
     static func loginWith(code: String) -> Self {
         return Endpoint(path: "delay/2", queryItems: [
             URLQueryItem(name: "code", value: code)
@@ -126,11 +126,11 @@ extension Endpoint where Kind == EndpointKinds.Public, Response == Login {
     }
 }
 
-struct PhoneResponse: Decodable {
-    let phoneNumber: String
-    let code: String
+public struct PhoneResponse: Decodable {
+    public let phoneNumber: String
+    public let code: String
 }
 
-struct Login: Decodable {
-    let code: String
+public struct Login: Decodable {
+    public let code: String
 }

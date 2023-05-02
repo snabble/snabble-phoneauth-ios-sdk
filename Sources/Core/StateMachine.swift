@@ -8,9 +8,9 @@
 import Foundation
 import Combine
 
-class StateMachine {
+open class StateMachine {
     
-    enum State {
+    public enum State {
         case start
         case pushedToServer
         case waitingForCode
@@ -19,7 +19,7 @@ class StateMachine {
         case error
     }
     
-    enum Event {
+    public enum Event {
         case enterPhoneNumber   // User give phone number textfield focus
         case sendingPhoneNumber // User has tapped button "Request Code"
         case enterCode          // User give code textfield focus
@@ -28,13 +28,13 @@ class StateMachine {
         case failure
     }
     
-    private(set) var state: State {
+    public private(set) var state: State {
         didSet { stateSubject.send(self.state) }
     }
     private let stateSubject: PassthroughSubject<State, Never>
-    let statePublisher: AnyPublisher<State, Never>
+    public let statePublisher: AnyPublisher<State, Never>
     
-    init(state: State) {
+    public init(state: State) {
         self.state = state
         self.stateSubject = PassthroughSubject<State, Never>()
         self.statePublisher = self.stateSubject.eraseToAnyPublisher()
@@ -44,7 +44,7 @@ class StateMachine {
 
 // MARK: - State changes
 
-extension StateMachine {
+public extension StateMachine {
     
     @discardableResult func tryEvent(_ event: Event) -> Bool {
         guard let state = nextState(for: event) else {

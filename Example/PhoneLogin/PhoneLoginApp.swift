@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SnabblePhoneAuth
 
 @main
 struct PhoneLoginApp: App {

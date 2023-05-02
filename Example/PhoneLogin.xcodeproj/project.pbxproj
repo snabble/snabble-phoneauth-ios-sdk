@@ -7,9 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7631E2E2297FC9CE006AAF0C /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7631E2E1297FC9CE006AAF0C /* Endpoint.swift */; };
 		768915E02A010BA500C4799A /* SnabblePhoneAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 768915DF2A010BA500C4799A /* SnabblePhoneAuth */; };
-		768AAC3E2979613900EA3831 /* StateMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 768AAC3D2979613900EA3831 /* StateMachine.swift */; };
 		7691BA9B2976C3F400477EDD /* PhoneLoginApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7691BA9A2976C3F400477EDD /* PhoneLoginApp.swift */; };
 		7691BA9D2976C3F400477EDD /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7691BA9C2976C3F400477EDD /* ContentView.swift */; };
 		7691BA9F2976C3F500477EDD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7691BA9E2976C3F500477EDD /* Assets.xcassets */; };
@@ -21,9 +19,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		7631E2E1297FC9CE006AAF0C /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		763438EA2A01062900C99AD5 /* snabble-phoneauth-ios-sdk */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "snabble-phoneauth-ios-sdk"; path = ..; sourceTree = "<group>"; };
-		768AAC3D2979613900EA3831 /* StateMachine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateMachine.swift; sourceTree = "<group>"; };
+		768915E12A0129C100C4799A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		7691BA972976C3F400477EDD /* PhoneLogin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhoneLogin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7691BA9A2976C3F400477EDD /* PhoneLoginApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneLoginApp.swift; sourceTree = "<group>"; };
 		7691BA9C2976C3F400477EDD /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -59,8 +56,6 @@
 		763438EB2A01066100C99AD5 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				7631E2E1297FC9CE006AAF0C /* Endpoint.swift */,
-				768AAC3D2979613900EA3831 /* StateMachine.swift */,
 				7691BAAD2977AD3900477EDD /* PhoneLoginModel.swift */,
 			);
 			path = Models;
@@ -104,6 +99,7 @@
 		7691BA992976C3F400477EDD /* PhoneLogin */ = {
 			isa = PBXGroup;
 			children = (
+				768915E12A0129C100C4799A /* Info.plist */,
 				7691BA9A2976C3F400477EDD /* PhoneLoginApp.swift */,
 				7691BAAF2977AD8500477EDD /* Utilities.swift */,
 				763438EC2A01079B00C99AD5 /* Views */,
@@ -200,11 +196,9 @@
 			files = (
 				7691BAB02977AD8500477EDD /* Utilities.swift in Sources */,
 				7691BA9D2976C3F400477EDD /* ContentView.swift in Sources */,
-				7631E2E2297FC9CE006AAF0C /* Endpoint.swift in Sources */,
 				7691BA9B2976C3F400477EDD /* PhoneLoginApp.swift in Sources */,
 				7691BAAC2977AD2A00477EDD /* EnterCodeView.swift in Sources */,
 				7691BAAE2977AD3900477EDD /* PhoneLoginModel.swift in Sources */,
-				768AAC3E2979613900EA3831 /* StateMachine.swift in Sources */,
 				7691BAAA2977AD1700477EDD /* EnterPhoneNumberView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -331,9 +325,10 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"PhoneLogin/Preview Content\"";
 				DEVELOPMENT_TEAM = 53K7JS449L;
-				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_HARDENED_RUNTIME = NO;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PhoneLogin/Info.plist;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -369,9 +364,10 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"PhoneLogin/Preview Content\"";
 				DEVELOPMENT_TEAM = 53K7JS449L;
-				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_HARDENED_RUNTIME = NO;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PhoneLogin/Info.plist;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;

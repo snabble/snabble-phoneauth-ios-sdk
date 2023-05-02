@@ -7,7 +7,7 @@
 
 import Foundation
 import SwiftUI
-//import SnabblePhoneAuth
+import SnabblePhoneAuth
 
 struct DebugView: View {
     @EnvironmentObject var loginModel: PhoneLoginModel

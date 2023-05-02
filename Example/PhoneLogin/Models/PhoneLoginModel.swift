@@ -9,48 +9,6 @@ import Combine
 import Foundation
 import SnabblePhoneAuth
 
-enum FakeEndpointError: Error {
-    case phoneNumberError
-    case loginError
-}
-
-extension FakeEndpointError: LocalizedError {
-    public var errorDescription: String? {
-        switch self {
-        case .phoneNumberError:
-            return NSLocalizedString("Error: PhoneNumber endpoint failed.", comment: "")
-        case .loginError:
-            return NSLocalizedString("Error: Login endpoint failed.", comment: "")
-        }
-    }
-}
-
-class LoginService: ObservableObject {
-    private let session: URLSession
-    
-    var userInfo: [String: Any] = [:]
-    
-    init(session: URLSession) {
-        self.session = session
-    }
-    
-    func send(phoneNumber: String) -> AnyPublisher<PhoneResponse, Error> {
-        if let error = userInfo["error"] as? FakeEndpointError, error == .phoneNumberError {
-            return session.publisher(for: .send(phoneNumber: phoneNumber), userInfo: userInfo)
-        } else {
-            return session.publisher(for: .send(phoneNumber: phoneNumber))
-        }
-    }
-    
-    func loginWith(code: String) -> AnyPublisher<Login, Error> {
-        if let error = userInfo["error"] as? FakeEndpointError, error == .loginError {
-            return session.publisher(for: .loginWith(code: code), userInfo: userInfo)
-        } else {
-            return session.publisher(for: .loginWith(code: code))
-        }
-    }
-}
-
 class PhoneLoginModel: ObservableObject {
     
     private let stateMachine: StateMachine

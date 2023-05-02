@@ -12,7 +12,7 @@ struct LoggedInView: View {
     
     var body: some View {
         VStack {
-            Text("Du bis eingeloggt!")
+            Text("Du bist eingeloggt!")
                 .font(.largeTitle)
             
             Button(action: {
