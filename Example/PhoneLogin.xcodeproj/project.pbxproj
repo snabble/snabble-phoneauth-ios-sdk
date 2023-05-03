@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		768915E02A010BA500C4799A /* SnabblePhoneAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 768915DF2A010BA500C4799A /* SnabblePhoneAuth */; };
+		768915E32A02323400C4799A /* DebugView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 768915E22A02323400C4799A /* DebugView.swift */; };
 		7691BA9B2976C3F400477EDD /* PhoneLoginApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7691BA9A2976C3F400477EDD /* PhoneLoginApp.swift */; };
 		7691BA9D2976C3F400477EDD /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7691BA9C2976C3F400477EDD /* ContentView.swift */; };
 		7691BA9F2976C3F500477EDD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7691BA9E2976C3F500477EDD /* Assets.xcassets */; };
@@ -21,6 +22,7 @@
 /* Begin PBXFileReference section */
 		763438EA2A01062900C99AD5 /* snabble-phoneauth-ios-sdk */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "snabble-phoneauth-ios-sdk"; path = ..; sourceTree = "<group>"; };
 		768915E12A0129C100C4799A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		768915E22A02323400C4799A /* DebugView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugView.swift; sourceTree = "<group>"; };
 		7691BA972976C3F400477EDD /* PhoneLogin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhoneLogin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7691BA9A2976C3F400477EDD /* PhoneLoginApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneLoginApp.swift; sourceTree = "<group>"; };
 		7691BA9C2976C3F400477EDD /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -67,6 +69,7 @@
 				7691BA9C2976C3F400477EDD /* ContentView.swift */,
 				7691BAAB2977AD2A00477EDD /* EnterCodeView.swift */,
 				7691BAA92977AD1700477EDD /* EnterPhoneNumberView.swift */,
+				768915E22A02323400C4799A /* DebugView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -197,6 +200,7 @@
 				7691BAB02977AD8500477EDD /* Utilities.swift in Sources */,
 				7691BA9D2976C3F400477EDD /* ContentView.swift in Sources */,
 				7691BA9B2976C3F400477EDD /* PhoneLoginApp.swift in Sources */,
+				768915E32A02323400C4799A /* DebugView.swift in Sources */,
 				7691BAAC2977AD2A00477EDD /* EnterCodeView.swift in Sources */,
 				7691BAAE2977AD3900477EDD /* PhoneLoginModel.swift in Sources */,
 				7691BAAA2977AD1700477EDD /* EnterPhoneNumberView.swift in Sources */,

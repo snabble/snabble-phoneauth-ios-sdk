@@ -63,7 +63,7 @@ struct EnterCodeView: View {
                                 .keyboardType(.decimalPad)
                             
                             Button(action: {
-                                print("login")
+                                print("login with code: \(pinCode)")
                                 loginModel.loginWithCode(pinCode)
                             }) {
                                 HStack {
@@ -76,7 +76,7 @@ struct EnterCodeView: View {
                             .disabled(!canSend)
                             .buttonStyle(AccentButtonStyle())
                             Button(action: {
-                                print("code anfordern")
+                                print("request code for \(loginModel.phoneNumber)")
                                 loginModel.sendPhoneNumber(loginModel.phoneNumber)
                             }) {
                                 HStack {

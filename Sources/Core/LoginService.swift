@@ -49,4 +49,3 @@ open class LoginService: ObservableObject {
         }
     }
 }
-
