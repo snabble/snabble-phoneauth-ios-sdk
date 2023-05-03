@@ -91,50 +91,54 @@ extension PhoneLoginModel {
     private func pushToServer() {
         loginCancellable = loginService.send(phoneNumber: phoneNumber)
             .receive(on: RunLoop.main)
-            .sink(receiveCompletion: { [weak self] (completion) in
-                guard let strongSelf = self else { return }
-                
-                switch completion {
-                case .finished:
-                    break
+            .sink(
+                receiveCompletion: { [weak self] (completion) in
+                    guard let strongSelf = self else { return }
                     
-                case .failure(let error):
-                    strongSelf.errorMessage = error.localizedDescription
-                    strongSelf.stateMachine.tryEvent(.failure)
-                }
-            }, receiveValue: { [weak self] response in
-                guard let strongSelf = self else { return }
-
-                strongSelf.receivedCode = response.code
-                strongSelf.stateMachine.tryEvent(.sendingPhoneNumber)
-            })
+                    switch completion {
+                    case .finished:
+                        break
+                        
+                    case .failure(let error):
+                        strongSelf.errorMessage = error.localizedDescription
+                        strongSelf.stateMachine.tryEvent(.failure)
+                    }
+                },
+                receiveValue: { [weak self] response in
+                    guard let strongSelf = self else { return }
+                    
+                    strongSelf.receivedCode = response.code
+                    strongSelf.stateMachine.tryEvent(.sendingPhoneNumber)
+                })
     }
 
     private func sendCode() {
         loginCancellable = loginService.loginWith(code: pinCode)
             .receive(on: RunLoop.main)
-            .sink(receiveCompletion: { [weak self] (completion) in
-                guard let strongSelf = self else { return }
-                
-                switch completion {
-                case .finished:
-                    break
+            .sink(
+                receiveCompletion: { [weak self] (completion) in
+                    guard let strongSelf = self else { return }
                     
-                case .failure(let error):
-                    strongSelf.errorMessage = error.localizedDescription
-                    strongSelf.stateMachine.tryEvent(.failure)
-                }
-            }, receiveValue: { [weak self] login in
-                guard let strongSelf = self else { return }
-
-                print("received login: \(login)")
-                if login.code == strongSelf.receivedCode {
-                    strongSelf.stateMachine.tryEvent(.success)
-                } else {
-                    strongSelf.errorMessage = "Der eingegebene Code ist falsch!"
-                    strongSelf.stateMachine.tryEvent(.enterCode)
-                }
-            })
+                    switch completion {
+                    case .finished:
+                        break
+                        
+                    case .failure(let error):
+                        strongSelf.errorMessage = error.localizedDescription
+                        strongSelf.stateMachine.tryEvent(.failure)
+                    }
+                },
+                receiveValue: { [weak self] login in
+                    guard let strongSelf = self else { return }
+                    
+                    print("received login: \(login)")
+                    if login.code == strongSelf.receivedCode {
+                        strongSelf.stateMachine.tryEvent(.success)
+                    } else {
+                        strongSelf.errorMessage = "Der eingegebene Code ist falsch!"
+                        strongSelf.stateMachine.tryEvent(.enterCode)
+                    }
+                })
     }
 }
 

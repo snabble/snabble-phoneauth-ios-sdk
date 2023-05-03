@@ -71,27 +71,11 @@ public enum URLSessionError: Error {
 public extension URLSession {
     func publisher<K, R>(
         for endpoint: Endpoint<K, R>,
-        using requestData: K.RequestData,
-        decoder: JSONDecoder = .init()
-    ) -> AnyPublisher<R, Error> {
-        guard let request = endpoint.makeRequest(with: requestData) else {
-            return Fail(error: URLSessionError.invalidEndpoint)
-                .eraseToAnyPublisher()
-        }
-
-        return dataTaskPublisher(for: request)
-            .map(\.data)
-            .decode(type: NetworkResponse<R>.self, decoder: decoder)
-            .map(\.result)
-            .eraseToAnyPublisher()
-    }
-
-    func publisher<K, R>(
-        for endpoint: Endpoint<K, R>,
+        using requestData: K.RequestData? = nil,
         decoder: JSONDecoder = .init(),
         userInfo: [String: Any]? = nil
     ) -> AnyPublisher<R, Error> {
-        guard let request = endpoint.makeRequest() else {
+        guard let request = endpoint.makeRequest(with: requestData) else {
             return Fail(error: URLSessionError.invalidEndpoint)
                 .eraseToAnyPublisher()
         }
@@ -99,6 +83,7 @@ public extension URLSession {
             return Fail(error: error)
                 .eraseToAnyPublisher()
         }
+
         return dataTaskPublisher(for: request)
             .map(\.data)
             .decode(type: NetworkResponse<R>.self, decoder: decoder)
