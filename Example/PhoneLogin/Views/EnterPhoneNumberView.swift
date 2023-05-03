@@ -12,6 +12,7 @@ import SnabblePhoneAuth
 struct EnterPhoneNumberView: View {
     @State private var phoneNumber = ""
     @State private var isShowingDetailView = false
+    @State private var canSend = false
     @EnvironmentObject var loginModel: PhoneLoginModel
 
     @FocusState private var enterCode
@@ -36,7 +37,9 @@ struct EnterPhoneNumberView: View {
                         }) {
                             Text("Code anfordern")
                                 .fontWeight(.bold)
+                                .opacity(canSend ? 1.0 : 0.5)
                         }
+                        .disabled(!canSend)
                         .buttonStyle(AccentButtonStyle())
                         
                     },
@@ -49,6 +52,9 @@ struct EnterPhoneNumberView: View {
             }
             .onAppear {
                 enterCode = true
+            }
+            .onChange(of: phoneNumber) { newNumber in
+                canSend = newNumber.count > 5
             }
             //DebugView()
         }
