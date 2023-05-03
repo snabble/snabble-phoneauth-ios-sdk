@@ -17,6 +17,14 @@ struct EnterPhoneNumberView: View {
 
     @FocusState private var enterCode
     
+    @ViewBuilder
+    var spinner: some View {
+        if loginModel.state == .pushedToServer {
+            ProgressView()
+               .padding([.leading], 10)
+        }
+    }
+    
     var body: some View {
         VStack {
             NavigationLink(destination: EnterCodeView(phoneNumber: phoneNumber), isActive: $isShowingDetailView) { EmptyView() }
@@ -24,31 +32,44 @@ struct EnterPhoneNumberView: View {
             Form {
                 Section(
                     content: {
-                        HStack{
-                            Text(loginModel.countryCode)
-                            TextField("Handynummer", text: $phoneNumber)
-                                .keyboardType(.phonePad)
-                                .focused($enterCode)
-                        }
-                        
-                        Button(action: {
-                            isShowingDetailView = true
-                            loginModel.sendPhoneNumber(phoneNumber)
-                        }) {
-                            Text("Code anfordern")
-                                .fontWeight(.bold)
-                                .opacity(canSend ? 1.0 : 0.5)
-                        }
-                        .disabled(!canSend)
-                        .buttonStyle(AccentButtonStyle())
-                        
-                    },
+                            HStack{
+                                Text(loginModel.countryCode)
+                                TextField("Handynummer", text: $phoneNumber)
+                                    .keyboardType(.phonePad)
+                                    .focused($enterCode)
+                            }
+                            
+                            Button(action: {
+                                //isShowingDetailView = true
+                                loginModel.sendPhoneNumber(phoneNumber)
+                            }) {
+                                HStack {
+                                    Text("Code anfordern")
+                                        .fontWeight(.bold)
+                                        .opacity(canSend ? 1.0 : 0.5)
+                                    spinner
+                                }
+                            }
+                            .disabled(!canSend)
+                            .buttonStyle(AccentButtonStyle())
+                            
+                        },
                     header: {
                         Text("Zum Aktivieren des Logins, gib deine Handynummber ein.\nAnschließend erhälst du eine SMS mit einem Aktivierungscode.")
                             .multilineTextAlignment(.center)
+                    },
+                    footer: {
+                        if !loginModel.errorMessage.isEmpty {
+                            Text(loginModel.errorMessage)
+                                .foregroundColor(.red)
+                        }
                     }
                 )
                 .textCase(nil)
+            }
+            .onChange(of: loginModel.receivedCode) { newCode in
+                
+                isShowingDetailView = !newCode.isEmpty
             }
             .onAppear {
                 enterCode = true

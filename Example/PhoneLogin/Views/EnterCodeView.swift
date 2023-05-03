@@ -12,21 +12,30 @@ struct EnterCodeView: View {
     @State private var pinCode = ""
     @State private var codeValid = false
     @State private var canSend = false
-
+    
     @EnvironmentObject var loginModel: PhoneLoginModel
     @State private var serverHint: String = ""
     @State private var errorMessage: String = ""
+    @State private var sendDate: Date = .now
     
     @FocusState private var enterCode
 
     @ViewBuilder
-    var spinner: some View {
-        if loginModel.state == .sendCode {
+    var loginSpinner: some View {
+        if  loginModel.state == .sendCode {
             ProgressView()
                .padding([.leading], 10)
         }
     }
-
+    
+    @ViewBuilder
+    var codeSpinner: some View {
+        if loginModel.state == .pushedToServer /*|| loginModel.state == .waitingForCode*/ {
+            ProgressView()
+               .padding([.leading], 10)
+        }
+    }
+    
     @ViewBuilder
     var message: some View {
         if !loginModel.errorMessage.isEmpty {
@@ -52,7 +61,21 @@ struct EnterCodeView: View {
             Spacer()
         }
     }
-
+    
+    @State private var showCountdown: Bool = true
+    
+    @ViewBuilder
+    var countdownView: some View {
+        if showCountdown {
+            HStack {
+                Spacer()
+                CountDownView(from: sendDate, to: sendDate + 30, height: 4) {
+                    self.showCountdown = false
+                }
+                Spacer()
+            }
+        }
+    }
     var body: some View {
         VStack {
             Form {
@@ -73,28 +96,45 @@ struct EnterCodeView: View {
                                     Text("Anmelden")
                                         .fontWeight(.bold)
                                         .opacity(canSend ? 1.0 : 0.5)
-                                    spinner
+                                    loginSpinner
                                 }
                             }
                             .disabled(!canSend)
                             .buttonStyle(AccentButtonStyle())
                             
-                            Button(action: {
-                                print("request code for \(loginModel.phoneNumber)")
-                                loginModel.sendPhoneNumber(loginModel.phoneNumber)
-                            }) {
-                                HStack {
-                                    Spacer()
-                                    Text("Code erneut anfordern")
-                                        .fontWeight(.bold)
-                                    Spacer()
+                            VStack {
+                                Button(action: {
+                                    if canRequestCode() {
+                                        print("request code for \(loginModel.phoneNumber)")
+                                        loginModel.sendPhoneNumber(loginModel.phoneNumber)
+                                    }
+                                }) {
+                                    HStack {
+                                        Spacer()
+                                        VStack {
+                                            HStack {
+                                                Text("Code erneut anfordern")
+                                                    .fontWeight(.bold)
+                                                    .opacity(canRequestCode() ? 1.0 : 0.5)
+                                                codeSpinner
+                                            }
+                                            countdownView
+                                        }
+                                        Spacer()
+                                    }
                                 }
+                                .disabled(!canRequestCode())
                             }
-                            
                         }
                     
                 )
                 .textCase(nil)
+            }
+            .onAppear {
+                if !loginModel.receivedCode.isEmpty {
+                    print("receivedCode: \(loginModel.receivedCode)")
+                    serverHint = "Server hat folgenden Code geschickt: \"\(loginModel.receivedCode)\""
+                }
             }
             .onChange(of: loginModel.isLoggingIn) { newLogin in
                 if newLogin {
@@ -105,7 +145,14 @@ struct EnterCodeView: View {
             .onChange(of: serverHint) { _ in
                 withAnimation {
                     enterCode = true
+                    sendDate = .now
                 }
+            }
+            .onChange(of: loginModel.state) { newState in
+                if newState == .waitingForCode {
+                    showCountdown = true
+                }
+                print("state changed to: \(newState)")
             }
             .onChange(of: loginModel.receivedCode) { newCode in
                 serverHint = "Server hat folgenden Code geschickt: \"\(newCode)\""
@@ -123,6 +170,13 @@ struct EnterCodeView: View {
         .navigationTitle("Code eingeben")
     }
         
+    private func canRequestCode() -> Bool {
+        guard showCountdown == false else {
+            return false
+        }
+        return loginModel.canRequestCode
+    }
+
     var canLogin: Bool {
         if pinCode.lengthOfBytes(using: .utf8) == 4 {
             return loginModel.canLogin

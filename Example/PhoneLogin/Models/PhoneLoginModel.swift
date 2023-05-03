@@ -57,6 +57,10 @@ class PhoneLoginModel: ObservableObject {
         }
         print("using \(SnabblePhoneAuth.name)")
     }
+    
+    var canRequestCode: Bool {
+        return state == .error || state == .waitingForCode
+    }
 }
 
 extension PhoneLoginModel {
@@ -146,12 +150,14 @@ extension PhoneLoginModel {
 extension PhoneLoginModel {
 
     func leaveState(_ state: StateMachine.State) {
+        print("leave state: <\(state)>")
         if case .sendCode = state, case .pushedToServer = state {
             isLoggingIn = false
         }
     }
     
     func enterState(_ state: StateMachine.State) {
+        print("enter state: <\(state)>")
         if case .waitingForCode = state {
             self.canLogin = true
         }
