@@ -13,6 +13,8 @@ struct EnterPhoneNumberView: View {
     @State private var phoneNumber = ""
     @State private var isShowingDetailView = false
     @EnvironmentObject var loginModel: PhoneLoginModel
+
+    @FocusState private var enterCode
     
     var body: some View {
         VStack {
@@ -25,6 +27,7 @@ struct EnterPhoneNumberView: View {
                             Text(loginModel.countryCode)
                             TextField("Handynummer", text: $phoneNumber)
                                 .keyboardType(.phonePad)
+                                .focused($enterCode)
                         }
                         
                         Button(action: {
@@ -43,6 +46,9 @@ struct EnterPhoneNumberView: View {
                     }
                 )
                 .textCase(nil)
+            }
+            .onAppear {
+                enterCode = true
             }
             //DebugView()
         }

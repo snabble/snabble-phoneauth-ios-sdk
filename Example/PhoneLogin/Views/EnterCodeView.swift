@@ -16,6 +16,8 @@ struct EnterCodeView: View {
     @EnvironmentObject var loginModel: PhoneLoginModel
     @State private var serverHint: String = ""
     @State private var errorMessage: String = ""
+    
+    @FocusState private var enterCode
 
     @ViewBuilder
     var spinner: some View {
@@ -61,6 +63,7 @@ struct EnterCodeView: View {
                         {
                             TextField("Pin-Code", text: $pinCode)
                                 .keyboardType(.decimalPad)
+                                .focused($enterCode)
                             
                             Button(action: {
                                 print("login with code: \(pinCode)")
@@ -75,6 +78,7 @@ struct EnterCodeView: View {
                             }
                             .disabled(!canSend)
                             .buttonStyle(AccentButtonStyle())
+                            
                             Button(action: {
                                 print("request code for \(loginModel.phoneNumber)")
                                 loginModel.sendPhoneNumber(loginModel.phoneNumber)
@@ -91,12 +95,16 @@ struct EnterCodeView: View {
                     
                 )
                 .textCase(nil)
-
             }
             .onChange(of: loginModel.isLoggingIn) { newLogin in
                 if newLogin {
                     errorMessage = ""
                     serverHint = "Du bist angemeldet!"
+                }
+            }
+            .onChange(of: serverHint) { _ in
+                withAnimation {
+                    enterCode = true
                 }
             }
             .onChange(of: loginModel.receivedCode) { newCode in
