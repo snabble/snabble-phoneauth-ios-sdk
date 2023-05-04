@@ -71,7 +71,9 @@ struct EnterCodeView: View {
             HStack {
                 Spacer()
                 CountDownView(from: sendDate, to: sendDate + 30, height: 4) {
-                    self.showCountdown = false
+                    withAnimation {
+                        self.showCountdown = false
+                    }
                 }
                 Spacer()
             }
@@ -106,7 +108,7 @@ struct EnterCodeView: View {
                             VStack {
                                 Button(action: {
                                     if canRequestCode {
-                                        print("request code for \(loginModel.phoneNumber)")
+                                        print("request code for \(loginModel.dialString)")
                                         loginModel.sendPhoneNumber()
                                     }
                                 }) {
@@ -135,13 +137,17 @@ struct EnterCodeView: View {
             .onAppear {
                 if !loginModel.receivedCode.isEmpty {
                     print("receivedCode: \(loginModel.receivedCode)")
-                    serverHint = "Server hat folgenden Code geschickt: \"\(loginModel.receivedCode)\""
+                    withAnimation {
+                        serverHint = "Server hat folgenden Code geschickt: \"\(loginModel.receivedCode)\""
+                    }
                 }
             }
             .onChange(of: loginModel.isLoggingIn) { newLogin in
                 if newLogin {
-                    errorMessage = ""
-                    serverHint = "Du bist angemeldet!"
+                    withAnimation {
+                        errorMessage = ""
+                        serverHint = "Du bist angemeldet!"
+                    }
                 }
             }
             .onChange(of: serverHint) { _ in
@@ -152,12 +158,16 @@ struct EnterCodeView: View {
             }
             .onChange(of: loginModel.state) { newState in
                 if newState == .waitingForCode {
-                    showCountdown = true
+                    withAnimation {
+                        showCountdown = true
+                    }
                 }
                 print("state changed to: \(newState)")
             }
             .onChange(of: loginModel.receivedCode) { newCode in
-                serverHint = "Server hat folgenden Code geschickt: \"\(newCode)\""
+                withAnimation {
+                    serverHint = "Server hat folgenden Code geschickt: \"\(newCode)\""
+                }
             }
             .onChange(of: loginModel.canLogin) { _ in
                 canSend = self.canLogin

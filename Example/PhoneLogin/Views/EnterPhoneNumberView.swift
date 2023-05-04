@@ -9,25 +9,6 @@ import Foundation
 import SwiftUI
 import SnabblePhoneAuth
 
-struct CountryCallingCodeView: View {
-    var country: CountryCallingCode
-    
-    var body: some View {
-        HStack {
-            if let flag = country.countryCode.countryFlagSymbol {
-                Text(flag)
-                    .font(.largeTitle)
-            }
-            VStack(alignment: .leading) {
-                Text("+\(country.callingCode)")
-                Text(country.countryName)
-                    .foregroundColor(.secondary)
-                    .font(.footnote)
-            }
-        }
-    }
-}
-
 struct EnterPhoneNumberView: View {
     @State private var isShowingDetailView = false
     @State private var canSend = false
@@ -51,7 +32,7 @@ struct EnterPhoneNumberView: View {
                 Section(
                     content: {
                             HStack{
-                                Text("+\(loginModel.country.callingCode)")
+                                CountryCallingCodeView(country: loginModel.country)
                                 
                                 TextField("Handynummer", text: $loginModel.phoneNumber)
                                     .keyboardType(.phonePad)

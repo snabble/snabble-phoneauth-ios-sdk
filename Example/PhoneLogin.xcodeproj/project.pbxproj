@@ -10,6 +10,7 @@
 		768915E02A010BA500C4799A /* SnabblePhoneAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 768915DF2A010BA500C4799A /* SnabblePhoneAuth */; };
 		768915E32A02323400C4799A /* DebugView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 768915E22A02323400C4799A /* DebugView.swift */; };
 		768915E52A024DA600C4799A /* CountDownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 768915E42A024DA600C4799A /* CountDownView.swift */; };
+		768915E72A03B2C900C4799A /* CountryCallingCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 768915E62A03B2C900C4799A /* CountryCallingCodeView.swift */; };
 		7691BA9B2976C3F400477EDD /* PhoneLoginApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7691BA9A2976C3F400477EDD /* PhoneLoginApp.swift */; };
 		7691BA9D2976C3F400477EDD /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7691BA9C2976C3F400477EDD /* ContentView.swift */; };
 		7691BA9F2976C3F500477EDD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7691BA9E2976C3F500477EDD /* Assets.xcassets */; };
@@ -24,6 +25,7 @@
 		768915E12A0129C100C4799A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		768915E22A02323400C4799A /* DebugView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugView.swift; sourceTree = "<group>"; };
 		768915E42A024DA600C4799A /* CountDownView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountDownView.swift; sourceTree = "<group>"; };
+		768915E62A03B2C900C4799A /* CountryCallingCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCallingCodeView.swift; sourceTree = "<group>"; };
 		7691BA972976C3F400477EDD /* PhoneLogin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhoneLogin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7691BA9A2976C3F400477EDD /* PhoneLoginApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneLoginApp.swift; sourceTree = "<group>"; };
 		7691BA9C2976C3F400477EDD /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -55,19 +57,13 @@
 			name = Packages;
 			sourceTree = "<group>";
 		};
-		763438EB2A01066100C99AD5 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
 		763438EC2A01079B00C99AD5 /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				7691BA9C2976C3F400477EDD /* ContentView.swift */,
 				7691BAAB2977AD2A00477EDD /* EnterCodeView.swift */,
 				7691BAA92977AD1700477EDD /* EnterPhoneNumberView.swift */,
+				768915E62A03B2C900C4799A /* CountryCallingCodeView.swift */,
 				768915E42A024DA600C4799A /* CountDownView.swift */,
 				768915E22A02323400C4799A /* DebugView.swift */,
 			);
@@ -106,7 +102,6 @@
 				7691BA9A2976C3F400477EDD /* PhoneLoginApp.swift */,
 				7691BAAF2977AD8500477EDD /* Utilities.swift */,
 				763438EC2A01079B00C99AD5 /* Views */,
-				763438EB2A01066100C99AD5 /* Models */,
 				7691BA9E2976C3F500477EDD /* Assets.xcassets */,
 				7691BAA02976C3F500477EDD /* PhoneLogin.entitlements */,
 				7691BAA12976C3F500477EDD /* Preview Content */,
@@ -200,6 +195,7 @@
 				7691BAB02977AD8500477EDD /* Utilities.swift in Sources */,
 				7691BA9D2976C3F400477EDD /* ContentView.swift in Sources */,
 				768915E52A024DA600C4799A /* CountDownView.swift in Sources */,
+				768915E72A03B2C900C4799A /* CountryCallingCodeView.swift in Sources */,
 				7691BA9B2976C3F400477EDD /* PhoneLoginApp.swift in Sources */,
 				768915E32A02323400C4799A /* DebugView.swift in Sources */,
 				7691BAAC2977AD2A00477EDD /* EnterCodeView.swift in Sources */,

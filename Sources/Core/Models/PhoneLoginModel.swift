@@ -13,6 +13,7 @@ public class PhoneLoginModel: ObservableObject {
     private let stateMachine: StateMachine
     private let loginService: LoginService
     
+    @Published
     public var country: CountryCallingCode {
         didSet {
             UserDefaults.selectedCountry = country.countryCode

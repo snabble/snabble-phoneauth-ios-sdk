@@ -23,7 +23,14 @@ extension UserDefaults {
     }
 }
 
-public struct CountryCallingCode {
+public struct CountryCallingCode: Identifiable, Hashable {
+    public var id: String {
+        return countryCode
+    }
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+
     public let countryCode: String // eg. DE, AT, CH
     public let callingCode: String // eg. 49
     public let internationalCode: String // eg. 00

@@ -96,7 +96,7 @@ public extension StateMachine {
             }
         case .error:
             switch event {
-            case .sendingPhoneNumber: return .start
+            case .sendingPhoneNumber: return .pushedToServer
             case .enterPhoneNumber, .enterCode, .loggingIn, .success, .failure: return nil
             }
         }
