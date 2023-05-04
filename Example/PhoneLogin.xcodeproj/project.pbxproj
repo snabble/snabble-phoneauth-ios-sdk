@@ -16,7 +16,6 @@
 		7691BAA32976C3F500477EDD /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7691BAA22976C3F500477EDD /* Preview Assets.xcassets */; };
 		7691BAAA2977AD1700477EDD /* EnterPhoneNumberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7691BAA92977AD1700477EDD /* EnterPhoneNumberView.swift */; };
 		7691BAAC2977AD2A00477EDD /* EnterCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7691BAAB2977AD2A00477EDD /* EnterCodeView.swift */; };
-		7691BAAE2977AD3900477EDD /* PhoneLoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7691BAAD2977AD3900477EDD /* PhoneLoginModel.swift */; };
 		7691BAB02977AD8500477EDD /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7691BAAF2977AD8500477EDD /* Utilities.swift */; };
 /* End PBXBuildFile section */
 
@@ -33,7 +32,6 @@
 		7691BAA22976C3F500477EDD /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		7691BAA92977AD1700477EDD /* EnterPhoneNumberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterPhoneNumberView.swift; sourceTree = "<group>"; };
 		7691BAAB2977AD2A00477EDD /* EnterCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterCodeView.swift; sourceTree = "<group>"; };
-		7691BAAD2977AD3900477EDD /* PhoneLoginModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneLoginModel.swift; sourceTree = "<group>"; };
 		7691BAAF2977AD8500477EDD /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -60,7 +58,6 @@
 		763438EB2A01066100C99AD5 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				7691BAAD2977AD3900477EDD /* PhoneLoginModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -206,7 +203,6 @@
 				7691BA9B2976C3F400477EDD /* PhoneLoginApp.swift in Sources */,
 				768915E32A02323400C4799A /* DebugView.swift in Sources */,
 				7691BAAC2977AD2A00477EDD /* EnterCodeView.swift in Sources */,
-				7691BAAE2977AD3900477EDD /* PhoneLoginModel.swift in Sources */,
 				7691BAAA2977AD1700477EDD /* EnterPhoneNumberView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -7,32 +7,38 @@
 
 import Combine
 import Foundation
-import SnabblePhoneAuth
 
-class PhoneLoginModel: ObservableObject {
+public class PhoneLoginModel: ObservableObject {
     
     private let stateMachine: StateMachine
     private let loginService: LoginService
-
+    
+    public var country: CountryCallingCode {
+        didSet {
+            UserDefaults.selectedCountry = country.countryCode
+        }
+    }
+    
     private var stateCancellable: AnyCancellable?
     private var loginCancellable: AnyCancellable?
 
-    let countryCode: String
-    var phoneNumber: String = ""
+    @Published
+    public var phoneNumber: String = ""
+    
     var pinCode: String = ""
     
-    var userInfo: [String: Any] = [:] {
+    public var userInfo: [String: Any] = [:] {
         didSet {
             loginService.userInfo = userInfo
         }
     }
 
-    @Published var receivedCode: String = ""
-    @Published var isLoggingIn: Bool = false
-    @Published var canLogin: Bool = false
+    @Published public var receivedCode: String = ""
     
-    @Published
-    var errorMessage: String = "" {
+    @Published public var isLoggingIn: Bool = false
+    @Published public var canLogin: Bool = false
+    
+    @Published public var errorMessage: String = "" {
         didSet {
             if !errorMessage.isEmpty {
                 print("error received: \(errorMessage)")
@@ -40,13 +46,18 @@ class PhoneLoginModel: ObservableObject {
         }
     }
     
-    @Published var state: StateMachine.State {
+    @Published
+    public var state: StateMachine.State {
         willSet { leaveState(state) }
         didSet { enterState(state) }
     }
     
-    public init(countryCode: String = "+49", stateMachine: StateMachine = StateMachine(state: .start), loginService: LoginService = LoginService(session: .shared)) {
-        self.countryCode = countryCode
+    public init(stateMachine: StateMachine = StateMachine(state: .start), loginService: LoginService = LoginService(session: .shared)) {
+        self.country = CountryCallingCodes.defaultCountry
+        
+        if let savedCountry = UserDefaults.selectedCountry, let country = CountryCallingCodes.country(for: savedCountry) {
+            self.country = country
+        }
         self.stateMachine = stateMachine
         self.loginService = loginService
         
@@ -58,42 +69,48 @@ class PhoneLoginModel: ObservableObject {
         print("using \(SnabblePhoneAuth.name)")
     }
     
-    var canRequestCode: Bool {
+    public var canSendPhoneNumber: Bool {
+        guard phoneNumber.count > 5 else {
+            return false
+        }
+        return state == .error || state == .start || state == .waitingForCode
+    }
+    public var canRequestCode: Bool {
         return state == .error || state == .waitingForCode
     }
 }
 
 extension PhoneLoginModel {
     
-    func verifyPhoneNumber(_ string: String) -> String {
-        guard !string.hasPrefix("+") else {
-            return string
-        }
-        return "\(countryCode) \(string)"
+    public var dialString: String {
+        return country.dialString(self.phoneNumber)
+    }
+
+    public var phoneNumberPrettyPrint: String {
+        return country.prettyPrint(self.phoneNumber)
     }
     
-    func sendPhoneNumber(_ string: String) {
-        phoneNumber = verifyPhoneNumber(string)
+    public func sendPhoneNumber() {
         stateMachine.tryEvent(.sendingPhoneNumber)
     }
-    
-    func loginWithCode(_ string: String) {
+
+    public func loginWithCode(_ string: String) {
         pinCode = string
         stateMachine.tryEvent(.loggingIn)
     }
     
-    func reset() {
+    public func reset() {
         pinCode = ""
         self.errorMessage = ""
         stateMachine.tryEvent(.enterPhoneNumber)
     }
     
-    func logout() {
+    public func logout() {
         reset()
     }
 
     private func pushToServer() {
-        loginCancellable = loginService.send(phoneNumber: phoneNumber)
+        loginCancellable = loginService.send(phoneNumber: dialString)
             .receive(on: RunLoop.main)
             .sink(
                 receiveCompletion: { [weak self] (completion) in

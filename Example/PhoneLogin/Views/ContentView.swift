@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SnabblePhoneAuth
 
 struct LoggedInView: View {
     @EnvironmentObject var loginModel: PhoneLoginModel

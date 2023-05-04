@@ -9,8 +9,26 @@ import Foundation
 import SwiftUI
 import SnabblePhoneAuth
 
+struct CountryCallingCodeView: View {
+    var country: CountryCallingCode
+    
+    var body: some View {
+        HStack {
+            if let flag = country.countryCode.countryFlagSymbol {
+                Text(flag)
+                    .font(.largeTitle)
+            }
+            VStack(alignment: .leading) {
+                Text("+\(country.callingCode)")
+                Text(country.countryName)
+                    .foregroundColor(.secondary)
+                    .font(.footnote)
+            }
+        }
+    }
+}
+
 struct EnterPhoneNumberView: View {
-    @State private var phoneNumber = ""
     @State private var isShowingDetailView = false
     @State private var canSend = false
     @EnvironmentObject var loginModel: PhoneLoginModel
@@ -27,21 +45,21 @@ struct EnterPhoneNumberView: View {
     
     var body: some View {
         VStack {
-            NavigationLink(destination: EnterCodeView(phoneNumber: phoneNumber), isActive: $isShowingDetailView) { EmptyView() }
+            NavigationLink(destination: EnterCodeView(phoneNumber: loginModel.phoneNumber), isActive: $isShowingDetailView) { EmptyView() }
             
             Form {
                 Section(
                     content: {
                             HStack{
-                                Text(loginModel.countryCode)
-                                TextField("Handynummer", text: $phoneNumber)
+                                Text("+\(loginModel.country.callingCode)")
+                                
+                                TextField("Handynummer", text: $loginModel.phoneNumber)
                                     .keyboardType(.phonePad)
                                     .focused($enterCode)
                             }
                             
                             Button(action: {
-                                //isShowingDetailView = true
-                                loginModel.sendPhoneNumber(phoneNumber)
+                                loginModel.sendPhoneNumber()
                             }) {
                                 HStack {
                                     Text("Code anfordern")
@@ -68,14 +86,13 @@ struct EnterPhoneNumberView: View {
                 .textCase(nil)
             }
             .onChange(of: loginModel.receivedCode) { newCode in
-                
                 isShowingDetailView = !newCode.isEmpty
             }
             .onAppear {
                 enterCode = true
             }
-            .onChange(of: phoneNumber) { newNumber in
-                canSend = newNumber.count > 5
+            .onChange(of: loginModel.phoneNumber) { _ in
+                canSend = loginModel.canSendPhoneNumber
             }
             //DebugView()
         }

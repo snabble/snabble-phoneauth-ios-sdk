@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SnabblePhoneAuth
 
 struct EnterCodeView: View {
     var phoneNumber: String
@@ -54,7 +55,7 @@ struct EnterCodeView: View {
             Spacer()
             VStack {
                 Text("Wir haben dir einen Code an")
-                Text("\(loginModel.phoneNumber) gesendet.")
+                Text("\(loginModel.phoneNumberPrettyPrint) gesendet.")
                 Text("Bitte gib den Code ein.\n")
             }
             .multilineTextAlignment(.center)
@@ -104,26 +105,27 @@ struct EnterCodeView: View {
                             
                             VStack {
                                 Button(action: {
-                                    if canRequestCode() {
+                                    if canRequestCode {
                                         print("request code for \(loginModel.phoneNumber)")
-                                        loginModel.sendPhoneNumber(loginModel.phoneNumber)
+                                        loginModel.sendPhoneNumber()
                                     }
                                 }) {
                                     HStack {
                                         Spacer()
-                                        VStack {
+                                        ZStack {
                                             HStack {
                                                 Text("Code erneut anfordern")
                                                     .fontWeight(.bold)
-                                                    .opacity(canRequestCode() ? 1.0 : 0.5)
+                                                    .opacity(canRequestCode ? 1.0 : 0.5)
                                                 codeSpinner
                                             }
                                             countdownView
+                                                .opacity(0.75)
                                         }
                                         Spacer()
                                     }
                                 }
-                                .disabled(!canRequestCode())
+                                .disabled(!canRequestCode)
                             }
                         }
                     
@@ -170,7 +172,7 @@ struct EnterCodeView: View {
         .navigationTitle("Code eingeben")
     }
         
-    private func canRequestCode() -> Bool {
+    var canRequestCode: Bool {
         guard showCountdown == false else {
             return false
         }

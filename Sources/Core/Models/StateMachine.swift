@@ -11,16 +11,16 @@ import Combine
 open class StateMachine {
     
     public enum State {
-        case start
-        case pushedToServer
-        case waitingForCode
-        case sendCode
-        case loggedIn
-        case error
+        case start              // start what else
+        case pushedToServer     // send(phoneNumber:String) was called on Endpoint
+        case waitingForCode     // previous call was successful
+        case sendCode           // loginWith(code: String) was called on Endpoint
+        case loggedIn           // previous call was successful
+        case error              // an error occured
     }
     
     public enum Event {
-        case enterPhoneNumber   // User give phone number textfield focus
+        case enterPhoneNumber   // User gives phone number textfield focus
         case sendingPhoneNumber // User has tapped button "Request Code"
         case enterCode          // User give code textfield focus
         case loggingIn          // User has tapped button "Login"
