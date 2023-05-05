@@ -27,8 +27,6 @@ public class PhoneLoginModel: ObservableObject {
     @Published public var receivedCode: String = ""
     
     @Published public var isLoggingIn: Bool = false
-    @Published public var canLogin: Bool = false
-    
     @Published public var errorMessage: String = "" {
         didSet {
             if !errorMessage.isEmpty {
@@ -42,7 +40,7 @@ public class PhoneLoginModel: ObservableObject {
         didSet { enterState(state) }
     }
 
-    var pinCode: String = ""
+    @Published public var pinCode: String = ""
     
     public var userInfo: [String: Any] = [:] {
         didSet {
@@ -72,12 +70,19 @@ public class PhoneLoginModel: ObservableObject {
         }
         return state == .error || state == .start || state == .waitingForCode
     }
-
+    
+    public var canLogin: Bool {
+        guard pinCode.count == 4 else {
+            return false
+        }
+        return state == .error || state == .waitingForCode
+    }
+    
     public var canRequestCode: Bool {
         return state == .error || state == .waitingForCode
     }
     public var isWaiting: Bool {
-        state == .pushedToServer
+        state == .pushedToServer /* || state == .sendCode */
     }
 }
 
@@ -177,7 +182,7 @@ extension PhoneLoginModel {
     func enterState(_ state: StateMachine.State) {
         print("enter state: <\(state)>")
         if case .waitingForCode = state {
-            self.canLogin = true
+            //self.canLogin = true
         }
         if case .loggedIn = state {
             self.isLoggingIn = true

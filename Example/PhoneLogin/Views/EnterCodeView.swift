@@ -10,14 +10,13 @@ import SnabblePhoneAuth
 
 struct EnterCodeView: View {
     var phoneNumber: String
-    @State private var pinCode = ""
+//    @State private var pinCode = ""
     @State private var codeValid = false
     @State private var canSend = false
     
     @EnvironmentObject var loginModel: PhoneLoginModel
     @State private var serverHint: String = ""
     @State private var errorMessage: String = ""
-    @State private var sendDate: Date = .now
     
     @FocusState private var enterCode
 
@@ -55,7 +54,6 @@ struct EnterCodeView: View {
         }
     }
     
-    @State private var showCountdown: Bool = true
     @State private var disabled: Bool = true
 
     var body: some View {
@@ -67,13 +65,13 @@ struct EnterCodeView: View {
                     content:
                         {
                             VStack {
-                                TextField("Pin-Code", text: $pinCode)
+                                TextField("Pin-Code", text: $loginModel.pinCode)
                                     .keyboardType(.decimalPad)
                                     .focused($enterCode)
                                 
                                 Button(action: {
-                                    print("login with code: \(pinCode)")
-                                    loginModel.loginWithCode(pinCode)
+                                    print("login with code: \(loginModel.pinCode)")
+                                    loginModel.loginWithCode(loginModel.pinCode)
                                 }) {
                                     HStack {
                                         Text("Anmelden")
@@ -82,8 +80,7 @@ struct EnterCodeView: View {
                                         loginSpinner
                                     }
                                 }
-                                .disabled(!canSend)
-                                .buttonStyle(AccentButtonStyle())
+                                .buttonStyle(AccentButtonStyle(disabled: !canSend))
                                 
                                 RequestCodeButton(firstStep: false)
                             }
@@ -119,23 +116,16 @@ struct EnterCodeView: View {
                 }
             }
             .onChange(of: loginModel.canLogin) { _ in
-                canSend = self.canLogin
+                canSend = loginModel.canLogin
             }
-            .onChange(of: pinCode) { newCode in
-                canSend = self.canLogin
+            .onChange(of: loginModel.pinCode) { newCode in
+                canSend = loginModel.canLogin
             }
             //DebugView()
             Spacer()
         }
         .padding()
         .navigationTitle("Code eingeben")
-    }
-    
-    var canLogin: Bool {
-        if pinCode.lengthOfBytes(using: .utf8) == 4 {
-            return loginModel.canLogin
-        }
-        return false
     }
 }
 

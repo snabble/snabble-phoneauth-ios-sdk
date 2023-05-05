@@ -84,7 +84,7 @@ public extension StateMachine {
         case .sendCode:
             switch event {
             case .success: return .loggedIn
-            case .enterCode: return .waitingForCode
+            case .enterCode: return nil  // .waitingForCode
             case .failure: return .error
             case .loggingIn: return .waitingForCode
             case .enterPhoneNumber, .sendingPhoneNumber:
