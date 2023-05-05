@@ -76,7 +76,7 @@ public extension StateMachine {
             case .enterPhoneNumber: return .pushedToServer
             case .sendingPhoneNumber: return .pushedToServer
             case .enterCode: return .waitingForCode
-            case .loggingIn: return .waitingForCode
+            case .loggingIn: return .sendCode
             case .success: return nil
             case .failure: return .error
             }
