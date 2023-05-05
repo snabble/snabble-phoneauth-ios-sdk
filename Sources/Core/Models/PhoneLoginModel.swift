@@ -5,35 +5,25 @@
 //  Created by Uwe Tilemann on 18.01.23.
 //
 
-import Combine
 import Foundation
+import Combine
 
 public class PhoneLoginModel: ObservableObject {
     
     private let stateMachine: StateMachine
     private let loginService: LoginService
     
-    @Published
-    public var country: CountryCallingCode {
+    private var stateCancellable: AnyCancellable?
+    private var loginCancellable: AnyCancellable?
+
+    @Published public var country: CountryCallingCode {
         didSet {
             UserDefaults.selectedCountry = country.countryCode
         }
     }
     
-    private var stateCancellable: AnyCancellable?
-    private var loginCancellable: AnyCancellable?
-
-    @Published
-    public var phoneNumber: String = ""
+    @Published public var phoneNumber: String = ""
     
-    var pinCode: String = ""
-    
-    public var userInfo: [String: Any] = [:] {
-        didSet {
-            loginService.userInfo = userInfo
-        }
-    }
-
     @Published public var receivedCode: String = ""
     
     @Published public var isLoggingIn: Bool = false
@@ -47,12 +37,19 @@ public class PhoneLoginModel: ObservableObject {
         }
     }
     
-    @Published
-    public var state: StateMachine.State {
+    @Published public var state: StateMachine.State {
         willSet { leaveState(state) }
         didSet { enterState(state) }
     }
+
+    var pinCode: String = ""
     
+    public var userInfo: [String: Any] = [:] {
+        didSet {
+            loginService.userInfo = userInfo
+        }
+    }
+
     public init(stateMachine: StateMachine = StateMachine(state: .start), loginService: LoginService = LoginService(session: .shared)) {
         self.country = CountryCallingCodes.defaultCountry
         
@@ -67,17 +64,20 @@ public class PhoneLoginModel: ObservableObject {
         self.stateCancellable = stateMachine.statePublisher.sink { state in
             self.state = state
         }
-        print("using \(SnabblePhoneAuth.name)")
     }
     
     public var canSendPhoneNumber: Bool {
-        guard phoneNumber.count > 5 else {
+        guard phoneNumber.count > 2 else {
             return false
         }
         return state == .error || state == .start || state == .waitingForCode
     }
+
     public var canRequestCode: Bool {
         return state == .error || state == .waitingForCode
+    }
+    public var isWaiting: Bool {
+        state == .pushedToServer
     }
 }
 
@@ -158,7 +158,7 @@ extension PhoneLoginModel {
                         strongSelf.stateMachine.tryEvent(.success)
                     } else {
                         strongSelf.errorMessage = "Der eingegebene Code ist falsch!"
-                        strongSelf.stateMachine.tryEvent(.enterCode)
+                        strongSelf.stateMachine.tryEvent(.loggingIn)
                     }
                 })
     }

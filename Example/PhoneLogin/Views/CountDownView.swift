@@ -7,16 +7,14 @@
 
 import SwiftUI
 
-struct CountDownView: View {
+struct CountDownButtonBackground: View {
     let from: Date
     let to: Date
-    let height: CGFloat
     let handler: () -> Void
     
-    init(from: Date, to: Date, height: CGFloat = 4.0, completion: @escaping (() -> Void) = {}) {
+    init(from: Date, to: Date, completion: @escaping (() -> Void) = {}) {
         self.from = from
         self.to = to
-        self.height = height
         self.handler = completion
     }
 
@@ -29,19 +27,16 @@ struct CountDownView: View {
                 if Date.now > to {
                     self.handler()
                 }
-                let bgRect = Capsule().path(in: CGRect(x: 0, y: (size.height / 2) / 2, width: size.width, height: size.height / 2))
-                context.fill(bgRect, with: .color(.secondary))
                 
-                let fdRect = Capsule().path(in: CGRect(x: 0, y: 0, width: width, height: size.height))
-                context.fill(fdRect, with: .color(.primary))
+                let fdRect = Rectangle().path(in: CGRect(x: 0, y: 0, width: width, height: size.height))
+                context.fill(fdRect, with: .color(Color.accentColor))
             }
         }
-        .frame(height: height)
     }
 }
 
 struct CountDownView_Previews: PreviewProvider {
     static var previews: some View {
-        CountDownView(from: .now, to: .now + 10.0)
+        CountDownButtonBackground(from: .now, to: .now + 10.0)
     }
 }

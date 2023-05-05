@@ -31,6 +31,7 @@ struct EnterPhoneNumberView: View {
             Form {
                 Section(
                     content: {
+                        VStack {
                             HStack{
                                 CountryCallingCodeView(country: loginModel.country)
                                 
@@ -38,21 +39,10 @@ struct EnterPhoneNumberView: View {
                                     .keyboardType(.phonePad)
                                     .focused($enterCode)
                             }
-                            
-                            Button(action: {
-                                loginModel.sendPhoneNumber()
-                            }) {
-                                HStack {
-                                    Text("Code anfordern")
-                                        .fontWeight(.bold)
-                                        .opacity(canSend ? 1.0 : 0.5)
-                                    spinner
-                                }
-                            }
-                            .disabled(!canSend)
-                            .buttonStyle(AccentButtonStyle())
-                            
-                        },
+                            RequestCodeButton(firstStep: true)
+                        }
+                        .padding([.leading, .trailing], 20)
+                    },
                     header: {
                         Text("Zum Aktivieren des Logins, gib deine Handynummber ein.\nAnschließend erhälst du eine SMS mit einem Aktivierungscode.")
                             .multilineTextAlignment(.center)
@@ -71,6 +61,7 @@ struct EnterPhoneNumberView: View {
             }
             .onAppear {
                 enterCode = true
+                canSend = loginModel.canSendPhoneNumber
             }
             .onChange(of: loginModel.phoneNumber) { _ in
                 canSend = loginModel.canSendPhoneNumber

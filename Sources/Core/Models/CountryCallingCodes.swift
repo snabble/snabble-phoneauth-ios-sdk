@@ -52,9 +52,12 @@ public struct CountryCallingCode: Identifiable, Hashable {
         
         return String(string[start...])
     }
+    
     public func dialString(_ string: String) -> String {
-        return "\(internationalCode)\(callingCode)\(numberRemovingTrunk(string))"
+        let number = numberRemovingTrunk(string).replacingOccurrences(of: " ", with: "")
+        return "\(internationalCode)\(callingCode)\(number)"
     }
+    
     public func prettyPrint(_ string: String) -> String {
         let number = numberRemovingTrunk(string)
         
@@ -65,6 +68,9 @@ public struct CountryCallingCode: Identifiable, Hashable {
     }
 }
 
+/// List of supported country codes
+/// see: https://en.wikipedia.org/wiki/Telephone_numbers_in_Europe
+///
 public enum CountryCallingCodes {
     public static let info: [CountryCallingCode] = [
         CountryCallingCode(countryCode: "AT", callingCode: "43"),

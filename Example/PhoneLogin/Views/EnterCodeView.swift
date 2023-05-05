@@ -28,15 +28,7 @@ struct EnterCodeView: View {
                .padding([.leading], 10)
         }
     }
-    
-    @ViewBuilder
-    var codeSpinner: some View {
-        if loginModel.state == .pushedToServer /*|| loginModel.state == .waitingForCode*/ {
-            ProgressView()
-               .padding([.leading], 10)
-        }
-    }
-    
+        
     @ViewBuilder
     var message: some View {
         if !loginModel.errorMessage.isEmpty {
@@ -64,21 +56,8 @@ struct EnterCodeView: View {
     }
     
     @State private var showCountdown: Bool = true
-    
-    @ViewBuilder
-    var countdownView: some View {
-        if showCountdown {
-            HStack {
-                Spacer()
-                CountDownView(from: sendDate, to: sendDate + 30, height: 4) {
-                    withAnimation {
-                        self.showCountdown = false
-                    }
-                }
-                Spacer()
-            }
-        }
-    }
+    @State private var disabled: Bool = true
+
     var body: some View {
         VStack {
             Form {
@@ -87,47 +66,26 @@ struct EnterCodeView: View {
                     footer: message,
                     content:
                         {
-                            TextField("Pin-Code", text: $pinCode)
-                                .keyboardType(.decimalPad)
-                                .focused($enterCode)
-                            
-                            Button(action: {
-                                print("login with code: \(pinCode)")
-                                loginModel.loginWithCode(pinCode)
-                            }) {
-                                HStack {
-                                    Text("Anmelden")
-                                        .fontWeight(.bold)
-                                        .opacity(canSend ? 1.0 : 0.5)
-                                    loginSpinner
-                                }
-                            }
-                            .disabled(!canSend)
-                            .buttonStyle(AccentButtonStyle())
-                            
                             VStack {
+                                TextField("Pin-Code", text: $pinCode)
+                                    .keyboardType(.decimalPad)
+                                    .focused($enterCode)
+                                
                                 Button(action: {
-                                    if canRequestCode {
-                                        print("request code for \(loginModel.dialString)")
-                                        loginModel.sendPhoneNumber()
-                                    }
+                                    print("login with code: \(pinCode)")
+                                    loginModel.loginWithCode(pinCode)
                                 }) {
                                     HStack {
-                                        Spacer()
-                                        ZStack {
-                                            HStack {
-                                                Text("Code erneut anfordern")
-                                                    .fontWeight(.bold)
-                                                    .opacity(canRequestCode ? 1.0 : 0.5)
-                                                codeSpinner
-                                            }
-                                            countdownView
-                                                .opacity(0.75)
-                                        }
-                                        Spacer()
+                                        Text("Anmelden")
+                                            .fontWeight(.bold)
+                                            .opacity(canSend ? 1.0 : 0.5)
+                                        loginSpinner
                                     }
                                 }
-                                .disabled(!canRequestCode)
+                                .disabled(!canSend)
+                                .buttonStyle(AccentButtonStyle())
+                                
+                                RequestCodeButton(firstStep: false)
                             }
                         }
                     
@@ -153,16 +111,7 @@ struct EnterCodeView: View {
             .onChange(of: serverHint) { _ in
                 withAnimation {
                     enterCode = true
-                    sendDate = .now
                 }
-            }
-            .onChange(of: loginModel.state) { newState in
-                if newState == .waitingForCode {
-                    withAnimation {
-                        showCountdown = true
-                    }
-                }
-                print("state changed to: \(newState)")
             }
             .onChange(of: loginModel.receivedCode) { newCode in
                 withAnimation {
@@ -181,14 +130,7 @@ struct EnterCodeView: View {
         .padding()
         .navigationTitle("Code eingeben")
     }
-        
-    var canRequestCode: Bool {
-        guard showCountdown == false else {
-            return false
-        }
-        return loginModel.canRequestCode
-    }
-
+    
     var canLogin: Bool {
         if pinCode.lengthOfBytes(using: .utf8) == 4 {
             return loginModel.canLogin

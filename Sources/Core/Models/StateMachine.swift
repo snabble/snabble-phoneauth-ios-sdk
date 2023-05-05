@@ -76,7 +76,7 @@ public extension StateMachine {
             case .enterPhoneNumber: return .pushedToServer
             case .sendingPhoneNumber: return .pushedToServer
             case .enterCode: return .waitingForCode
-            case .loggingIn: return .sendCode
+            case .loggingIn: return .waitingForCode
             case .success: return nil
             case .failure: return .error
             }
@@ -86,7 +86,8 @@ public extension StateMachine {
             case .success: return .loggedIn
             case .enterCode: return .waitingForCode
             case .failure: return .error
-            case .enterPhoneNumber, .sendingPhoneNumber, .loggingIn:
+            case .loggingIn: return .waitingForCode
+            case .enterPhoneNumber, .sendingPhoneNumber:
                 return nil
             }
         case .loggedIn:
@@ -97,7 +98,8 @@ public extension StateMachine {
         case .error:
             switch event {
             case .sendingPhoneNumber: return .pushedToServer
-            case .enterPhoneNumber, .enterCode, .loggingIn, .success, .failure: return nil
+            case .loggingIn: return .waitingForCode
+            case .enterPhoneNumber, .enterCode, .success, .failure: return nil
             }
         }
     }
