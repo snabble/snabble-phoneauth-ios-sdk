@@ -12,7 +12,7 @@ public enum HTTPMethod: Equatable {
     case patch(Data?)
     case post(Data?, [URLQueryItem]?)
     case put(Data?)
-    case delete
+    case delete(Data?)
     case head
 
     var value: String {

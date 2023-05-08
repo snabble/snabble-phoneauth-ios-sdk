@@ -62,7 +62,7 @@ extension Endpoint {
         var request = URLRequest(url: url)
 
         switch method {
-        case .post(let data, _), .put(let data), .patch(let data):
+        case .post(let data, _), .put(let data), .patch(let data), .delete(let data):
             request.httpBody = data
         default:
             request.httpBody = nil
