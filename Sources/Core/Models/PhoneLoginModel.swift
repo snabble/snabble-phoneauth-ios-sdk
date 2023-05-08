@@ -34,6 +34,7 @@ public class PhoneLoginModel: ObservableObject {
             }
         }
     }
+    private var phoneResponse: PhoneResponse?
     
     @Published public var state: StateMachine.State {
         willSet { leaveState(state) }
@@ -79,10 +80,17 @@ public class PhoneLoginModel: ObservableObject {
     }
     
     public var canRequestCode: Bool {
-        return state == .error || state == .waitingForCode
+        if canSendPhoneNumber {
+            if let timestamp = phoneResponse?.timestamp, timestamp + 30 < .now {
+                return false
+            }
+            return true
+        } else {
+            return false
+        }
     }
     public var isWaiting: Bool {
-        state == .pushedToServer /* || state == .sendCode */
+        state == .pushedToServer
     }
 }
 
@@ -133,6 +141,8 @@ extension PhoneLoginModel {
                 },
                 receiveValue: { [weak self] response in
                     guard let strongSelf = self else { return }
+                    
+                    strongSelf.phoneResponse = response
                     
                     strongSelf.receivedCode = response.code
                     strongSelf.stateMachine.tryEvent(.sendingPhoneNumber)

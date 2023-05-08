@@ -9,14 +9,7 @@ import SwiftUI
 import SnabblePhoneAuth
 
 struct EnterCodeView: View {
-    var phoneNumber: String
-//    @State private var pinCode = ""
-    @State private var codeValid = false
-    @State private var canSend = false
-    
     @EnvironmentObject var loginModel: PhoneLoginModel
-    @State private var serverHint: String = ""
-    @State private var errorMessage: String = ""
     
     @FocusState private var enterCode
 
@@ -34,12 +27,13 @@ struct EnterCodeView: View {
             Text(loginModel.errorMessage)
                 .foregroundColor(.red)
         } else {
-            if !serverHint.isEmpty {
+            if !loginModel.receivedCode.isEmpty {
                 Text("Server hat folgenden Code geschickt \"\(loginModel.receivedCode)\"")
                     .foregroundColor(.green)
             }
         }
     }
+
     @ViewBuilder
     var header: some View {
         HStack {
@@ -54,8 +48,6 @@ struct EnterCodeView: View {
         }
     }
     
-    @State private var disabled: Bool = true
-
     var body: some View {
         VStack {
             Form {
@@ -76,11 +68,11 @@ struct EnterCodeView: View {
                                     HStack {
                                         Text("Anmelden")
                                             .fontWeight(.bold)
-                                            .opacity(canSend ? 1.0 : 0.5)
+                                            .opacity(loginModel.canLogin ? 1.0 : 0.5)
                                         loginSpinner
                                     }
                                 }
-                                .buttonStyle(AccentButtonStyle(disabled: !canSend))
+                                .buttonStyle(AccentButtonStyle(disabled: !loginModel.canLogin))
                                 
                                 RequestCodeButton(firstStep: false)
                             }
@@ -91,35 +83,8 @@ struct EnterCodeView: View {
             }
             .onAppear {
                 if !loginModel.receivedCode.isEmpty {
-                    print("receivedCode: \(loginModel.receivedCode)")
-                    withAnimation {
-                        serverHint = "Server hat folgenden Code geschickt: \"\(loginModel.receivedCode)\""
-                    }
-                }
-            }
-            .onChange(of: loginModel.isLoggingIn) { newLogin in
-                if newLogin {
-                    withAnimation {
-                        errorMessage = ""
-                        serverHint = "Du bist angemeldet!"
-                    }
-                }
-            }
-            .onChange(of: serverHint) { _ in
-                withAnimation {
                     enterCode = true
                 }
-            }
-            .onChange(of: loginModel.receivedCode) { newCode in
-                withAnimation {
-                    serverHint = "Server hat folgenden Code geschickt: \"\(newCode)\""
-                }
-            }
-            .onChange(of: loginModel.canLogin) { _ in
-                canSend = loginModel.canLogin
-            }
-            .onChange(of: loginModel.pinCode) { newCode in
-                canSend = loginModel.canLogin
             }
             //DebugView()
             Spacer()
