@@ -183,17 +183,15 @@ extension PhoneLoginModel {
 extension PhoneLoginModel {
 
     func leaveState(_ state: StateMachine.State) {
-        print("leave state: <\(state)>")
+        ActionLogger.shared.add(log: LogAction(action: "leave state", info: "\(state)"))
         if case .sendCode = state, case .pushedToServer = state {
             isLoggingIn = false
         }
     }
     
     func enterState(_ state: StateMachine.State) {
-        print("enter state: <\(state)>")
-        if case .waitingForCode = state {
-            //self.canLogin = true
-        }
+        ActionLogger.shared.add(log: LogAction(action: "enter state", info: "\(state)"))
+
         if case .loggedIn = state {
             self.isLoggingIn = true
         }

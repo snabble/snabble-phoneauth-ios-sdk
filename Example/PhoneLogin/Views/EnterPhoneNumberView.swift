@@ -50,7 +50,7 @@ struct EnterPhoneNumberView: View {
             .onAppear {
                 enterCode = true
             }
-            //DebugView()
+            DebugView(debugConfig: .logs)
         }
         .padding()
         .navigationTitle("Telefon-Login")

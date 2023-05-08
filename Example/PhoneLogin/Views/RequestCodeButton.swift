@@ -28,7 +28,7 @@ struct RequestCodeButton: View {
     var body: some View {
         Button(action: {
             if loginModel.canRequestCode {
-                print("request code for \(loginModel.dialString)")
+                ActionLogger.shared.add(log: LogAction(action: "request code for", info: "\(loginModel.dialString)"))
                 loginModel.sendPhoneNumber()
             }
         }) {
@@ -55,7 +55,6 @@ struct RequestCodeButton: View {
             if newState == .waitingForCode {
                 startCountdown()
             }
-            print("state changed to: \(newState)")
         }
     }
 
