@@ -17,7 +17,7 @@ struct EnterPhoneNumberView: View {
     
     @ViewBuilder
     var spinner: some View {
-        if loginModel.state == .pushedToServer {
+        if loginModel.isWaiting {
             ProgressView()
                .padding([.leading], 10)
         }

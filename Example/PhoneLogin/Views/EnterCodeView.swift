@@ -15,7 +15,7 @@ struct EnterCodeView: View {
 
     @ViewBuilder
     var loginSpinner: some View {
-        if  loginModel.state == .sendCode {
+        if loginModel.isWaiting {
             ProgressView()
                .padding([.leading], 10)
         }

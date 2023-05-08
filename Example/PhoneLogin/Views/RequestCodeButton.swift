@@ -16,7 +16,7 @@ struct RequestCodeButton: View {
 
     @ViewBuilder
     var codeSpinner: some View {
-        if loginModel.state == .pushedToServer {
+        if loginModel.isWaiting {
             ProgressView()
                .padding([.leading], 10)
         }

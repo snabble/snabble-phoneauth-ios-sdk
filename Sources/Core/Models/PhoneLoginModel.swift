@@ -90,7 +90,7 @@ public class PhoneLoginModel: ObservableObject {
         }
     }
     public var isWaiting: Bool {
-        state == .pushedToServer
+        state == .pushedToServer || state == .sendCode
     }
 }
 
