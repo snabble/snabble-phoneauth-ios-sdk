@@ -9,38 +9,38 @@ import Foundation
 
 extension Endpoints {
     enum Phone {
-        static func auth(app: App, phoneNumber: String, userId: String) -> Endpoint<Void> {
+        static func auth(metadata: Metadata, phoneNumber: String, userId: String) -> Endpoint<Void> {
             let data = try! JSONSerialization.data(withJSONObject: [
                 "userID": userId,
                 "phoneNumber": phoneNumber
             ])
             return .init(
-                path: "/\(app.id)/phone/auth",
+                path: "/\(metadata.appId)/phone/auth",
                 method: .post(data, nil),
-                environment: app.environment
+                environment: metadata.environment
             )
         }
 
-        static func login(app: App, phoneNumber: String, OTP: String) -> Endpoint<AppUser?> {
+        static func login(metadata: Metadata, phoneNumber: String, OTP: String) -> Endpoint<AppUser?> {
             let data = try! JSONSerialization.data(withJSONObject: [
                 "otp": OTP,
                 "phoneNumber": phoneNumber
             ])
             return .init(
-                path: "/\(app.id)/phone/login",
+                path: "/\(metadata.appId)/phone/login",
                 method: .post(data, nil),
-                environment: app.environment
+                environment: metadata.environment
             )
         }
 
-        static func delete(app: App, phoneNumber: String) -> Endpoint<Void> {
+        static func delete(metadata: Metadata, phoneNumber: String) -> Endpoint<Void> {
             let data = try! JSONSerialization.data(withJSONObject: [
                 "phoneNumber": phoneNumber
             ])
             return .init(
-                path: "/\(app.id)/phone/users",
+                path: "/\(metadata.appId)/phone/users",
                 method: .delete(data),
-                environment: app.environment
+                environment: metadata.environment
             )
         }
     }

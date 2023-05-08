@@ -20,13 +20,13 @@ public class NetworkManager {
 
     public let authenticator: Authenticator
 
-    public var app: App {
-        authenticator.app
+    public var metadata: Metadata {
+        authenticator.metadata
     }
 
-    public init(app: App, urlSession: URLSession = .shared) {
+    public init(metadata: Metadata, urlSession: URLSession = .shared) {
         self.urlSession = urlSession
-        self.authenticator = Authenticator(app: app, urlSession: urlSession)
+        self.authenticator = Authenticator(metadata: metadata, urlSession: urlSession)
     }
 
     public func publisher<Response: Decodable>(for endpoint: Endpoint<Response>) -> AnyPublisher<Response, Swift.Error> {
@@ -71,9 +71,3 @@ public class NetworkManager {
             .eraseToAnyPublisher()
     }
 }
-
-//extension NetworkManager: AuthenticatorDelegate {
-//    func authenticator(_ authenticator: Authenticator, didUpdateCredentials credentials: Credentials?) {
-//        delegate?.networkManager(self, didUpdateCredentials: credentials)
-//    }
-//}

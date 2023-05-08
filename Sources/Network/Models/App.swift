@@ -7,8 +7,8 @@
 
 import Foundation
 
-public struct App {
-    public let id: String
-    public let secret: String
+public struct Metadata {
+    public let appId: String
+    public let appSecret: String
     public let environment: Environment
 }
