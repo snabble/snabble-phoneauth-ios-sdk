@@ -8,15 +8,8 @@
 import Combine
 import Foundation
 
-public protocol NetworkManagerDelegate: AnyObject {
-    func networkManager(_ networkManager: NetworkManager, appCredentialsForRequest: URLRequest) -> String?
-    func networkManager(_ networkManager: NetworkManager, projectSecretForRequest: URLRequest) -> String?
-}
-
 public class NetworkManager {
     public let urlSession: URLSession
-
-    public weak var delegate: NetworkManagerDelegate?
 
     public let authenticator: Authenticator
 
