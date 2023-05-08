@@ -18,7 +18,7 @@ public protocol AuthenticatorDelegate: AnyObject {
 
 public class Authenticator {
     public let urlSession: URLSession
-    public let metadata: Metadata
+    public let configuration: Configuration
 
     weak var delegate: AuthenticatorDelegate?
 
@@ -33,8 +33,8 @@ public class Authenticator {
 
     private var refreshPublisher: AnyPublisher<Token, Swift.Error>?
 
-    init(metadata: Metadata, urlSession: URLSession) {
-        self.metadata = metadata
+    init(configuration: Configuration, urlSession: URLSession) {
+        self.configuration = configuration
         self.urlSession = urlSession
     }
 
@@ -52,7 +52,7 @@ public class Authenticator {
 
         // scenario 2: we have to register the app instance
         let endpoint = Endpoints.AppUser.post(
-            metadata: metadata
+            configuration: configuration
         )
         let publisher = urlSession.publisher(for: endpoint)
             .handleEvents(receiveOutput: { [weak self] response in
@@ -95,7 +95,7 @@ public class Authenticator {
             let publisher = self.validateAppUser(onEnvironment: environment)
                 .map { appUser -> Endpoint<Token> in
                     return Endpoints.Token.get(
-                        metadata: self.metadata,
+                        configuration: self.configuration,
                         appUser: appUser,
                         projectId: projectId,
                         onEnvironment: environment

@@ -9,7 +9,7 @@ import Foundation
 
 extension Endpoints {
     public enum Phone {
-        public static func auth(metadata: Metadata, phoneNumber: String, userId: String) -> Endpoint<Void> {
+        public static func auth(metadata: Configuration, phoneNumber: String, userId: String) -> Endpoint<Void> {
             let data = try! JSONSerialization.data(withJSONObject: [
                 "userID": userId,
                 "phoneNumber": phoneNumber
@@ -21,7 +21,7 @@ extension Endpoints {
             )
         }
 
-        public static func login(metadata: Metadata, phoneNumber: String, OTP: String) -> Endpoint<SnabbleNetwork.AppUser?> {
+        public static func login(metadata: Configuration, phoneNumber: String, OTP: String) -> Endpoint<SnabbleNetwork.AppUser?> {
             let data = try! JSONSerialization.data(withJSONObject: [
                 "otp": OTP,
                 "phoneNumber": phoneNumber
@@ -33,7 +33,7 @@ extension Endpoints {
             )
         }
 
-        public static func delete(metadata: Metadata, phoneNumber: String) -> Endpoint<Void> {
+        public static func delete(metadata: Configuration, phoneNumber: String) -> Endpoint<Void> {
             let data = try! JSONSerialization.data(withJSONObject: [
                 "phoneNumber": phoneNumber
             ])

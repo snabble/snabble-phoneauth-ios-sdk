@@ -11,7 +11,7 @@ import OneTimePassword
 extension Endpoints {
     enum Token {
         static func get(
-            metadata: Metadata,
+            configuration: Configuration,
             appUser: SnabbleNetwork.AppUser,
             projectId: String,
             role: SnabbleNetwork.Token.Scope = .retailerApp,
@@ -23,15 +23,15 @@ extension Endpoints {
                                                                     .init(name: "role", value: role.rawValue)
                                                                   ]),
                                                                   environment: environment)
-            if let authorization = authorization(withMetadata: metadata, appUser: appUser) {
+            if let authorization = authorization(withConfiguration: configuration, appUser: appUser) {
                 endpoint.headerFields = ["Authorization": "Basic \(authorization)"]
             }
             return endpoint
         }
 
-        private static func authorization(withMetadata metadata: Metadata, appUser: SnabbleNetwork.AppUser) -> String? {
-            guard let password = password(withSecret: metadata.appSecret, forDate: Date()) else { return nil }
-            return "\(metadata.appId):\(password):\(appUser.id):\(appUser.secret)".data(using: .utf8)?.base64EncodedString()
+        private static func authorization(withConfiguration configuration: Configuration, appUser: SnabbleNetwork.AppUser) -> String? {
+            guard let password = password(withSecret: configuration.appSecret, forDate: Date()) else { return nil }
+            return "\(configuration.appId):\(password):\(appUser.id):\(appUser.secret)".data(using: .utf8)?.base64EncodedString()
         }
 
         private static func password(withSecret secret: String, forDate date: Date) -> String? {

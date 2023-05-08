@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Metadata {
+public struct Configuration {
     public let appId: String
     public let appSecret: String
     public let environment: Environment

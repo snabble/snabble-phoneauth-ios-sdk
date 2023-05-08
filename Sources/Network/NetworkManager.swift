@@ -13,13 +13,13 @@ public class NetworkManager {
 
     public let authenticator: Authenticator
 
-    public var metadata: Metadata {
-        authenticator.metadata
+    public var configuration: Configuration {
+        authenticator.configuration
     }
 
-    public init(metadata: Metadata, urlSession: URLSession = .shared) {
+    public init(configuration: Configuration, urlSession: URLSession = .shared) {
         self.urlSession = urlSession
-        self.authenticator = Authenticator(metadata: metadata, urlSession: urlSession)
+        self.authenticator = Authenticator(configuration: configuration, urlSession: urlSession)
     }
 
     public func publisher<Response: Decodable>(for endpoint: Endpoint<Response>) -> AnyPublisher<Response, Swift.Error> {

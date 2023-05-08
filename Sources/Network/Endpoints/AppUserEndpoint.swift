@@ -10,25 +10,25 @@ import OneTimePassword
 
 extension Endpoints {
     enum AppUser {
-        static func post(metadata: Metadata, projectId: String? = nil) -> Endpoint<AppUserResponse> {
+        static func post(configuration: Configuration, projectId: String? = nil) -> Endpoint<AppUserResponse> {
             var queryItems: [URLQueryItem]?
             if let projectId = projectId {
                 queryItems = [.init(name: "project", value: projectId)]
             }
             var endpoint: Endpoint<AppUserResponse> = .init(
-                path: "/apps/\(metadata.appId)/users",
+                path: "/apps/\(configuration.appId)/users",
                 method: .post(nil, queryItems),
-                environment: metadata.environment
+                environment: configuration.environment
             )
-            if let authorization = authorization(withMetadata: metadata) {
+            if let authorization = authorization(withConfiguration: configuration) {
                 endpoint.headerFields = ["Authorization": "Basic \(authorization)"]
             }
             return endpoint
         }
 
-        private static func authorization(withMetadata metadata: Metadata) -> String? {
-            guard let password = password(withSecret: metadata.appSecret, forDate: Date()) else { return nil }
-            return "\(metadata.appId):\(password)".data(using: .utf8)?.base64EncodedString()
+        private static func authorization(withConfiguration configuration: Configuration) -> String? {
+            guard let password = password(withSecret: configuration.appSecret, forDate: Date()) else { return nil }
+            return "\(configuration.appId):\(password)".data(using: .utf8)?.base64EncodedString()
         }
 
         private static func password(withSecret secret: String, forDate date: Date) -> String? {
