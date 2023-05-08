@@ -8,31 +8,25 @@
 import SwiftUI
 import SnabblePhoneAuth
 
-struct EnterCodeView: View {
-    @EnvironmentObject var loginModel: PhoneLoginModel
-    
-    @FocusState private var enterCode
-
+extension PhoneLoginModel {
     @ViewBuilder
-    var loginSpinner: some View {
-        if loginModel.isWaiting {
-            ProgressView()
-               .padding([.leading], 10)
-        }
-    }
-        
-    @ViewBuilder
-    var message: some View {
-        if !loginModel.errorMessage.isEmpty {
-            Text(loginModel.errorMessage)
+    var messageView: some View {
+        if !errorMessage.isEmpty {
+            Text(errorMessage)
                 .foregroundColor(.red)
         } else {
-            if !loginModel.receivedCode.isEmpty {
-                Text("Server hat folgenden Code geschickt \"\(loginModel.receivedCode)\"")
+            if !receivedCode.isEmpty {
+                Text("Server hat folgenden Code geschickt \"\(receivedCode)\"")
                     .foregroundColor(.green)
             }
         }
     }
+}
+
+struct EnterCodeView: View {
+    @EnvironmentObject var loginModel: PhoneLoginModel
+    
+    @FocusState private var enterCode
 
     @ViewBuilder
     var header: some View {
@@ -53,7 +47,7 @@ struct EnterCodeView: View {
             Form {
                 Section(
                     header: header,
-                    footer: message,
+                    footer: loginModel.messageView,
                     content:
                         {
                             VStack {
@@ -69,7 +63,8 @@ struct EnterCodeView: View {
                                         Text("Anmelden")
                                             .fontWeight(.bold)
                                             .opacity(loginModel.canLogin ? 1.0 : 0.5)
-                                        loginSpinner
+                                        
+                                        loginModel.progressView
                                     }
                                 }
                                 .buttonStyle(AccentButtonStyle(disabled: !loginModel.canLogin))

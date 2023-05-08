@@ -8,19 +8,22 @@
 import SwiftUI
 import SnabblePhoneAuth
 
+extension PhoneLoginModel {
+
+    @ViewBuilder
+    var progressView: some View {
+        if isWaiting {
+            ProgressView()
+               .padding([.leading], 10)
+        }
+    }
+}
+
 struct RequestCodeButton: View {
     var firstStep = true
     
     @State private var showCountdown: Bool = false
     @EnvironmentObject var loginModel: PhoneLoginModel
-
-    @ViewBuilder
-    var codeSpinner: some View {
-        if loginModel.isWaiting {
-            ProgressView()
-               .padding([.leading], 10)
-        }
-    }
 
     var body: some View {
         Button(action: {
@@ -34,7 +37,7 @@ struct RequestCodeButton: View {
                 HStack {
                     Text("Code \(firstStep ? "" : "erneut ") anfordern")
                         .fontWeight(.bold)
-                    codeSpinner
+                    loginModel.progressView
                 }
                 Spacer()
             }

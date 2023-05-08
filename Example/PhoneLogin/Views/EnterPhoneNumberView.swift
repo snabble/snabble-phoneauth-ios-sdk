@@ -14,15 +14,7 @@ struct EnterPhoneNumberView: View {
     @EnvironmentObject var loginModel: PhoneLoginModel
 
     @FocusState private var enterCode
-    
-    @ViewBuilder
-    var spinner: some View {
-        if loginModel.isWaiting {
-            ProgressView()
-               .padding([.leading], 10)
-        }
-    }
-    
+        
     var body: some View {
         VStack {
             NavigationLink(destination: EnterCodeView(), isActive: $isShowingDetailView) { EmptyView() }
@@ -47,10 +39,7 @@ struct EnterPhoneNumberView: View {
                             .multilineTextAlignment(.center)
                     },
                     footer: {
-                        if !loginModel.errorMessage.isEmpty {
-                            Text(loginModel.errorMessage)
-                                .foregroundColor(.red)
-                        }
+                        loginModel.messageView
                     }
                 )
                 .textCase(nil)
