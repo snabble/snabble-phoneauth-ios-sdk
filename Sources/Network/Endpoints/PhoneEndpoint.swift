@@ -20,7 +20,7 @@ extension Endpoints {
             )
         }
 
-        public static func login(configuration: Configuration, phoneNumber: String, OTP: String) -> Endpoint<SnabbleNetwork.AppUser?> {
+        public static func login(configuration: Configuration, phoneNumber: String, OTP: String) -> Endpoint<Void> {
             let data = try! JSONSerialization.data(withJSONObject: [
                 "otp": OTP,
                 "phoneNumber": phoneNumber
