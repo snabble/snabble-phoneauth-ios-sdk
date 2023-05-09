@@ -53,3 +53,8 @@ extension Endpoints {
         }
     }
 }
+
+struct AppUserResponse: Codable {
+    let appUser: AppUser
+    let token: Token?
+}

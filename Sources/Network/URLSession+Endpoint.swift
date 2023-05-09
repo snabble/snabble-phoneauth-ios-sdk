@@ -19,7 +19,7 @@ private extension URLResponse {
     }
 }
 
-private extension Publisher where Output == (data: Data, response: URLResponse), Failure == URLError {
+extension Publisher where Output == (data: Data, response: URLResponse), Failure == URLError {
     func tryVerifyResponse() -> AnyPublisher<Output, Swift.Error> {
         tryMap { (data, response) throws -> Output in
             try response.verify(with: data)
@@ -30,7 +30,7 @@ private extension Publisher where Output == (data: Data, response: URLResponse),
 }
 
 extension URLSession {
-    func publisher<Response: Decodable>(
+    func dataTaskPublisher<Response: Decodable>(
         for endpoint: Endpoint<Response>
     ) -> AnyPublisher<Response, Swift.Error> {
         let urlRequest: URLRequest
@@ -46,7 +46,7 @@ extension URLSession {
             .eraseToAnyPublisher()
     }
 
-    func publisher(
+    func dataTaskPublisher(
         for endpoint: Endpoint<Void>
     ) -> AnyPublisher<Void, Swift.Error> {
         let urlRequest: URLRequest

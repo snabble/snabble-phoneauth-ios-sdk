@@ -24,13 +24,25 @@ public class NetworkManager {
 
     public func publisher<Response: Decodable>(for endpoint: Endpoint<Response>) -> AnyPublisher<Response, Swift.Error> {
         return authenticator.validToken(onEnvironment: endpoint.environment)
-            .map { token in
+            .map { token -> Endpoint<Response> in
                 var endpoint = endpoint
                 endpoint.token = token
                 return endpoint
             }
-            .flatMap { [self] endpoint in
-                urlSession.publisher(for: endpoint)
+            .tryMap { endpoint -> URLRequest in
+                try endpoint.urlRequest()
+            }
+            .flatMap { [self] urlRequest in
+                urlSession.dataTaskPublisher(for: urlRequest)
+                    .tryVerifyResponse()
+                    .map(\.data)
+                    .decode(type: Response.self, decoder: endpoint.jsonDecoder)
+            }
+            .map { [weak self] response in
+                if let appUser = response as? AppUser {
+                    self?.authenticator.delegate?.authenticator(self!.authenticator, appUserUpdated: appUser)
+                }
+                return response
             }
             .retry(1, when: { error in
                 if case let HTTPError.invalidResponse(httpStatusCode) = error {
@@ -51,7 +63,7 @@ public class NetworkManager {
                 return endpoint
             }
             .flatMap { [self] endpoint in
-                urlSession.publisher(for: endpoint)
+                urlSession.dataTaskPublisher(for: endpoint)
             }
             .retry(1, when: { error in
                 if case let HTTPError.invalidResponse(httpStatusCode) = error {
