@@ -10,10 +10,10 @@ import Dispatch
 import Combine
 
 public protocol AuthenticatorDelegate: AnyObject {
-    func authenticator(_ authenticator: Authenticator, appUserForEnvironment: Environment) -> AppUser?
+    func authenticator(_ authenticator: Authenticator, appUserForEnvironment environment: Environment) -> AppUser?
     func authenticator(_ authenticator: Authenticator, appUserUpdated appUser: AppUser)
 
-    func authenticator(_ authenticator: Authenticator, projectIdForEnvironment: Environment) -> String
+    func authenticator(_ authenticator: Authenticator, projectIdForEnvironment environment: Environment) -> String
 }
 
 public class Authenticator {

@@ -10,7 +10,6 @@ import Foundation
 
 public class NetworkManager {
     public let urlSession: URLSession
-
     public let authenticator: Authenticator
 
     public var configuration: Configuration {
@@ -29,49 +28,21 @@ public class NetworkManager {
                 endpoint.token = token
                 return endpoint
             }
-            .tryMap { endpoint -> URLRequest in
-                try endpoint.urlRequest()
+            .flatMap { [self] endpoint in
+                return urlSession.dataTaskPublisher(for: endpoint)
+                    .retry(1, when: { error in
+                        if case let HTTPError.invalidResponse(httpStatusCode) = error {
+                            return httpStatusCode == .unauthorized || httpStatusCode == .forbidden
+                        }
+                        return false
+                    }, doBefore: { [weak self] in
+                        self?.authenticator.invalidateToken()
+                    })
             }
-            .flatMap { [self] urlRequest in
-                urlSession.dataTaskPublisher(for: urlRequest)
-                    .tryVerifyResponse()
-                    .map(\.data)
-                    .decode(type: Response.self, decoder: endpoint.jsonDecoder)
-            }
-            .map { [weak self] response in
+            .handleEvents(receiveOutput: { [weak self] response in
                 if let appUser = response as? AppUser {
                     self?.authenticator.delegate?.authenticator(self!.authenticator, appUserUpdated: appUser)
                 }
-                return response
-            }
-            .retry(1, when: { error in
-                if case let HTTPError.invalidResponse(httpStatusCode) = error {
-                    return httpStatusCode == .unauthorized || httpStatusCode == .forbidden
-                }
-                return false
-            }, doBefore: { [weak self] in
-                self?.authenticator.invalidateToken()
-            })
-            .eraseToAnyPublisher()
-    }
-
-    public func publisher(for endpoint: Endpoint<Void>) -> AnyPublisher<Void, Swift.Error> {
-        return authenticator.validToken(onEnvironment: endpoint.environment)
-            .map { token in
-                var endpoint = endpoint
-                endpoint.token = token
-                return endpoint
-            }
-            .flatMap { [self] endpoint in
-                urlSession.dataTaskPublisher(for: endpoint)
-            }
-            .retry(1, when: { error in
-                if case let HTTPError.invalidResponse(httpStatusCode) = error {
-                    return httpStatusCode == .unauthorized || httpStatusCode == .forbidden
-                }
-                return false
-            }, doBefore: { [weak self] in
-                self?.authenticator.invalidateToken()
             })
             .eraseToAnyPublisher()
     }
