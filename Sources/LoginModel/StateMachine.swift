@@ -11,7 +11,7 @@ import Combine
 open class StateMachine {
     
     public enum State {
-        case start              // start what else
+        case start              // initial state
         case pushedToServer     // send(phoneNumber:String) was called on Endpoint
         case waitingForCode     // previous call was successful
         case sendCode           // loginWith(code: String) was called on Endpoint
