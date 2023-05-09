@@ -9,38 +9,37 @@ import Foundation
 
 extension Endpoints {
     public enum Phone {
-        public static func auth(metadata: Configuration, phoneNumber: String, userId: String) -> Endpoint<Void> {
+        public static func auth(configuration: Configuration, phoneNumber: String) -> Endpoint<Void> {
             let data = try! JSONSerialization.data(withJSONObject: [
-                "userID": userId,
                 "phoneNumber": phoneNumber
             ])
             return .init(
-                path: "/\(metadata.appId)/phone/auth",
+                path: "/\(configuration.appId)/phone/auth",
                 method: .post(data, nil),
-                environment: metadata.environment
+                environment: configuration.environment
             )
         }
 
-        public static func login(metadata: Configuration, phoneNumber: String, OTP: String) -> Endpoint<SnabbleNetwork.AppUser?> {
+        public static func login(configuration: Configuration, phoneNumber: String, OTP: String) -> Endpoint<SnabbleNetwork.AppUser?> {
             let data = try! JSONSerialization.data(withJSONObject: [
                 "otp": OTP,
                 "phoneNumber": phoneNumber
             ])
             return .init(
-                path: "/\(metadata.appId)/phone/login",
+                path: "/\(configuration.appId)/phone/login",
                 method: .post(data, nil),
-                environment: metadata.environment
+                environment: configuration.environment
             )
         }
 
-        public static func delete(metadata: Configuration, phoneNumber: String) -> Endpoint<Void> {
+        public static func delete(configuration: Configuration, phoneNumber: String) -> Endpoint<Void> {
             let data = try! JSONSerialization.data(withJSONObject: [
                 "phoneNumber": phoneNumber
             ])
             return .init(
-                path: "/\(metadata.appId)/phone/users",
+                path: "/\(configuration.appId)/phone/users",
                 method: .delete(data),
-                environment: metadata.environment
+                environment: configuration.environment
             )
         }
     }
