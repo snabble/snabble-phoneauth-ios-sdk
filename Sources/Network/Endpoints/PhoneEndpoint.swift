@@ -16,7 +16,7 @@ extension Endpoints {
             return .init(
                 path: "/\(configuration.appId)/phone/auth",
                 method: .post(data, nil),
-                environment: configuration.environment
+                configuration: configuration
             )
         }
 
@@ -28,7 +28,7 @@ extension Endpoints {
             return .init(
                 path: "/\(configuration.appId)/phone/login",
                 method: .post(data, nil),
-                environment: configuration.environment
+                configuration: configuration
             )
         }
 
@@ -39,7 +39,7 @@ extension Endpoints {
             return .init(
                 path: "/\(configuration.appId)/phone/users",
                 method: .delete(data),
-                environment: configuration.environment
+                configuration: configuration
             )
         }
     }

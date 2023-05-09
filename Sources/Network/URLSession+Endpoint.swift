@@ -45,19 +45,4 @@ extension URLSession {
             .decode(type: Response.self, decoder: endpoint.jsonDecoder)
             .eraseToAnyPublisher()
     }
-
-    func dataTaskPublisher(
-        for endpoint: Endpoint<Void>
-    ) -> AnyPublisher<Void, Swift.Error> {
-        let urlRequest: URLRequest
-        do {
-            urlRequest = try endpoint.urlRequest()
-        } catch {
-            return Fail(error: error).eraseToAnyPublisher()
-        }
-        return dataTaskPublisher(for: urlRequest)
-            .tryVerifyResponse()
-            .map { _, _ in () }
-            .eraseToAnyPublisher()
-    }
 }
