@@ -26,7 +26,7 @@ public struct LogAction: Identifiable, Hashable {
 extension LogAction: CustomStringConvertible {
     public var description: String {
         if !info.isEmpty {
-            return "[\(action)] -> *\(info)*"
+            return "[\(action)] > \(info)"
         } else {
             return "[\(action)]"
         }
@@ -49,4 +49,3 @@ public class ActionLogger: ObservableObject {
 extension ActionLogger {
     public static var shared = ActionLogger()
 }
-

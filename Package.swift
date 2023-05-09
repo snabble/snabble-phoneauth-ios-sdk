@@ -27,7 +27,7 @@ let package = Package(
             dependencies: [
                 "SnabbleNetwork"
             ],
-            path: "Sources/Core",
+            path: "Sources/LoginModel",
             plugins: [
                 .plugin(name: "SwiftLintPlugin", package: "SwiftLint")
             ]

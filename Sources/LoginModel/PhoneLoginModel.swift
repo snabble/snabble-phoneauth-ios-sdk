@@ -35,7 +35,6 @@ public class PhoneLoginModel: ObservableObject {
             }
         }
     }
-    private var phoneResponse: PhoneResponse?
     
     @Published public var state: StateMachine.State {
         willSet { leaveState(state) }
@@ -43,8 +42,13 @@ public class PhoneLoginModel: ObservableObject {
     }
 
     @Published public var pinCode: String = ""
+#if DEBUG
+    var logActions = true
+#else
+    var logAction = false
+#endif
     
-    public init(networkManager: NetworkManager, stateMachine: StateMachine = StateMachine(state: .start), loginService: LoginService = LoginService(session: .shared)) {
+    public init(networkManager: NetworkManager, stateMachine: StateMachine = StateMachine(state: .start), logActions: Bool? = nil) {
         self.country = CountryCallingCodes.defaultCountry
         
         if let savedCountry = UserDefaults.selectedCountry, let country = CountryCallingCodes.country(for: savedCountry) {
@@ -52,7 +56,10 @@ public class PhoneLoginModel: ObservableObject {
         }
         self.stateMachine = stateMachine
         self.networkManager = networkManager
-        
+
+        if let flag = logActions {
+            self.logActions = flag
+        }
         self.state = stateMachine.state
         self.stateCancellable = stateMachine.statePublisher.sink { state in
             self.state = state
@@ -73,9 +80,11 @@ public class PhoneLoginModel: ObservableObject {
         return state == .error || state == .waitingForCode
     }
     
+    var timeStamp: Date?
+    
     public var canRequestCode: Bool {
         if canSendPhoneNumber {
-            if let timestamp = phoneResponse?.timestamp, timestamp + 30 < .now {
+            if let timestamp = timeStamp, timestamp + 30 < .now {
                 return false
             }
             return true
@@ -99,11 +108,22 @@ extension PhoneLoginModel {
     }
     
     public func sendPhoneNumber() {
+        guard canRequestCode else {
+            return
+        }
+        if logActions {
+            ActionLogger.shared.add(log: LogAction(action: "request code for", info: "\(dialString)"))
+        }
         stateMachine.tryEvent(.sendingPhoneNumber)
     }
 
     public func loginWithCode(_ string: String) {
+
         pinCode = string
+
+        if logActions {
+            ActionLogger.shared.add(log: LogAction(action: "request code for", info: "\(pinCode)"))
+        }
         stateMachine.tryEvent(.loggingIn)
     }
     
@@ -170,17 +190,27 @@ extension PhoneLoginModel {
 extension PhoneLoginModel {
 
     func leaveState(_ state: StateMachine.State) {
-        ActionLogger.shared.add(log: LogAction(action: "leave state", info: "\(state)"))
+        if logActions {
+            ActionLogger.shared.add(log: LogAction(action: "leave state", info: "\(state)"))
+        }
         if case .sendCode = state, case .pushedToServer = state {
             isLoggingIn = false
         }
     }
     
     func enterState(_ state: StateMachine.State) {
-        ActionLogger.shared.add(log: LogAction(action: "enter state", info: "\(state)"))
-
+        if logActions {
+            ActionLogger.shared.add(log: LogAction(action: "enter state", info: "\(state)"))
+        }
+        
         if case .loggedIn = state {
             self.isLoggingIn = true
+        }
+        if case .waitingForCode = state {
+            self.timeStamp = .now
+        }
+        if case .error = state {
+            self.timeStamp = nil
         }
         if case .pushedToServer = state {
             errorMessage = ""

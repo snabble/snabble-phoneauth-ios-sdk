@@ -27,10 +27,7 @@ struct RequestCodeButton: View {
 
     var body: some View {
         Button(action: {
-            if loginModel.canRequestCode {
-                ActionLogger.shared.add(log: LogAction(action: "request code for", info: "\(loginModel.dialString)"))
-                loginModel.sendPhoneNumber()
-            }
+            loginModel.sendPhoneNumber()
         }) {
             HStack {
                 Spacer()

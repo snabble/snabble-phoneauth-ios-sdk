@@ -9,6 +9,7 @@ import Foundation
 
 extension Endpoints {
     public enum Phone {
+        // swiftlint:disable force_try
         public static func auth(configuration: Configuration, phoneNumber: String) -> Endpoint<Void> {
             let data = try! JSONSerialization.data(withJSONObject: [
                 "phoneNumber": phoneNumber
@@ -42,5 +43,6 @@ extension Endpoints {
                 environment: configuration.environment
             )
         }
+        // swiftlint:enable force_try
     }
 }

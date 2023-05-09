@@ -17,7 +17,7 @@ extension Endpoints {
             role: SnabbleNetwork.Token.Scope = .retailerApp,
             onEnvironment environment: Environment = .production
         ) -> Endpoint<SnabbleNetwork.Token> {
-            var endpoint: Endpoint<SnabbleNetwork.Token> =  .init(path: "/tokens",
+            var endpoint: Endpoint<SnabbleNetwork.Token> = .init(path: "/tokens",
                                                                   method: .get([
                                                                     .init(name: "project", value: projectId),
                                                                     .init(name: "role", value: role.rawValue)
