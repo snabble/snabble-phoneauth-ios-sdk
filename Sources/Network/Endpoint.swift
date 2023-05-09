@@ -15,7 +15,7 @@ public enum Endpoints {}
 public struct Endpoint<Response> {
     public let method: HTTPMethod
     public let path: String
-    public let environment: Environment
+    public let configuration: Configuration
 
     var jsonDecoder: JSONDecoder = {
         let jsonDecoder: JSONDecoder = .init()
@@ -24,13 +24,16 @@ public struct Endpoint<Response> {
     }()
 
     var token: Token?
-
     var headerFields: [String: String] = [:]
 
-    public init(path: String, method: HTTPMethod, environment: Environment = .production) {
+    public init(path: String, method: HTTPMethod, configuration: Configuration) {
         self.path = path
         self.method = method
-        self.environment = environment
+        self.configuration = configuration
+    }
+
+    private var environment: Environment {
+        configuration.environment
     }
 
     enum Error: Swift.Error {

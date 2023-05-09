@@ -9,19 +9,18 @@ import Foundation
 
 extension Endpoints {
     public enum Phone {
-        // swiftlint:disable force_try
-        public static func auth(configuration: Configuration, phoneNumber: String) -> Endpoint<Void> {
+        public static func auth(configuration: Configuration, phoneNumber: String) -> Endpoint<NoContent> {
             let data = try! JSONSerialization.data(withJSONObject: [
                 "phoneNumber": phoneNumber
             ])
             return .init(
                 path: "/\(configuration.appId)/phone/auth",
                 method: .post(data, nil),
-                environment: configuration.environment
+                configuration: configuration
             )
         }
 
-        public static func login(configuration: Configuration, phoneNumber: String, OTP: String) -> Endpoint<Void> {
+        public static func login(configuration: Configuration, phoneNumber: String, OTP: String) -> Endpoint<SnabbleNetwork.AppUser?> {
             let data = try! JSONSerialization.data(withJSONObject: [
                 "otp": OTP,
                 "phoneNumber": phoneNumber
@@ -29,20 +28,21 @@ extension Endpoints {
             return .init(
                 path: "/\(configuration.appId)/phone/login",
                 method: .post(data, nil),
-                environment: configuration.environment
+                configuration: configuration
             )
         }
 
-        public static func delete(configuration: Configuration, phoneNumber: String) -> Endpoint<Void> {
+        public static func delete(configuration: Configuration, phoneNumber: String) -> Endpoint<NoContent> {
             let data = try! JSONSerialization.data(withJSONObject: [
                 "phoneNumber": phoneNumber
             ])
             return .init(
                 path: "/\(configuration.appId)/phone/users",
                 method: .delete(data),
-                environment: configuration.environment
+                configuration: configuration
             )
         }
-        // swiftlint:enable force_try
     }
 }
+
+public struct NoContent: Decodable {}

@@ -18,7 +18,7 @@ extension Endpoints {
             var endpoint: Endpoint<AppUserResponse> = .init(
                 path: "/apps/\(configuration.appId)/users",
                 method: .post(nil, queryItems),
-                environment: configuration.environment
+                configuration: configuration
             )
             if let authorization = authorization(withConfiguration: configuration) {
                 endpoint.headerFields = ["Authorization": "Basic \(authorization)"]
@@ -52,4 +52,9 @@ extension Endpoints {
             }
         }
     }
+}
+
+struct AppUserResponse: Codable {
+    let appUser: AppUser
+    let token: Token?
 }
