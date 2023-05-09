@@ -11,22 +11,13 @@ import SnabblePhoneAuth
 
 struct EnterPhoneNumberView: View {
     @State private var isShowingDetailView = false
-    @State private var canSend = false
     @EnvironmentObject var loginModel: PhoneLoginModel
 
     @FocusState private var enterCode
-    
-    @ViewBuilder
-    var spinner: some View {
-        if loginModel.state == .pushedToServer {
-            ProgressView()
-               .padding([.leading], 10)
-        }
-    }
-    
+        
     var body: some View {
         VStack {
-            NavigationLink(destination: EnterCodeView(phoneNumber: loginModel.phoneNumber), isActive: $isShowingDetailView) { EmptyView() }
+            NavigationLink(destination: EnterCodeView(), isActive: $isShowingDetailView) { EmptyView() }
             
             Form {
                 Section(
@@ -48,10 +39,7 @@ struct EnterPhoneNumberView: View {
                             .multilineTextAlignment(.center)
                     },
                     footer: {
-                        if !loginModel.errorMessage.isEmpty {
-                            Text(loginModel.errorMessage)
-                                .foregroundColor(.red)
-                        }
+                        loginModel.messageView
                     }
                 )
                 .textCase(nil)
@@ -61,12 +49,8 @@ struct EnterPhoneNumberView: View {
             }
             .onAppear {
                 enterCode = true
-                canSend = loginModel.canSendPhoneNumber
             }
-            .onChange(of: loginModel.phoneNumber) { _ in
-                canSend = loginModel.canSendPhoneNumber
-            }
-            //DebugView()
+            DebugView(debugConfig: .logs)
         }
         .padding()
         .navigationTitle("Telefon-Login")

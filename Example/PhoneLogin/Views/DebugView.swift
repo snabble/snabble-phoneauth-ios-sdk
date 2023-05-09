@@ -7,59 +7,48 @@
 
 import Foundation
 import SwiftUI
+import Combine
 import SnabblePhoneAuth
 
+enum DebugConfig {
+    case hidden
+    case logs
+    case toogles
+    case logsAndToggles
+}
+
 struct DebugView: View {
-//    @EnvironmentObject var loginModel: PhoneLoginModel
-//    @State private var userInfo: [String: Any] = [:]
-//    @State private var errorCode = false
-//    @State private var errorLogin = false
-//
-    var body: some View {
-        VStack {
-            
+    let debugConfig: DebugConfig
+    
+    @EnvironmentObject var loginModel: PhoneLoginModel
+    @StateObject var logger = ActionLogger.shared
+    
+    @ViewBuilder
+    var logsView: some View {
+        ScrollView(.vertical) {
+            ForEach(logger.logs, id: \.id) { log in
+                HStack {
+                    Text(log.timeStamp.formatted(date: .omitted, time: .standard))
+                        .font(.footnote)
+                        .foregroundColor(.secondary)
+                    
+                    Text(log.action)
+                        .fontWeight(.bold)
+                    
+                    if !log.info.isEmpty {
+                        Text(log.info)
+                            .foregroundColor(log.action.hasPrefix("enter") ? .green : (log.action.hasPrefix("leave") ? .red : .primary))
+                    }
+                    Spacer()
+                }
+                .font(.custom("Menlo", size: 13))
+            }
         }
-//        VStack {
-//            Toggle(isOn: $errorCode) {
-//                Text("Test error on request code")
-//            }
-//            .onChange(of: errorCode) { _ in
-//                updateUserInfo()
-//            }
-//            Toggle(isOn: $errorLogin) {
-//                Text("Test error on login")
-//            }
-//            .onChange(of: errorLogin) { _ in
-//                updateUserInfo()
-//            }
-//       }
-//        .onAppear {
-//            if let error = loginModel.userInfo["error"] as? FakeEndpointError, error == .phoneNumberError {
-//                errorCode = true
-//            }
-//            if let error = loginModel.userInfo["error"] as? FakeEndpointError, error == .loginError {
-//                errorLogin = true
-//            }
-//        }
+        .frame(minHeight:12, maxHeight: 200)
     }
-//
-//    private func updateUserInfo() {
-//        userInfo = [:]
-//        if errorCode {
-//            userInfo["error"] = FakeEndpointError.phoneNumberError
-//        } else if errorLogin {
-//            userInfo["error"] = FakeEndpointError.loginError
-//        }
-//        if loginModel.state == .error, userInfo.isEmpty {
-//            loginModel.userInfo = userInfo
-//            loginModel.reset()
-//        }
-//        if !userInfo.isEmpty {
-//            loginModel.userInfo = userInfo
-//        }
-//        if !loginModel.userInfo.isEmpty, userInfo.isEmpty {
-//            loginModel.userInfo = userInfo
-//        }
-//    }
+    
+    var body: some View {
+        logsView
+    }
 }
 

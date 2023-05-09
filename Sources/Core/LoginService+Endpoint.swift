@@ -30,6 +30,7 @@ public extension Endpoint where Kind == EndpointKinds.Public, Response == Login 
 public struct PhoneResponse: Decodable {
     public let phoneNumber: String
     public let code: String
+    public var timestamp = Date.now
 }
 
 public struct Login: Decodable {
