@@ -54,7 +54,7 @@ public class Authenticator {
         let endpoint = Endpoints.AppUser.post(
             configuration: configuration
         )
-        let publisher = urlSession.publisher(for: endpoint)
+        let publisher = urlSession.dataTaskPublisher(for: endpoint)
             .handleEvents(receiveOutput: { [weak self] response in
                 self?.token = response.token
                 self?.delegate?.authenticator(self!, appUserUpdated: response.appUser)
@@ -106,7 +106,7 @@ public class Authenticator {
                 }
                 .mapError { HTTPError.unexpected($0) }
                 .flatMap { urlSession, endpoint in
-                    return urlSession.publisher(for: endpoint)
+                    return urlSession.dataTaskPublisher(for: endpoint)
                 }
                 .share()
                 .handleEvents(receiveOutput: { token in
