@@ -30,7 +30,7 @@ public class NetworkManager {
             }
             .flatMap { [self] endpoint in
                 return urlSession.dataTaskPublisher(for: endpoint)
-                    .retry(1, when: { error in
+                    .retryOnce(if: { error in
                         if case let HTTPError.invalidResponse(httpStatusCode) = error {
                             return httpStatusCode == .unauthorized || httpStatusCode == .forbidden
                         }
