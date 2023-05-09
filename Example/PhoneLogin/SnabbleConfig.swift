@@ -52,15 +52,12 @@ extension UserDefaults {
 
 public class Snabble {
     
-    public static var development = Snabble(configuration: .development)
-    public static var staging = Snabble(configuration: .staging)
-    public static var production = Snabble(configuration: .production)
-
     public let loginManager: PhoneLoginModel
 
     init(configuration: Configuration) {
         let networkManager = NetworkManager(configuration: configuration)
         self.loginManager = PhoneLoginModel(networkManager: networkManager)
+//        self.loginManager.logActions = false
         
         networkManager.authenticator.delegate = self
     }

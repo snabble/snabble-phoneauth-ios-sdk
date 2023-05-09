@@ -43,9 +43,9 @@ public class PhoneLoginModel: ObservableObject {
 
     @Published public var pinCode: String = ""
 #if DEBUG
-    var logActions = true
+    public var logActions = true
 #else
-    var logAction = false
+    public var logAction = false
 #endif
     
     public init(networkManager: NetworkManager, stateMachine: StateMachine = StateMachine(state: .start), logActions: Bool? = nil) {
