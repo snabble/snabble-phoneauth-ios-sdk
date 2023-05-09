@@ -19,6 +19,7 @@
 		7691BAAA2977AD1700477EDD /* EnterPhoneNumberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7691BAA92977AD1700477EDD /* EnterPhoneNumberView.swift */; };
 		7691BAAC2977AD2A00477EDD /* EnterCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7691BAAB2977AD2A00477EDD /* EnterCodeView.swift */; };
 		7691BAB02977AD8500477EDD /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7691BAAF2977AD8500477EDD /* Utilities.swift */; };
+		76A9F7202A09272200C162B1 /* SnabbleConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A9F71F2A09272100C162B1 /* SnabbleConfig.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +38,7 @@
 		7691BAA92977AD1700477EDD /* EnterPhoneNumberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterPhoneNumberView.swift; sourceTree = "<group>"; };
 		7691BAAB2977AD2A00477EDD /* EnterCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterCodeView.swift; sourceTree = "<group>"; };
 		7691BAAF2977AD8500477EDD /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		76A9F71F2A09272100C162B1 /* SnabbleConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnabbleConfig.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +106,7 @@
 				768915E12A0129C100C4799A /* Info.plist */,
 				7691BA9A2976C3F400477EDD /* PhoneLoginApp.swift */,
 				7691BAAF2977AD8500477EDD /* Utilities.swift */,
+				76A9F71F2A09272100C162B1 /* SnabbleConfig.swift */,
 				763438EC2A01079B00C99AD5 /* Views */,
 				7691BA9E2976C3F500477EDD /* Assets.xcassets */,
 				7691BAA02976C3F500477EDD /* PhoneLogin.entitlements */,
@@ -196,6 +199,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				768915E92A04EA7200C4799A /* RequestCodeButton.swift in Sources */,
+				76A9F7202A09272200C162B1 /* SnabbleConfig.swift in Sources */,
 				7691BAB02977AD8500477EDD /* Utilities.swift in Sources */,
 				7691BA9D2976C3F400477EDD /* ContentView.swift in Sources */,
 				768915E52A024DA600C4799A /* CountDownView.swift in Sources */,
