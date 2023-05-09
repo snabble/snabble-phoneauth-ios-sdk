@@ -7,11 +7,12 @@
 
 import Foundation
 import Combine
+import SnabbleNetwork
 
 public class PhoneLoginModel: ObservableObject {
     
     private let stateMachine: StateMachine
-    private let loginService: LoginService
+    private let networkManager: NetworkManager
     
     private var stateCancellable: AnyCancellable?
     private var loginCancellable: AnyCancellable?
@@ -42,23 +43,16 @@ public class PhoneLoginModel: ObservableObject {
 
     @Published public var pinCode: String = ""
     
-    public var userInfo: [String: Any] = [:] {
-        didSet {
-            loginService.userInfo = userInfo
-        }
-    }
-
-    public init(stateMachine: StateMachine = StateMachine(state: .start), loginService: LoginService = LoginService(session: .shared)) {
+    public init(networkManager: NetworkManager, stateMachine: StateMachine = StateMachine(state: .start), loginService: LoginService = LoginService(session: .shared)) {
         self.country = CountryCallingCodes.defaultCountry
         
         if let savedCountry = UserDefaults.selectedCountry, let country = CountryCallingCodes.country(for: savedCountry) {
             self.country = country
         }
         self.stateMachine = stateMachine
-        self.loginService = loginService
+        self.networkManager = networkManager
         
         self.state = stateMachine.state
-        
         self.stateCancellable = stateMachine.statePublisher.sink { state in
             self.state = state
         }
@@ -116,56 +110,55 @@ extension PhoneLoginModel {
     }
 
     private func pushToServer() {
-        loginCancellable = loginService.send(phoneNumber: dialString)
+        let endpoint = Endpoints.Phone.auth(configuration: networkManager.configuration, phoneNumber: dialString)
+
+        loginCancellable = networkManager.publisher(for: endpoint)
             .receive(on: RunLoop.main)
-            .sink(
-                receiveCompletion: { [weak self] (completion) in
-                    guard let strongSelf = self else { return }
+            .sink { [weak self] completion in
+                guard let strongSelf = self else { return }
+                
+                print("completion: ", completion)
+
+                switch completion {
+                case .finished:
+                    break
                     
-                    switch completion {
-                    case .finished:
-                        break
-                        
-                    case .failure(let error):
-                        strongSelf.errorMessage = error.localizedDescription
-                        strongSelf.stateMachine.tryEvent(.failure)
-                    }
-                },
-                receiveValue: { [weak self] response in
-                    guard let strongSelf = self else { return }
-                    
-                    strongSelf.receivedCode = response.code
-                    strongSelf.stateMachine.tryEvent(.sendingPhoneNumber)
-                })
+                case .failure(let error):
+                    strongSelf.errorMessage = error.localizedDescription
+                    strongSelf.stateMachine.tryEvent(.failure)
+                }
+
+            } receiveValue: { response in
+                print("response: ", response)
+            }
     }
 
     private func sendCode() {
-        loginCancellable = loginService.loginWith(code: pinCode)
+        let endpoint = Endpoints.Phone.login(configuration: networkManager.configuration, phoneNumber: dialString, OTP: pinCode)
+
+        loginCancellable = networkManager.publisher(for: endpoint)
             .receive(on: RunLoop.main)
-            .sink(
-                receiveCompletion: { [weak self] (completion) in
-                    guard let strongSelf = self else { return }
+            .sink { [weak self] completion in
+                guard let strongSelf = self else { return }
+            
+                switch completion {
+                case .finished:
+                    break
                     
-                    switch completion {
-                    case .finished:
-                        break
-                        
-                    case .failure(let error):
-                        strongSelf.errorMessage = error.localizedDescription
-                        strongSelf.stateMachine.tryEvent(.failure)
-                    }
-                },
-                receiveValue: { [weak self] login in
-                    guard let strongSelf = self else { return }
-                    
-                    print("received login: \(login)")
-                    if login.code == strongSelf.receivedCode {
-                        strongSelf.stateMachine.tryEvent(.success)
-                    } else {
-                        strongSelf.errorMessage = "Der eingegebene Code ist falsch!"
-                        strongSelf.stateMachine.tryEvent(.loggingIn)
-                    }
-                })
+                case .failure(let error):
+                    strongSelf.errorMessage = error.localizedDescription
+                    strongSelf.stateMachine.tryEvent(.failure)
+                }
+
+                print("completion: ", completion)
+            
+            } receiveValue: { appUser in
+                if let appUser = appUser {
+                    print("response: ", appUser)
+                } else {
+                    print("no appuser returned ")
+                }
+            }
     }
 }
 
@@ -181,9 +174,7 @@ extension PhoneLoginModel {
     
     func enterState(_ state: StateMachine.State) {
         print("enter state: <\(state)>")
-        if case .waitingForCode = state {
-            //self.canLogin = true
-        }
+
         if case .loggedIn = state {
             self.isLoggingIn = true
         }

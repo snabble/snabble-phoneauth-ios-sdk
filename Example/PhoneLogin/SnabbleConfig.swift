@@ -8,114 +8,111 @@
 
 import Foundation
 
-//import SnabbleCore
-/// General config data for using the snabble.
-/// Applications must call `Snabble.setup(config: completion:)` with an instance of this struct before they make their first API call.
-public struct Config {
-    /// the appID assigned by snabble
-    public let appId: String
-    /// the environment  to use
-    public let environment: Snabble.Environment
-    /// the secrect assigned by snabble, used to retrieve authorization tokens
-    public let secret: String
+import SnabblePhoneAuth
+import SnabbleNetwork
 
-    /// Initialize the configuration for Snabble
-    /// - Parameters:
-    ///   - appId: Provide your personal `appId`
-    ///   - secret: The secret matching your `appId`
-    ///   - environment: Choose an environment you want to use
-    public init(appId: String, secret: String, environment: Snabble.Environment = .production) {
-        self.appId = appId
-        self.environment = environment
-        self.secret = secret
+extension UserDefaults {
+    private enum Keys {
+        static let appUserIdKey = "appUserId"
+        static let appUserSecretKey = "appUserSecret"
+    }
+
+    public class var appUserID: String? {
+        get {
+            UserDefaults.standard.string(forKey: Keys.appUserIdKey)
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: Keys.appUserIdKey)
+            UserDefaults.standard.synchronize()
+        }
+    }
+    public class var appUserSecret: String? {
+        get {
+            UserDefaults.standard.string(forKey: Keys.appUserSecretKey)
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: Keys.appUserSecretKey)
+            UserDefaults.standard.synchronize()
+        }
+    }
+
+    public class var appUser: AppUser? {
+        get {
+            if let userID = appUserID, let secret = appUserSecret {
+                return AppUser(id: userID, secret: secret)
+            }
+            return nil
+        }
+        set {
+            appUserID = newValue?.id
+            appUserSecret = newValue?.secret
+        }
     }
 }
 
 public class Snabble {
     
-    /**
-     * Environment in which the App should work
-     *
-     * Possible values are `testing`, `staging` and `production`.
-     * `production` is the default in the sdk
-     */
-    public enum Environment: String, CaseIterable, Equatable {
-        case testing
-        case staging
-        case production
+    public static var development = Snabble(configuration: .development)
+    public static var staging = Snabble(configuration: .staging)
+    public static var production = Snabble(configuration: .production)
+
+    public let loginManager: PhoneLoginModel
+
+    init(configuration: Configuration) {
+        let networkManager = NetworkManager(configuration: configuration)
+        self.loginManager = PhoneLoginModel(networkManager: networkManager)
         
-        public var urlString: String {
-            switch self {
-            case .testing:
-                return "https://api.snabble-testing.io"
-            case .staging:
-                return "https://api.snabble-staging.io"
-            case .production:
-                return "https://api.snabble.io"
-            }
-        }
-        
-        public var name: String {
-            switch self {
-            case .testing, .staging:
-                return rawValue
-            case .production:
-                return "prod"
-            }
-        }
-        
-        /// Verification for the `appId`
-        ///
-        /// The secret and `appId` can only be used for demo cases
-        public var secret: String {
-            switch self {
-            case .testing:
-                return "BWXJ2BFC2JRKRNW4QBASQCF2TTANPTVPOXQJM57JDIECZJQHZWOQ===="
-            case .staging:
-                return "P3SZXAPPVAZA5JWYXVKFSGGBN4ZV7CKCWJPQDMXSUMNPZ5IPB6NQ===="
-            case .production:
-                return "2TKKEG5KXWY6DFOGTZKDUIBTNIRVCYKFZBY32FFRUUWIUAFEIBHQ===="
-            }
-        }
+        networkManager.authenticator.delegate = self
     }
 }
 
-extension Config {
+extension Snabble: AuthenticatorDelegate {
+    public func authenticator(_ authenticator: SnabbleNetwork.Authenticator, appUserForEnvironment: SnabbleNetwork.Environment) -> SnabbleNetwork.AppUser? {
+        UserDefaults.appUser
+    }
+    
+    public func authenticator(_ authenticator: SnabbleNetwork.Authenticator, projectIdForEnvironment: SnabbleNetwork.Environment) -> String? {
+        "demo"
+    }
+    
+    public func authenticator(_ authenticator: Authenticator, appUserUpdated appUser: AppUser?) {
+        UserDefaults.appUser = appUser
+    }
+}
+
+extension Configuration {
     static var appId: String {
         "snabble-sdk-demo-app-oguh3x"
     }
 
     static var production: Self {
-        let environment: Snabble.Environment = .production
         return .init(
             appId: appId,
-            secret: environment.secret,
-            environment: environment
+            appSecret: "2TKKEG5KXWY6DFOGTZKDUIBTNIRVCYKFZBY32FFRUUWIUAFEIBHQ====",
+            environment: .production
         )
     }
 
     static var staging: Self {
-        let environment: Snabble.Environment = .staging
         return .init(
             appId: appId,
-            secret: environment.secret,
-            environment: environment
+            appSecret: "P3SZXAPPVAZA5JWYXVKFSGGBN4ZV7CKCWJPQDMXSUMNPZ5IPB6NQ====",
+            environment: .staging
         )
     }
 
-    static var testing: Self {
-        let environment: Snabble.Environment = .testing
+    static var development: Self {
         return .init(
             appId: appId,
-            secret: environment.secret,
-            environment: environment
+            appSecret: "BWXJ2BFC2JRKRNW4QBASQCF2TTANPTVPOXQJM57JDIECZJQHZWOQ====",
+            environment: .development
         )
     }
     
-    static func config(for environment: Snabble.Environment) -> Self {
+    static func config(for environment: Environment) -> Self {
         switch environment {
-        case .testing:
-            return Self.testing
+        case .development:
+            return Self.development
         case .staging:
             return Self.staging
         case .production:

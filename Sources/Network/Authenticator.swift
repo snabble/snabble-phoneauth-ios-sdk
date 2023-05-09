@@ -20,7 +20,7 @@ public class Authenticator {
     public let urlSession: URLSession
     public let configuration: Configuration
 
-    weak var delegate: AuthenticatorDelegate?
+    public weak var delegate: AuthenticatorDelegate?
 
     enum Error: Swift.Error {
         case missingAuthenticator
