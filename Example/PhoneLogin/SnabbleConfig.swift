@@ -9,6 +9,7 @@
 import Foundation
 
 import SnabbleNetwork
+import SnabblePhoneAuth
 
 extension UserDefaults {
     private enum Keys {
