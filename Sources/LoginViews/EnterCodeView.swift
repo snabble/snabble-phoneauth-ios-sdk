@@ -8,7 +8,7 @@
 import SwiftUI
 import SnabblePhoneAuth
 
-extension PhoneLoginModel {
+public extension PhoneLoginModel {
     @ViewBuilder
     var messageView: some View {
         if !errorMessage.isEmpty {
@@ -23,7 +23,7 @@ extension PhoneLoginModel {
     }
 }
 
-struct EnterCodeView: View {
+public struct EnterCodeView: View {
     @EnvironmentObject var loginModel: PhoneLoginModel
     
     @FocusState private var enterCode
@@ -42,7 +42,7 @@ struct EnterCodeView: View {
         }
     }
     
-    var body: some View {
+    public var body: some View {
         VStack {
             Form {
                 Section(

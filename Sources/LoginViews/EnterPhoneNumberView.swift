@@ -9,13 +9,13 @@ import Foundation
 import SwiftUI
 import SnabblePhoneAuth
 
-struct EnterPhoneNumberView: View {
+public struct EnterPhoneNumberView: View {
     @State private var isShowingDetailView = false
     @EnvironmentObject var loginModel: PhoneLoginModel
 
     @FocusState private var enterCode
         
-    var body: some View {
+    public var body: some View {
         VStack {
             NavigationLink(destination: EnterCodeView(), isActive: $isShowingDetailView) { EmptyView() }
             

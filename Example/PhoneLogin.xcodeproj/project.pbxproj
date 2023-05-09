@@ -7,38 +7,25 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		768915E02A010BA500C4799A /* SnabblePhoneAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 768915DF2A010BA500C4799A /* SnabblePhoneAuth */; };
-		768915E32A02323400C4799A /* DebugView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 768915E22A02323400C4799A /* DebugView.swift */; };
-		768915E52A024DA600C4799A /* CountDownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 768915E42A024DA600C4799A /* CountDownView.swift */; };
-		768915E72A03B2C900C4799A /* CountryCallingCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 768915E62A03B2C900C4799A /* CountryCallingCodeView.swift */; };
-		768915E92A04EA7200C4799A /* RequestCodeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 768915E82A04EA7200C4799A /* RequestCodeButton.swift */; };
 		7691BA9B2976C3F400477EDD /* PhoneLoginApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7691BA9A2976C3F400477EDD /* PhoneLoginApp.swift */; };
-		7691BA9D2976C3F400477EDD /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7691BA9C2976C3F400477EDD /* ContentView.swift */; };
 		7691BA9F2976C3F500477EDD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7691BA9E2976C3F500477EDD /* Assets.xcassets */; };
 		7691BAA32976C3F500477EDD /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7691BAA22976C3F500477EDD /* Preview Assets.xcassets */; };
-		7691BAAA2977AD1700477EDD /* EnterPhoneNumberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7691BAA92977AD1700477EDD /* EnterPhoneNumberView.swift */; };
-		7691BAAC2977AD2A00477EDD /* EnterCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7691BAAB2977AD2A00477EDD /* EnterCodeView.swift */; };
 		7691BAB02977AD8500477EDD /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7691BAAF2977AD8500477EDD /* Utilities.swift */; };
 		76A9F7202A09272200C162B1 /* SnabbleConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A9F71F2A09272100C162B1 /* SnabbleConfig.swift */; };
+		76A9F7242A0A56DA00C162B1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A9F7232A0A56DA00C162B1 /* ContentView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		763438EA2A01062900C99AD5 /* snabble-phoneauth-ios-sdk */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "snabble-phoneauth-ios-sdk"; path = ..; sourceTree = "<group>"; };
 		768915E12A0129C100C4799A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		768915E22A02323400C4799A /* DebugView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugView.swift; sourceTree = "<group>"; };
-		768915E42A024DA600C4799A /* CountDownView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountDownView.swift; sourceTree = "<group>"; };
-		768915E62A03B2C900C4799A /* CountryCallingCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCallingCodeView.swift; sourceTree = "<group>"; };
-		768915E82A04EA7200C4799A /* RequestCodeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestCodeButton.swift; sourceTree = "<group>"; };
 		7691BA972976C3F400477EDD /* PhoneLogin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhoneLogin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7691BA9A2976C3F400477EDD /* PhoneLoginApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneLoginApp.swift; sourceTree = "<group>"; };
-		7691BA9C2976C3F400477EDD /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		7691BA9E2976C3F500477EDD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7691BAA02976C3F500477EDD /* PhoneLogin.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PhoneLogin.entitlements; sourceTree = "<group>"; };
 		7691BAA22976C3F500477EDD /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		7691BAA92977AD1700477EDD /* EnterPhoneNumberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterPhoneNumberView.swift; sourceTree = "<group>"; };
-		7691BAAB2977AD2A00477EDD /* EnterCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterCodeView.swift; sourceTree = "<group>"; };
 		7691BAAF2977AD8500477EDD /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		76A9F71F2A09272100C162B1 /* SnabbleConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnabbleConfig.swift; sourceTree = "<group>"; };
+		76A9F7222A0A563C00C162B1 /* snabble-phoneauth-ios-sdk */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "snabble-phoneauth-ios-sdk"; path = ..; sourceTree = "<group>"; };
+		76A9F7232A0A56DA00C162B1 /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,31 +33,16 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				768915E02A010BA500C4799A /* SnabblePhoneAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		763438E92A01062900C99AD5 /* Packages */ = {
-			isa = PBXGroup;
-			children = (
-				763438EA2A01062900C99AD5 /* snabble-phoneauth-ios-sdk */,
-			);
-			name = Packages;
-			sourceTree = "<group>";
-		};
 		763438EC2A01079B00C99AD5 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				7691BA9C2976C3F400477EDD /* ContentView.swift */,
-				7691BAAB2977AD2A00477EDD /* EnterCodeView.swift */,
-				768915E82A04EA7200C4799A /* RequestCodeButton.swift */,
-				7691BAA92977AD1700477EDD /* EnterPhoneNumberView.swift */,
-				768915E62A03B2C900C4799A /* CountryCallingCodeView.swift */,
-				768915E42A024DA600C4799A /* CountDownView.swift */,
-				768915E22A02323400C4799A /* DebugView.swift */,
+				76A9F7232A0A56DA00C162B1 /* ContentView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -85,7 +57,7 @@
 		7691BA8E2976C3F400477EDD = {
 			isa = PBXGroup;
 			children = (
-				763438E92A01062900C99AD5 /* Packages */,
+				76A9F7212A0A563C00C162B1 /* Packages */,
 				7691BA992976C3F400477EDD /* PhoneLogin */,
 				7691BA982976C3F400477EDD /* Products */,
 				768915DE2A010BA500C4799A /* Frameworks */,
@@ -123,6 +95,14 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		76A9F7212A0A563C00C162B1 /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				76A9F7222A0A563C00C162B1 /* snabble-phoneauth-ios-sdk */,
+			);
+			name = Packages;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -140,7 +120,6 @@
 			);
 			name = PhoneLogin;
 			packageProductDependencies = (
-				768915DF2A010BA500C4799A /* SnabblePhoneAuth */,
 			);
 			productName = PhoneLogin;
 			productReference = 7691BA972976C3F400477EDD /* PhoneLogin.app */;
@@ -198,16 +177,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				768915E92A04EA7200C4799A /* RequestCodeButton.swift in Sources */,
 				76A9F7202A09272200C162B1 /* SnabbleConfig.swift in Sources */,
 				7691BAB02977AD8500477EDD /* Utilities.swift in Sources */,
-				7691BA9D2976C3F400477EDD /* ContentView.swift in Sources */,
-				768915E52A024DA600C4799A /* CountDownView.swift in Sources */,
-				768915E72A03B2C900C4799A /* CountryCallingCodeView.swift in Sources */,
+				76A9F7242A0A56DA00C162B1 /* ContentView.swift in Sources */,
 				7691BA9B2976C3F400477EDD /* PhoneLoginApp.swift in Sources */,
-				768915E32A02323400C4799A /* DebugView.swift in Sources */,
-				7691BAAC2977AD2A00477EDD /* EnterCodeView.swift in Sources */,
-				7691BAAA2977AD1700477EDD /* EnterPhoneNumberView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -423,13 +396,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		768915DF2A010BA500C4799A /* SnabblePhoneAuth */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = SnabblePhoneAuth;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 7691BA8F2976C3F400477EDD /* Project object */;
 }

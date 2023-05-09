@@ -8,7 +8,7 @@
 import SwiftUI
 import SnabblePhoneAuth
 
-extension PhoneLoginModel {
+public extension PhoneLoginModel {
 
     @ViewBuilder
     var progressView: some View {
@@ -19,13 +19,13 @@ extension PhoneLoginModel {
     }
 }
 
-struct RequestCodeButton: View {
-    var firstStep = true
+public struct RequestCodeButton: View {
+    public var firstStep = true
     
     @State private var showCountdown: Bool = false
     @EnvironmentObject var loginModel: PhoneLoginModel
 
-    var body: some View {
+    public var body: some View {
         Button(action: {
             loginModel.sendPhoneNumber()
         }) {

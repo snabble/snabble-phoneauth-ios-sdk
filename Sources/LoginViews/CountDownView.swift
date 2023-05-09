@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct CountDownButtonBackground: View {
+public struct CountDownButtonBackground: View {
     let from: Date
     let to: Date
     let handler: () -> Void
@@ -18,7 +18,7 @@ struct CountDownButtonBackground: View {
         self.handler = completion
     }
 
-    var body: some View {
+    public var body: some View {
         TimelineView(.animation(minimumInterval: 1 / 20)) { _ in
             Canvas { context, size in
                 let interval = to.timeIntervalSinceReferenceDate - from.timeIntervalSinceReferenceDate
