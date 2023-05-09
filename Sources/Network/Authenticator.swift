@@ -11,9 +11,9 @@ import Combine
 
 public protocol AuthenticatorDelegate: AnyObject {
     func authenticator(_ authenticator: Authenticator, appUserForEnvironment: Environment) -> AppUser?
-    func authenticator(_ authenticator: Authenticator, appUserUpdated appUser: AppUser?)
+    func authenticator(_ authenticator: Authenticator, appUserUpdated appUser: AppUser)
 
-    func authenticator(_ authenticator: Authenticator, projectIdForEnvironment: Environment) -> String?
+    func authenticator(_ authenticator: Authenticator, projectIdForEnvironment: Environment) -> String
 }
 
 public class Authenticator {
