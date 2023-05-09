@@ -67,16 +67,16 @@ public class Snabble {
 }
 
 extension Snabble: AuthenticatorDelegate {
-    public func authenticator(_ authenticator: SnabbleNetwork.Authenticator, appUserForEnvironment: SnabbleNetwork.Environment) -> SnabbleNetwork.AppUser? {
-        UserDefaults.appUser
+    public func authenticator(_ authenticator: SnabbleNetwork.Authenticator, appUserUpdated appUser: SnabbleNetwork.AppUser) {
+        UserDefaults.appUser = appUser
     }
     
-    public func authenticator(_ authenticator: SnabbleNetwork.Authenticator, projectIdForEnvironment: SnabbleNetwork.Environment) -> String? {
+    public func authenticator(_ authenticator: SnabbleNetwork.Authenticator, projectIdForEnvironment: SnabbleNetwork.Environment) -> String {
         "demo"
     }
     
-    public func authenticator(_ authenticator: Authenticator, appUserUpdated appUser: AppUser?) {
-        UserDefaults.appUser = appUser
+    public func authenticator(_ authenticator: SnabbleNetwork.Authenticator, appUserForEnvironment: SnabbleNetwork.Environment) -> SnabbleNetwork.AppUser? {
+        UserDefaults.appUser
     }
 }
 

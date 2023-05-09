@@ -160,12 +160,8 @@ extension PhoneLoginModel {
 
                 print("completion: ", completion)
             
-            } receiveValue: { appUser in
-                if let appUser = appUser {
-                    print("response: ", appUser)
-                } else {
-                    print("no appuser returned ")
-                }
+            } receiveValue: { response in
+                print("response: ", response)
             }
     }
 }
