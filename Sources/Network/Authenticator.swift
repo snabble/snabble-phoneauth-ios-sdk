@@ -10,15 +10,14 @@ import Dispatch
 import Combine
 
 public protocol AuthenticatorDelegate: AnyObject {
-    func authenticator(_ authenticator: Authenticator, appUserForEnvironment environment: Environment) -> AppUser?
+    func authenticator(_ authenticator: Authenticator, appUserForConfiguration configuration: Configuration) -> AppUser?
     func authenticator(_ authenticator: Authenticator, appUserUpdated appUser: AppUser)
 
-    func authenticator(_ authenticator: Authenticator, projectIdForEnvironment environment: Environment) -> String
+    func authenticator(_ authenticator: Authenticator, projectIdForConfiguration configuration: Configuration) -> String
 }
 
 public class Authenticator {
     public let urlSession: URLSession
-    public let configuration: Configuration
 
     weak var delegate: AuthenticatorDelegate?
 
@@ -33,8 +32,7 @@ public class Authenticator {
 
     private var refreshPublisher: AnyPublisher<Token, Swift.Error>?
 
-    init(configuration: Configuration, urlSession: URLSession) {
-        self.configuration = configuration
+    init(urlSession: URLSession) {
         self.urlSession = urlSession
     }
 
@@ -42,9 +40,9 @@ public class Authenticator {
         token = nil
     }
 
-    private func validateAppUser(onEnvironment environment: Environment = .production) -> AnyPublisher<AppUser, Swift.Error> {
+    private func validateAppUser(withConfiguration configuration: Configuration) -> AnyPublisher<AppUser, Swift.Error> {
         // scenario 1: app instance is registered
-        if let appUser = delegate?.authenticator(self, appUserForEnvironment: environment) {
+        if let appUser = delegate?.authenticator(self, appUserForConfiguration: configuration) {
             return Just(appUser)
                 .setFailureType(to: Swift.Error.self)
                 .eraseToAnyPublisher()
@@ -65,15 +63,14 @@ public class Authenticator {
     }
 
     func validToken(
-        forceRefresh: Bool = false,
-        onEnvironment environment: Environment = .production
+        withConfiguration configuration: Configuration,
+        forceRefresh: Bool = false
     ) -> AnyPublisher<Token, Swift.Error> {
         return queue.sync { [weak self] in
             guard let self = self else {
                 return Fail(error: Error.missingAuthenticator)
                     .eraseToAnyPublisher()
             }
-
             // scenario 1: we're already loading a new token
             if let publisher = self.refreshPublisher {
                 return publisher
@@ -87,18 +84,17 @@ public class Authenticator {
             }
 
             // scenario 3: we need a new token
-            guard let projectId = delegate?.authenticator(self, projectIdForEnvironment: environment) else {
-                return Fail<Token, Swift.Error>(error: Error.missingProject)
+            guard let projectId = self.delegate?.authenticator(self, projectIdForConfiguration: configuration) else {
+                return Fail(error: Error.missingProject)
                     .eraseToAnyPublisher()
             }
 
-            let publisher = self.validateAppUser(onEnvironment: environment)
+            let publisher = self.validateAppUser(withConfiguration: configuration)
                 .map { appUser -> Endpoint<Token> in
                     return Endpoints.Token.get(
-                        configuration: self.configuration,
+                        configuration: configuration,
                         appUser: appUser,
-                        projectId: projectId,
-                        onEnvironment: environment
+                        projectId: projectId
                     )
                 }
                 .tryMap { tokenEndpoint -> (URLSession, Endpoint<Token>) in
@@ -106,9 +102,8 @@ public class Authenticator {
                 }
                 .mapError { HTTPError.unexpected($0) }
                 .flatMap { urlSession, endpoint in
-                    return urlSession.dataTaskPublisher(for: endpoint)
+                    return urlSession.dataTaskPublisher(for: endpoint).share()
                 }
-                .share()
                 .handleEvents(receiveOutput: { token in
                     self.token = token
                 }, receiveCompletion: { _ in

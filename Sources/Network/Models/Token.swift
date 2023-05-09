@@ -20,14 +20,6 @@ public struct Token: Codable {
         case expiresAt
     }
 
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.id = try container.decode(String.self, forKey: .id)
-        self.value = try container.decode(String.self, forKey: .value)
-        self.issuedAt = try container.decode(Date.self, forKey: .issuedAt)
-        self.expiresAt = try container.decode(Date.self, forKey: .expiresAt)
-    }
-
     public enum Scope: String {
         case retailerApp
         case paymentSystem

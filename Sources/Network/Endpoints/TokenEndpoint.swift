@@ -14,15 +14,14 @@ extension Endpoints {
             configuration: Configuration,
             appUser: SnabbleNetwork.AppUser,
             projectId: String,
-            role: SnabbleNetwork.Token.Scope = .retailerApp,
-            onEnvironment environment: Environment = .production
+            role: SnabbleNetwork.Token.Scope = .retailerApp
         ) -> Endpoint<SnabbleNetwork.Token> {
             var endpoint: Endpoint<SnabbleNetwork.Token> =  .init(path: "/tokens",
                                                                   method: .get([
                                                                     .init(name: "project", value: projectId),
                                                                     .init(name: "role", value: role.rawValue)
                                                                   ]),
-                                                                  environment: environment)
+                                                                  configuration: configuration)
             if let authorization = authorization(withConfiguration: configuration, appUser: appUser) {
                 endpoint.headerFields = ["Authorization": "Basic \(authorization)"]
             }

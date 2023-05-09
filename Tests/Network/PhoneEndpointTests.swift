@@ -19,9 +19,9 @@ final class PhoneEndpointTests: XCTestCase {
             let configuration = Configuration(
                 appId: "demo-app-me0eeK",
                 appSecret: "UTXSZZTN6PEA5QHAY5JBVPUSIRNQGEZADHFUBBGZQMOCC7RNGDSA====",
-                environment: .development
+                environment: .testing
             )
-            let networkManager = NetworkManager(configuration: configuration)
+            let networkManager = NetworkManager()
             networkManager.authenticator.delegate = self
 
             let endpoint = Endpoints.Phone.auth(configuration: configuration, phoneNumber: "+4915119695415")
@@ -46,15 +46,15 @@ final class PhoneEndpointTests: XCTestCase {
 }
 
 extension PhoneEndpointTests: AuthenticatorDelegate {
-    func authenticator(_ authenticator: SnabbleNetwork.Authenticator, projectIdForEnvironment environment: SnabbleNetwork.Environment) -> String {
+    func authenticator(_ authenticator: SnabbleNetwork.Authenticator, appUserForConfiguration configuration: SnabbleNetwork.Configuration) -> SnabbleNetwork.AppUser? {
+        appUser
+    }
+
+    func authenticator(_ authenticator: SnabbleNetwork.Authenticator, projectIdForConfiguration configuration: SnabbleNetwork.Configuration) -> String {
         "demo"
     }
 
     func authenticator(_ authenticator: SnabbleNetwork.Authenticator, appUserUpdated appUser: SnabbleNetwork.AppUser) {
         self.appUser = appUser
-    }
-
-    func authenticator(_ authenticator: Authenticator, appUserForEnvironment environment: Environment) -> AppUser? {
-        appUser
     }
 }

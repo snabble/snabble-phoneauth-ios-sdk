@@ -8,7 +8,7 @@
 import Foundation
 
 public enum Environment {
-    case development
+    case testing
     case staging
     case production
 
@@ -20,7 +20,7 @@ public enum Environment {
 
     var baseURL: URL {
         switch self {
-        case .development:
+        case .testing:
             return "https://api.snabble-testing.io"
         case .staging:
             return "https://api.snabble-staging.io"
