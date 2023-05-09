@@ -32,11 +32,7 @@ public struct EnterCodeView: View {
     var header: some View {
         HStack {
             Spacer()
-            VStack {
-                Text("Wir haben dir einen Code an")
-                Text("\(loginModel.phoneNumberPrettyPrint) gesendet.")
-                Text("Bitte gib den Code ein.\n")
-            }
+            Text("Wir haben dir einen Code an\n\(loginModel.phoneNumberPrettyPrint) gesendet.\nBitte gib den Code ein.\n")
             .multilineTextAlignment(.center)
             Spacer()
         }
@@ -48,8 +44,7 @@ public struct EnterCodeView: View {
                 Section(
                     header: header,
                     footer: loginModel.messageView,
-                    content:
-                        {
+                    content: {
                             VStack {
                                 TextField("Pin-Code", text: $loginModel.pinCode)
                                     .keyboardType(.decimalPad)
@@ -87,4 +82,3 @@ public struct EnterCodeView: View {
         .navigationTitle("Code eingeben")
     }
 }
-

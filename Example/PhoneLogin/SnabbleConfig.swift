@@ -8,7 +8,6 @@
 
 import Foundation
 
-import SnabblePhoneAuth
 import SnabbleNetwork
 
 extension UserDefaults {

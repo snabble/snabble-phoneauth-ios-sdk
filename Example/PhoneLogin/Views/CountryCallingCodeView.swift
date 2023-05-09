@@ -73,11 +73,3 @@ public struct CountryCallingCodeRow: View {
             }
     }
 }
-
-struct CountryCallingCodeView_Previews: PreviewProvider {
-    static var previews: some View {
-        let loginModel = Snabble.development.loginManager
-
-        CountryCallingCodeView(country: CountryCallingCodes.defaultCountry).environmentObject(loginModel)
-    }
-}

@@ -23,7 +23,7 @@ public struct EnterPhoneNumberView: View {
                 Section(
                     content: {
                         VStack {
-                            HStack{
+                            HStack {
                                 CountryCallingCodeView(country: loginModel.country)
                                 
                                 TextField("Handynummer", text: $loginModel.phoneNumber)

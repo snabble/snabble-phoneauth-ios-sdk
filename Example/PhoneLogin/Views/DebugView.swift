@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 import Combine
+
 import SnabblePhoneAuth
 
 enum DebugConfig {
@@ -44,11 +45,10 @@ struct DebugView: View {
                 .font(.custom("Menlo", size: 13))
             }
         }
-        .frame(minHeight:12, maxHeight: 200)
+        .frame(minHeight: 12, maxHeight: 200)
     }
     
     var body: some View {
         logsView
     }
 }
-

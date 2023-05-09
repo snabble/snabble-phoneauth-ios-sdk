@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+
 import SnabblePhoneAuth
 
 public extension PhoneLoginModel {
@@ -45,7 +46,7 @@ public struct RequestCodeButton: View {
                 startCountdown()
             }
         }
-        .onChange(of: loginModel.receivedCode) { newCode in
+        .onChange(of: loginModel.receivedCode) { _ in
             startCountdown()
         }
         .onChange(of: loginModel.state) { newState in
@@ -61,17 +62,6 @@ public struct RequestCodeButton: View {
         }
         withAnimation {
             showCountdown = true
-        }
-    }
-}
-
-struct RequestCodeButton_Previews: PreviewProvider {
-    static let model = Snabble.development.loginManager
-    
-    static var previews: some View {
-        VStack {
-            RequestCodeButton(firstStep: true).environmentObject(model)
-            RequestCodeButton(firstStep: false).environmentObject(model)
         }
     }
 }
