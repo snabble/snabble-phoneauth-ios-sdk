@@ -134,6 +134,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				E17225432A0BB6A000377187 /* PBXTargetDependency */,
 			);
 			name = PhoneLogin;
 			packageProductDependencies = (
@@ -151,7 +152,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1420;
-				LastUpgradeCheck = 1420;
+				LastUpgradeCheck = 1430;
 				TargetAttributes = {
 					7691BA962976C3F400477EDD = {
 						CreatedOnToolsVersion = 14.2;
@@ -168,6 +169,7 @@
 			);
 			mainGroup = 7691BA8E2976C3F400477EDD;
 			packageReferences = (
+				E17225412A0BB69500377187 /* XCRemoteSwiftPackageReference "SwiftLint" */,
 			);
 			productRefGroup = 7691BA982976C3F400477EDD /* Products */;
 			projectDirPath = "";
@@ -209,6 +211,13 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		E17225432A0BB6A000377187 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = E17225422A0BB6A000377187 /* SwiftLintPlugin */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
 		7691BAA42976C3F500477EDD /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -243,6 +252,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -301,6 +311,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -327,6 +338,7 @@
 				CODE_SIGN_ENTITLEMENTS = PhoneLogin/PhoneLogin.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"PhoneLogin/Preview Content\"";
 				DEVELOPMENT_TEAM = 53K7JS449L;
 				ENABLE_HARDENED_RUNTIME = NO;
@@ -366,6 +378,7 @@
 				CODE_SIGN_ENTITLEMENTS = PhoneLogin/PhoneLogin.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"PhoneLogin/Preview Content\"";
 				DEVELOPMENT_TEAM = 53K7JS449L;
 				ENABLE_HARDENED_RUNTIME = NO;
@@ -420,10 +433,25 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		E17225412A0BB69500377187 /* XCRemoteSwiftPackageReference "SwiftLint" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/SwiftLint.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.51.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
 		768915DF2A010BA500C4799A /* SnabblePhoneAuth */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = SnabblePhoneAuth;
+		};
+		E17225422A0BB6A000377187 /* SwiftLintPlugin */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = "plugin:SwiftLintPlugin";
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

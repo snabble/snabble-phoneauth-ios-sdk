@@ -25,7 +25,9 @@ let package = Package(
             name: "SnabblePhoneAuth",
             dependencies: [],
             path: "Sources/Core",
-            plugins: [.plugin(name: "SwiftLintPlugin", package: "SwiftLint")]
+            plugins: [
+                .plugin(name: "SwiftLintPlugin", package: "SwiftLint")
+            ]
         ),
         .testTarget(
             name: "SnabblePhoneAuthTests",

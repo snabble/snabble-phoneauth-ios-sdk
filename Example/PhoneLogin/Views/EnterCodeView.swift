@@ -48,8 +48,7 @@ struct EnterCodeView: View {
                 Section(
                     header: header,
                     footer: loginModel.messageView,
-                    content:
-                        {
+                    content: {
                             VStack {
                                 TextField("Pin-Code", text: $loginModel.pinCode)
                                     .keyboardType(.decimalPad)
@@ -87,4 +86,3 @@ struct EnterCodeView: View {
         .navigationTitle("Code eingeben")
     }
 }
-
