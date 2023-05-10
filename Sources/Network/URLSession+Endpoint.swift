@@ -42,7 +42,19 @@ extension URLSession {
         return dataTaskPublisher(for: urlRequest)
             .tryVerifyResponse()
             .map(\.data)
-            .decode(type: Response.self, decoder: endpoint.jsonDecoder)
+            .tryMap { data in
+                do {
+                    return try endpoint.jsonDecoder.decode(Response.self, from: data)
+                } catch {
+                    if case DecodingError.dataCorrupted(_) = error, data.isEmpty {
+                        guard let response = NoContent() as? Response else {
+                            throw error
+                        }
+                        return response
+                    }
+                    throw error
+                }
+            }
             .eraseToAnyPublisher()
     }
 }
