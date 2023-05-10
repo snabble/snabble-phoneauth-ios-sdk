@@ -19,7 +19,18 @@
 		7691BAAA2977AD1700477EDD /* EnterPhoneNumberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7691BAA92977AD1700477EDD /* EnterPhoneNumberView.swift */; };
 		7691BAAC2977AD2A00477EDD /* EnterCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7691BAAB2977AD2A00477EDD /* EnterCodeView.swift */; };
 		7691BAB02977AD8500477EDD /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7691BAAF2977AD8500477EDD /* Utilities.swift */; };
+		E172254B2A0BB8A900377187 /* PhoneLoginTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E172254A2A0BB8A900377187 /* PhoneLoginTests.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		E172254C2A0BB8A900377187 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7691BA8F2976C3F400477EDD /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7691BA962976C3F400477EDD;
+			remoteInfo = PhoneLogin;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		763438EA2A01062900C99AD5 /* snabble-phoneauth-ios-sdk */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "snabble-phoneauth-ios-sdk"; path = ..; sourceTree = "<group>"; };
@@ -37,6 +48,8 @@
 		7691BAA92977AD1700477EDD /* EnterPhoneNumberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterPhoneNumberView.swift; sourceTree = "<group>"; };
 		7691BAAB2977AD2A00477EDD /* EnterCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterCodeView.swift; sourceTree = "<group>"; };
 		7691BAAF2977AD8500477EDD /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		E17225482A0BB8A900377187 /* PhoneLoginTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PhoneLoginTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E172254A2A0BB8A900377187 /* PhoneLoginTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneLoginTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,6 +58,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				768915E02A010BA500C4799A /* SnabblePhoneAuth in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E17225452A0BB8A900377187 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -85,6 +105,7 @@
 			children = (
 				763438E92A01062900C99AD5 /* Packages */,
 				7691BA992976C3F400477EDD /* PhoneLogin */,
+				E17225492A0BB8A900377187 /* PhoneLoginTests */,
 				7691BA982976C3F400477EDD /* Products */,
 				768915DE2A010BA500C4799A /* Frameworks */,
 			);
@@ -94,6 +115,7 @@
 			isa = PBXGroup;
 			children = (
 				7691BA972976C3F400477EDD /* PhoneLogin.app */,
+				E17225482A0BB8A900377187 /* PhoneLoginTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -120,6 +142,14 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		E17225492A0BB8A900377187 /* PhoneLoginTests */ = {
+			isa = PBXGroup;
+			children = (
+				E172254A2A0BB8A900377187 /* PhoneLoginTests.swift */,
+			);
+			path = PhoneLoginTests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -144,6 +174,24 @@
 			productReference = 7691BA972976C3F400477EDD /* PhoneLogin.app */;
 			productType = "com.apple.product-type.application";
 		};
+		E17225472A0BB8A900377187 /* PhoneLoginTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E17225502A0BB8A900377187 /* Build configuration list for PBXNativeTarget "PhoneLoginTests" */;
+			buildPhases = (
+				E17225442A0BB8A900377187 /* Sources */,
+				E17225452A0BB8A900377187 /* Frameworks */,
+				E17225462A0BB8A900377187 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E172254D2A0BB8A900377187 /* PBXTargetDependency */,
+			);
+			name = PhoneLoginTests;
+			productName = PhoneLoginTests;
+			productReference = E17225482A0BB8A900377187 /* PhoneLoginTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -151,11 +199,15 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1420;
+				LastSwiftUpdateCheck = 1430;
 				LastUpgradeCheck = 1430;
 				TargetAttributes = {
 					7691BA962976C3F400477EDD = {
 						CreatedOnToolsVersion = 14.2;
+					};
+					E17225472A0BB8A900377187 = {
+						CreatedOnToolsVersion = 14.3;
+						TestTargetID = 7691BA962976C3F400477EDD;
 					};
 				};
 			};
@@ -176,6 +228,7 @@
 			projectRoot = "";
 			targets = (
 				7691BA962976C3F400477EDD /* PhoneLogin */,
+				E17225472A0BB8A900377187 /* PhoneLoginTests */,
 			);
 		};
 /* End PBXProject section */
@@ -187,6 +240,13 @@
 			files = (
 				7691BAA32976C3F500477EDD /* Preview Assets.xcassets in Resources */,
 				7691BA9F2976C3F500477EDD /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E17225462A0BB8A900377187 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -209,12 +269,25 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E17225442A0BB8A900377187 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E172254B2A0BB8A900377187 /* PhoneLoginTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
 		E17225432A0BB6A000377187 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			productRef = E17225422A0BB6A000377187 /* SwiftLintPlugin */;
+		};
+		E172254D2A0BB8A900377187 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7691BA962976C3F400477EDD /* PhoneLogin */;
+			targetProxy = E172254C2A0BB8A900377187 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -410,6 +483,47 @@
 			};
 			name = Release;
 		};
+		E172254E2A0BB8A900377187 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 53K7JS449L;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = io.snabble.PhoneLoginTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PhoneLogin.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/PhoneLogin";
+			};
+			name = Debug;
+		};
+		E172254F2A0BB8A900377187 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 53K7JS449L;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = io.snabble.PhoneLoginTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PhoneLogin.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/PhoneLogin";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -427,6 +541,15 @@
 			buildConfigurations = (
 				7691BAA72976C3F500477EDD /* Debug */,
 				7691BAA82976C3F500477EDD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E17225502A0BB8A900377187 /* Build configuration list for PBXNativeTarget "PhoneLoginTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E172254E2A0BB8A900377187 /* Debug */,
+				E172254F2A0BB8A900377187 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
