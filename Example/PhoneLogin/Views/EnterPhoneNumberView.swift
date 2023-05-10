@@ -49,7 +49,7 @@ public struct EnterPhoneNumberView: View {
             .onAppear {
                 enterCode = true
             }
-            DebugView(debugConfig: .logs)
+            DebugView()
         }
         .padding()
         .navigationTitle("Telefon-Login")

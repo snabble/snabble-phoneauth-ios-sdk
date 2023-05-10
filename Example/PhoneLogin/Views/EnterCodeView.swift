@@ -76,7 +76,7 @@ public struct EnterCodeView: View {
                     enterCode = true
                 }
             }
-            DebugView(debugConfig: .logs)
+            DebugView()
         }
         .padding()
         .navigationTitle("Code eingeben")

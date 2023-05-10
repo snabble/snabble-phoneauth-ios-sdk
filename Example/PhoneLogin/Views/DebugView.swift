@@ -11,16 +11,27 @@ import Combine
 
 import SnabblePhoneAuth
 
-enum DebugConfig {
-    case hidden
-    case logs
-    case toogles
-    case logsAndToggles
+extension LogAction {
+    var view: some View {
+        HStack {
+            Text(timeStamp.formatted(date: .omitted, time: .standard))
+                .foregroundColor(.secondary)
+            HStack {
+                Text(action)
+                    .fontWeight(.bold)
+                
+                if !info.isEmpty {
+                    Text(info)
+                        .foregroundColor(action.hasPrefix("enter") ? .green : (action.hasPrefix("leave") ? .red : .primary))
+                }
+                Spacer()
+            }
+        }
+            .font(.custom("Menlo", size: 11))
+    }
 }
 
-struct DebugView: View {
-    let debugConfig: DebugConfig
-    
+struct DebugView: View {    
     @EnvironmentObject var loginModel: PhoneLoginModel
     @StateObject var logger = ActionLogger.shared
     
@@ -29,21 +40,7 @@ struct DebugView: View {
         if loginModel.logActions {
             ScrollView(.vertical) {
                 ForEach(logger.logs, id: \.id) { log in
-                    HStack {
-                        Text(log.timeStamp.formatted(date: .omitted, time: .standard))
-                            .font(.footnote)
-                            .foregroundColor(.secondary)
-                        
-                        Text(log.action)
-                            .fontWeight(.bold)
-                        
-                        if !log.info.isEmpty {
-                            Text(log.info)
-                                .foregroundColor(log.action.hasPrefix("enter") ? .green : (log.action.hasPrefix("leave") ? .red : .primary))
-                        }
-                        Spacer()
-                    }
-                    .font(.custom("Menlo", size: 13))
+                    log.view
                 }
             }
             .frame(minHeight: 12, maxHeight: 100)
