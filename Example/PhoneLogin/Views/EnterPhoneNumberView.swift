@@ -10,11 +10,11 @@ import SwiftUI
 import SnabblePhoneAuth
 
 public struct EnterPhoneNumberView: View {
-    @State private var isShowingDetailView = false
+    @State var isShowingDetailView = false
     @EnvironmentObject var loginModel: PhoneLoginModel
 
     @FocusState private var enterCode
-        
+    
     public var body: some View {
         VStack {
             NavigationLink(destination: EnterCodeView(), isActive: $isShowingDetailView) { EmptyView() }
@@ -43,12 +43,16 @@ public struct EnterPhoneNumberView: View {
                 )
                 .textCase(nil)
             }
-            .onChange(of: loginModel.receivedCode) { newCode in
-                isShowingDetailView = !newCode.isEmpty
+            .onChange(of: loginModel.state) { newState in
+                isShowingDetailView = (newState == .waitingForCode)
             }
-            .onAppear {
-                enterCode = true
-            }
+//            .onAppear {
+//                if loginModel.state == .waitingForCode {
+//                    isShowingDetailView = true
+//                } else {
+//                    enterCode = true
+//                }
+//            }
             DebugView()
         }
         .padding()

@@ -31,12 +31,19 @@ struct LoggedInView: View {
 struct ContentView: View {
     @EnvironmentObject var loginModel: PhoneLoginModel
     
+    var hasPhoneNumber: Bool {
+        guard let number = UserDefaults.phoneNumber else {
+            return false
+        }
+        return !number.isEmpty
+    }
+    
     var body: some View {
         NavigationView {
             if loginModel.state == .loggedIn {
                 LoggedInView()
             } else {
-                EnterPhoneNumberView()
+                EnterPhoneNumberView(isShowingDetailView: hasPhoneNumber)
             }
         }
     }

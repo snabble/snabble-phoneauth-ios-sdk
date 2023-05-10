@@ -14,11 +14,6 @@ public extension PhoneLoginModel {
         if !errorMessage.isEmpty {
             Text(errorMessage)
                 .foregroundColor(.red)
-        } else {
-            if !receivedCode.isEmpty {
-                Text("Server hat folgenden Code geschickt \"\(receivedCode)\"")
-                    .foregroundColor(.green)
-            }
         }
     }
 }
@@ -55,11 +50,15 @@ public struct EnterCodeView: View {
                                     loginModel.loginWithCode(loginModel.pinCode)
                                 }) {
                                     HStack {
-                                        Text("Anmelden")
-                                            .fontWeight(.bold)
-                                            .opacity(loginModel.canLogin ? 1.0 : 0.5)
-                                        
-                                        loginModel.progressView
+                                        Spacer(minLength: 0)
+                                        HStack {
+                                            Text("Anmelden")
+                                                .fontWeight(.bold)
+                                                .opacity(loginModel.canLogin ? 1.0 : 0.5)
+                                            
+                                            loginModel.progressView
+                                        }
+                                        Spacer(minLength: 0)
                                     }
                                 }
                                 .buttonStyle(AccentButtonStyle(disabled: !loginModel.canLogin))
@@ -72,7 +71,7 @@ public struct EnterCodeView: View {
                 .textCase(nil)
             }
             .onAppear {
-                if !loginModel.receivedCode.isEmpty {
+                if loginModel.state == .waitingForCode {
                     enterCode = true
                 }
             }

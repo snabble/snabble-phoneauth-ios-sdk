@@ -9,6 +9,22 @@ import Foundation
 import Combine
 import SnabbleNetwork
 
+extension UserDefaults {
+    private enum Keys {
+        static let phoneNumber = "phoneNumber"
+    }
+
+    public class var phoneNumber: String? {
+        get {
+            UserDefaults.standard.string(forKey: Keys.phoneNumber)
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: Keys.phoneNumber)
+            UserDefaults.standard.synchronize()
+        }
+    }
+}
+
 public class PhoneLoginModel: ObservableObject {
     
     private let stateMachine: StateMachine
@@ -26,7 +42,7 @@ public class PhoneLoginModel: ObservableObject {
     
     @Published public var phoneNumber: String = ""
     
-    @Published public var receivedCode: String = ""
+//    @Published public var receivedCode: String = ""
     
     @Published public var isLoggingIn: Bool = false
     @Published public var errorMessage: String = "" {
@@ -52,20 +68,30 @@ public class PhoneLoginModel: ObservableObject {
         return networkManager.authenticator
     }
     
-    public init(configuration: Configuration, stateMachine: StateMachine = StateMachine(state: .start), logActions: Bool? = nil) {
+    public init(configuration: Configuration, logActions: Bool? = nil) {
         self.country = CountryCallingCodes.defaultCountry
         
         if let savedCountry = UserDefaults.selectedCountry, let country = CountryCallingCodes.country(for: savedCountry) {
             self.country = country
         }
-        self.stateMachine = stateMachine
         self.configuration = configuration
         self.networkManager = NetworkManager()
 
         if let flag = logActions {
             self.logActions = flag
         }
+        
+        let stateMachine: StateMachine
+        
+        if let number = UserDefaults.phoneNumber, !number.isEmpty {
+            phoneNumber = number
+            stateMachine = StateMachine(state: .waitingForCode)
+        } else {
+            stateMachine = StateMachine(state: .start)
+        }
+        self.stateMachine = stateMachine
         self.state = stateMachine.state
+        
         self.stateCancellable = stateMachine.statePublisher.sink { state in
             self.state = state
         }
@@ -79,18 +105,31 @@ public class PhoneLoginModel: ObservableObject {
     }
     
     public var canLogin: Bool {
-        guard pinCode.count == 4 else {
+        guard pinCode.count == 6 else {
             return false
         }
         return state == .error || state == .waitingForCode
     }
     
-    var timeStamp: Date?
+    @Published
+    public var timeStamp: Date? {
+        didSet {
+            DispatchQueue.main.async {
+                self.objectWillChange.send()
+            }
+        }
+    }
     
     public var canRequestCode: Bool {
         if canSendPhoneNumber {
-            if let timestamp = timeStamp, timestamp + 30 < .now {
-                return false
+            if let timestamp = timeStamp {
+                if timestamp + 30 < .now {
+                    return false
+                } else {
+                    DispatchQueue.main.async {
+                        self.timeStamp = nil
+                    }
+                }
             }
             return true
         } else {
@@ -127,7 +166,7 @@ extension PhoneLoginModel {
         pinCode = string
 
         if logActions {
-            ActionLogger.shared.add(log: LogAction(action: "request code for", info: "\(pinCode)"))
+            ActionLogger.shared.add(log: LogAction(action: "Login with OTP", info: "\(pinCode)"))
         }
         stateMachine.tryEvent(.loggingIn)
     }
@@ -154,15 +193,14 @@ extension PhoneLoginModel {
 
                 switch completion {
                 case .finished:
-                    break
+                    strongSelf.stateMachine.tryEvent(.sendingPhoneNumber)
                     
                 case .failure(let error):
                     strongSelf.errorMessage = error.localizedDescription
                     strongSelf.stateMachine.tryEvent(.failure)
                 }
 
-            } receiveValue: { response in
-                print("response: ", response)
+            } receiveValue: { _ in
             }
     }
 
@@ -212,6 +250,7 @@ extension PhoneLoginModel {
             self.isLoggingIn = true
         }
         if case .waitingForCode = state {
+            UserDefaults.phoneNumber = self.phoneNumber
             self.timeStamp = .now
         }
         if case .error = state {

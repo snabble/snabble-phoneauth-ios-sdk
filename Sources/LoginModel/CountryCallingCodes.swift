@@ -55,7 +55,7 @@ public struct CountryCallingCode: Identifiable, Hashable {
     
     public func dialString(_ string: String) -> String {
         let number = numberRemovingTrunk(string).replacingOccurrences(of: " ", with: "")
-        return "\(internationalCode)\(callingCode)\(number)"
+        return "+\(callingCode)\(number)" 
     }
     
     public func prettyPrint(_ string: String) -> String {
