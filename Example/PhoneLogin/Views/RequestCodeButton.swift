@@ -48,7 +48,7 @@ struct RequestCodeButton: View {
                 startCountdown()
             }
         }
-        .onChange(of: loginModel.receivedCode) { newCode in
+        .onChange(of: loginModel.receivedCode) { _ in
             startCountdown()
         }
         .onChange(of: loginModel.state) { newState in

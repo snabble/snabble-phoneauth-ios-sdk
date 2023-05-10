@@ -49,4 +49,3 @@ public class ActionLogger: ObservableObject {
 extension ActionLogger {
     public static var shared = ActionLogger()
 }
-
