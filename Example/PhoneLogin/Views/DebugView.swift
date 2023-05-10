@@ -46,7 +46,7 @@ struct DebugView: View {
             .frame(minHeight: 12, maxHeight: 100)
         }
     }
-    
+        
     var body: some View {
         logsView
     }

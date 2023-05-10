@@ -14,7 +14,9 @@ public struct EnterPhoneNumberView: View {
     @EnvironmentObject var loginModel: PhoneLoginModel
 
     @FocusState private var enterCode
-    
+//    init(isShowingDetailView: Bool) {
+//        self.isShowingDetailView = isShowingDetailView
+//    }
     public var body: some View {
         VStack {
             NavigationLink(destination: EnterCodeView(), isActive: $isShowingDetailView) { EmptyView() }
@@ -43,8 +45,8 @@ public struct EnterPhoneNumberView: View {
                 )
                 .textCase(nil)
             }
-            .onChange(of: loginModel.state) { newState in
-                isShowingDetailView = (newState == .waitingForCode)
+            .onChange(of: loginModel.state) { _ in
+                isShowingDetailView = UserDefaults.phoneNumber?.isEmpty == false
             }
 //            .onAppear {
 //                if loginModel.state == .waitingForCode {
