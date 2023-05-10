@@ -73,7 +73,7 @@ extension Snabble: AuthenticatorDelegate {
     }
     
     public func authenticator(_ authenticator: SnabbleNetwork.Authenticator, projectIdForConfiguration configuration: SnabbleNetwork.Configuration) -> String {
-        "demo"
+        "snabble-sdk-demo-beem8n"
     }
 }
 
