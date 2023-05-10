@@ -186,7 +186,7 @@ extension PhoneLoginModel {
                 print("completion: ", completion)
             
             } receiveValue: { response in
-                print("response: ", response)
+                print("response: \(String(describing: response))")
             }
     }
 }

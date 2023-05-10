@@ -37,6 +37,13 @@ public struct CountDownButtonBackground: View {
 
 struct CountDownView_Previews: PreviewProvider {
     static var previews: some View {
-        CountDownButtonBackground(from: .now, to: .now + 10.0)
+        Button(action: {
+            print("button action")
+        }) {
+                    Text("Code erneut anfordern")
+                        .fontWeight(.bold)
+                        .padding([.leading, .trailing])
+        }
+        .buttonStyle(RequestButtonStyle(firstStep: false, disabled: true, show: .constant(true)))
     }
 }
