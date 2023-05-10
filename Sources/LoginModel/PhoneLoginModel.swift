@@ -13,6 +13,7 @@ public class PhoneLoginModel: ObservableObject {
     
     private let stateMachine: StateMachine
     private let networkManager: NetworkManager
+    private let configuration: Configuration
     
     private var stateCancellable: AnyCancellable?
     private var loginCancellable: AnyCancellable?
@@ -43,19 +44,23 @@ public class PhoneLoginModel: ObservableObject {
 
     @Published public var pinCode: String = ""
 #if DEBUG
-    var logActions = true
+    public var logActions = true
 #else
-    var logAction = false
+    public var logAction = false
 #endif
+    public var authenticator: Authenticator {
+        return networkManager.authenticator
+    }
     
-    public init(networkManager: NetworkManager, stateMachine: StateMachine = StateMachine(state: .start), logActions: Bool? = nil) {
+    public init(configuration: Configuration, stateMachine: StateMachine = StateMachine(state: .start), logActions: Bool? = nil) {
         self.country = CountryCallingCodes.defaultCountry
         
         if let savedCountry = UserDefaults.selectedCountry, let country = CountryCallingCodes.country(for: savedCountry) {
             self.country = country
         }
         self.stateMachine = stateMachine
-        self.networkManager = networkManager
+        self.configuration = configuration
+        self.networkManager = NetworkManager()
 
         if let flag = logActions {
             self.logActions = flag
@@ -138,7 +143,7 @@ extension PhoneLoginModel {
     }
 
     private func pushToServer() {
-        let endpoint = Endpoints.Phone.auth(configuration: networkManager.configuration, phoneNumber: dialString)
+        let endpoint = Endpoints.Phone.auth(configuration: self.configuration, phoneNumber: dialString)
 
         loginCancellable = networkManager.publisher(for: endpoint)
             .receive(on: RunLoop.main)
@@ -162,7 +167,7 @@ extension PhoneLoginModel {
     }
 
     private func sendCode() {
-        let endpoint = Endpoints.Phone.login(configuration: networkManager.configuration, phoneNumber: dialString, OTP: pinCode)
+        let endpoint = Endpoints.Phone.login(configuration: self.configuration, phoneNumber: dialString, OTP: pinCode)
 
         loginCancellable = networkManager.publisher(for: endpoint)
             .receive(on: RunLoop.main)
@@ -181,7 +186,7 @@ extension PhoneLoginModel {
                 print("completion: ", completion)
             
             } receiveValue: { response in
-                print("response: ", response)
+                print("response: \(String(describing: response))")
             }
     }
 }

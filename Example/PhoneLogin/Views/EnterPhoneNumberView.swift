@@ -9,13 +9,13 @@ import Foundation
 import SwiftUI
 import SnabblePhoneAuth
 
-struct EnterPhoneNumberView: View {
+public struct EnterPhoneNumberView: View {
     @State private var isShowingDetailView = false
     @EnvironmentObject var loginModel: PhoneLoginModel
 
     @FocusState private var enterCode
         
-    var body: some View {
+    public var body: some View {
         VStack {
             NavigationLink(destination: EnterCodeView(), isActive: $isShowingDetailView) { EmptyView() }
             
@@ -23,7 +23,7 @@ struct EnterPhoneNumberView: View {
                 Section(
                     content: {
                         VStack {
-                            HStack{
+                            HStack {
                                 CountryCallingCodeView(country: loginModel.country)
                                 
                                 TextField("Handynummer", text: $loginModel.phoneNumber)
@@ -32,7 +32,6 @@ struct EnterPhoneNumberView: View {
                             }
                             RequestCodeButton(firstStep: true)
                         }
-                        .padding([.leading, .trailing], 20)
                     },
                     header: {
                         Text("Zum Aktivieren des Logins, gib deine Handynummber ein.\nAnschließend erhälst du eine SMS mit einem Aktivierungscode.")
@@ -50,7 +49,7 @@ struct EnterPhoneNumberView: View {
             .onAppear {
                 enterCode = true
             }
-            DebugView(debugConfig: .logs)
+            DebugView()
         }
         .padding()
         .navigationTitle("Telefon-Login")

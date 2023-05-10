@@ -10,11 +10,11 @@ import SnabblePhoneAuth
 
 @main
 struct PhoneLoginApp: App {
-    let loginModel = Snabble.development.loginManager
+    let snabble = Snabble(configuration: .testing)
 
     var body: some Scene {
         WindowGroup {
-            ContentView().environmentObject(loginModel)
+            ContentView().environmentObject(snabble.loginManager)
         }
     }
 }

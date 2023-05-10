@@ -8,8 +8,8 @@
 
 import Foundation
 
-import SnabblePhoneAuth
 import SnabbleNetwork
+import SnabblePhoneAuth
 
 extension UserDefaults {
     private enum Keys {
@@ -52,31 +52,28 @@ extension UserDefaults {
 
 public class Snabble {
     
-    public static var development = Snabble(configuration: .development)
-    public static var staging = Snabble(configuration: .staging)
-    public static var production = Snabble(configuration: .production)
-
     public let loginManager: PhoneLoginModel
 
     init(configuration: Configuration) {
-        let networkManager = NetworkManager(configuration: configuration)
-        self.loginManager = PhoneLoginModel(networkManager: networkManager)
+        self.loginManager = PhoneLoginModel(configuration: configuration)
+        // if DEBUG logActions is set to true by default
+//        self.loginManager.logActions = false
         
-        networkManager.authenticator.delegate = self
+        self.loginManager.authenticator.delegate = self
     }
 }
 
 extension Snabble: AuthenticatorDelegate {
+    public func authenticator(_ authenticator: SnabbleNetwork.Authenticator, appUserForConfiguration configuration: SnabbleNetwork.Configuration) -> SnabbleNetwork.AppUser? {
+        UserDefaults.appUser
+    }
+    
     public func authenticator(_ authenticator: SnabbleNetwork.Authenticator, appUserUpdated appUser: SnabbleNetwork.AppUser) {
         UserDefaults.appUser = appUser
     }
     
-    public func authenticator(_ authenticator: SnabbleNetwork.Authenticator, projectIdForEnvironment: SnabbleNetwork.Environment) -> String {
+    public func authenticator(_ authenticator: SnabbleNetwork.Authenticator, projectIdForConfiguration configuration: SnabbleNetwork.Configuration) -> String {
         "demo"
-    }
-    
-    public func authenticator(_ authenticator: SnabbleNetwork.Authenticator, appUserForEnvironment: SnabbleNetwork.Environment) -> SnabbleNetwork.AppUser? {
-        UserDefaults.appUser
     }
 }
 
@@ -101,18 +98,18 @@ extension Configuration {
         )
     }
 
-    static var development: Self {
+    static var testing: Self {
         return .init(
             appId: appId,
             appSecret: "BWXJ2BFC2JRKRNW4QBASQCF2TTANPTVPOXQJM57JDIECZJQHZWOQ====",
-            environment: .development
+            environment: .testing
         )
     }
     
     static func config(for environment: Environment) -> Self {
         switch environment {
-        case .development:
-            return Self.development
+        case .testing:
+            return Self.testing
         case .staging:
             return Self.staging
         case .production:

@@ -8,7 +8,7 @@
 import SwiftUI
 import SnabblePhoneAuth
 
-extension PhoneLoginModel {
+public extension PhoneLoginModel {
     @ViewBuilder
     var messageView: some View {
         if !errorMessage.isEmpty {
@@ -23,7 +23,7 @@ extension PhoneLoginModel {
     }
 }
 
-struct EnterCodeView: View {
+public struct EnterCodeView: View {
     @EnvironmentObject var loginModel: PhoneLoginModel
     
     @FocusState private var enterCode
@@ -32,24 +32,19 @@ struct EnterCodeView: View {
     var header: some View {
         HStack {
             Spacer()
-            VStack {
-                Text("Wir haben dir einen Code an")
-                Text("\(loginModel.phoneNumberPrettyPrint) gesendet.")
-                Text("Bitte gib den Code ein.\n")
-            }
+            Text("Wir haben dir einen Code an\n\(loginModel.phoneNumberPrettyPrint) gesendet.\nBitte gib den Code ein.\n")
             .multilineTextAlignment(.center)
             Spacer()
         }
     }
     
-    var body: some View {
+    public var body: some View {
         VStack {
             Form {
                 Section(
                     header: header,
                     footer: loginModel.messageView,
-                    content:
-                        {
+                    content: {
                             VStack {
                                 TextField("Pin-Code", text: $loginModel.pinCode)
                                     .keyboardType(.decimalPad)
@@ -81,10 +76,9 @@ struct EnterCodeView: View {
                     enterCode = true
                 }
             }
-            DebugView(debugConfig: .logs)
+            DebugView()
         }
         .padding()
         .navigationTitle("Code eingeben")
     }
 }
-

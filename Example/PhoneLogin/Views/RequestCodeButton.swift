@@ -6,9 +6,10 @@
 //
 
 import SwiftUI
+
 import SnabblePhoneAuth
 
-extension PhoneLoginModel {
+public extension PhoneLoginModel {
 
     @ViewBuilder
     var progressView: some View {
@@ -19,33 +20,34 @@ extension PhoneLoginModel {
     }
 }
 
-struct RequestCodeButton: View {
-    var firstStep = true
+public struct RequestCodeButton: View {
+    public var firstStep = true
     
     @State private var showCountdown: Bool = false
     @EnvironmentObject var loginModel: PhoneLoginModel
 
-    var body: some View {
+    public var body: some View {
         Button(action: {
             loginModel.sendPhoneNumber()
         }) {
             HStack {
-                Spacer()
+                Spacer(minLength: 0)
                 HStack {
                     Text("Code \(firstStep ? "" : "erneut ") anfordern")
                         .fontWeight(.bold)
                     loginModel.progressView
                 }
-                Spacer()
+                Spacer(minLength: 0)
             }
         }
         .buttonStyle(RequestButtonStyle(firstStep: firstStep, disabled: !loginModel.canRequestCode, show: $showCountdown))
+        
         .onAppear {
             if !loginModel.receivedCode.isEmpty {
                 startCountdown()
             }
         }
-        .onChange(of: loginModel.receivedCode) { newCode in
+        .onChange(of: loginModel.receivedCode) { _ in
             startCountdown()
         }
         .onChange(of: loginModel.state) { newState in
@@ -61,17 +63,6 @@ struct RequestCodeButton: View {
         }
         withAnimation {
             showCountdown = true
-        }
-    }
-}
-
-struct RequestCodeButton_Previews: PreviewProvider {
-    static let model = Snabble.development.loginManager
-    
-    static var previews: some View {
-        VStack {
-            RequestCodeButton(firstStep: true).environmentObject(model)
-            RequestCodeButton(firstStep: false).environmentObject(model)
         }
     }
 }

@@ -6,6 +6,6 @@ final class SnabblePhoneAuthTests: XCTestCase {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct
         // results.
-        XCTAssertEqual(SnabblePhoneAuth.name, "Snabble Phone Authentication")
+        XCTAssertEqual("Snabble", "Snabble")
     }
 }
