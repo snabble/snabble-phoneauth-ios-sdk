@@ -5,6 +5,22 @@
    <BuildAction
       parallelizeBuildables = "YES"
       buildImplicitDependencies = "YES">
+      <BuildActionEntries>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "7691BA962976C3F400477EDD"
+               BuildableName = "PhoneLogin.app"
+               BlueprintName = "PhoneLogin"
+               ReferencedContainer = "container:PhoneLogin.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+      </BuildActionEntries>
    </BuildAction>
    <TestAction
       buildConfiguration = "Debug"
@@ -14,16 +30,6 @@
       shouldAutocreateTestPlan = "YES">
       <Testables>
          <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "SnabbleNetworkTests"
-               BuildableName = "SnabbleNetworkTests"
-               BlueprintName = "SnabbleNetworkTests"
-               ReferencedContainer = "container:">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
             skipped = "NO"
             parallelizable = "YES">
             <BuildableReference
@@ -31,7 +37,7 @@
                BlueprintIdentifier = "E17225472A0BB8A900377187"
                BuildableName = "PhoneLoginTests.xctest"
                BlueprintName = "PhoneLoginTests"
-               ReferencedContainer = "container:Example/PhoneLogin.xcodeproj">
+               ReferencedContainer = "container:PhoneLogin.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -53,7 +59,7 @@
             BlueprintIdentifier = "7691BA962976C3F400477EDD"
             BuildableName = "PhoneLogin.app"
             BlueprintName = "PhoneLogin"
-            ReferencedContainer = "container:Example/PhoneLogin.xcodeproj">
+            ReferencedContainer = "container:PhoneLogin.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -63,15 +69,16 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "7691BA962976C3F400477EDD"
             BuildableName = "PhoneLogin.app"
             BlueprintName = "PhoneLogin"
-            ReferencedContainer = "container:Example/PhoneLogin.xcodeproj">
+            ReferencedContainer = "container:PhoneLogin.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
