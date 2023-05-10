@@ -18,7 +18,6 @@ public struct AccentButtonStyle: ButtonStyle {
         configuration.label
             .padding([.top, .bottom], 15)
             .padding([.leading, .trailing], 20)
-            .frame(width: 300)
             .background(Color("AccentColor"))
             .foregroundColor(.white.opacity(disabled ? 0.5 : 1.0))
             .disabled(disabled)
@@ -54,7 +53,6 @@ public struct RequestButtonStyle: ButtonStyle {
             configuration.label
                 .padding([.top, .bottom], 15)
                 .padding([.leading, .trailing], 20)
-                .frame(width: 300)
                 .background(Color("AccentColor"))
                 .foregroundColor(.white.opacity(disabled ? 0.5 : 1.0))
                 .disabled(disabled)

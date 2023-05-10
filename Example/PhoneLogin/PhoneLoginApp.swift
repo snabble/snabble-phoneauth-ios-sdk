@@ -10,7 +10,7 @@ import SnabblePhoneAuth
 
 @main
 struct PhoneLoginApp: App {
-    let snabble = Snabble(configuration: .development)
+    let snabble = Snabble(configuration: .testing)
 
     var body: some Scene {
         WindowGroup {

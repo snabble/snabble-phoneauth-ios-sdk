@@ -31,16 +31,17 @@ public struct RequestCodeButton: View {
             loginModel.sendPhoneNumber()
         }) {
             HStack {
-                Spacer()
+                Spacer(minLength: 0)
                 HStack {
                     Text("Code \(firstStep ? "" : "erneut ") anfordern")
                         .fontWeight(.bold)
                     loginModel.progressView
                 }
-                Spacer()
+                Spacer(minLength: 0)
             }
         }
         .buttonStyle(RequestButtonStyle(firstStep: firstStep, disabled: !loginModel.canRequestCode, show: $showCountdown))
+        
         .onAppear {
             if !loginModel.receivedCode.isEmpty {
                 startCountdown()

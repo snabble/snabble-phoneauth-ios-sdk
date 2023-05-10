@@ -32,7 +32,6 @@ public struct EnterPhoneNumberView: View {
                             }
                             RequestCodeButton(firstStep: true)
                         }
-                        .padding([.leading, .trailing], 20)
                     },
                     header: {
                         Text("Zum Aktivieren des Logins, gib deine Handynummber ein.\nAnschließend erhälst du eine SMS mit einem Aktivierungscode.")

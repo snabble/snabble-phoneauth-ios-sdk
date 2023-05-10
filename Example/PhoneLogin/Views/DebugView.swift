@@ -46,7 +46,7 @@ struct DebugView: View {
                     .font(.custom("Menlo", size: 13))
                 }
             }
-            .frame(minHeight: 12, maxHeight: 160)
+            .frame(minHeight: 12, maxHeight: 100)
         }
     }
     
