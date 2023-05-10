@@ -8,38 +8,26 @@
 import SwiftUI
 import SnabblePhoneAuth
 
-struct EnterCodeView: View {
-    var phoneNumber: String
-//    @State private var pinCode = ""
-    @State private var codeValid = false
-    @State private var canSend = false
-    
-    @EnvironmentObject var loginModel: PhoneLoginModel
-    @State private var serverHint: String = ""
-    @State private var errorMessage: String = ""
-    
-    @FocusState private var enterCode
-
+extension PhoneLoginModel {
     @ViewBuilder
-    var loginSpinner: some View {
-        if  loginModel.state == .sendCode {
-            ProgressView()
-               .padding([.leading], 10)
-        }
-    }
-        
-    @ViewBuilder
-    var message: some View {
-        if !loginModel.errorMessage.isEmpty {
-            Text(loginModel.errorMessage)
+    var messageView: some View {
+        if !errorMessage.isEmpty {
+            Text(errorMessage)
                 .foregroundColor(.red)
         } else {
-            if !serverHint.isEmpty {
-                Text("Server hat folgenden Code geschickt \"\(loginModel.receivedCode)\"")
+            if !receivedCode.isEmpty {
+                Text("Server hat folgenden Code geschickt \"\(receivedCode)\"")
                     .foregroundColor(.green)
             }
         }
     }
+}
+
+struct EnterCodeView: View {
+    @EnvironmentObject var loginModel: PhoneLoginModel
+    
+    @FocusState private var enterCode
+
     @ViewBuilder
     var header: some View {
         HStack {
@@ -54,16 +42,13 @@ struct EnterCodeView: View {
         }
     }
     
-    @State private var disabled: Bool = true
-
     var body: some View {
         VStack {
             Form {
                 Section(
                     header: header,
-                    footer: message,
-                    content:
-                        {
+                    footer: loginModel.messageView,
+                    content: {
                             VStack {
                                 TextField("Pin-Code", text: $loginModel.pinCode)
                                     .keyboardType(.decimalPad)
@@ -76,11 +61,12 @@ struct EnterCodeView: View {
                                     HStack {
                                         Text("Anmelden")
                                             .fontWeight(.bold)
-                                            .opacity(canSend ? 1.0 : 0.5)
-                                        loginSpinner
+                                            .opacity(loginModel.canLogin ? 1.0 : 0.5)
+                                        
+                                        loginModel.progressView
                                     }
                                 }
-                                .buttonStyle(AccentButtonStyle(disabled: !canSend))
+                                .buttonStyle(AccentButtonStyle(disabled: !loginModel.canLogin))
                                 
                                 RequestCodeButton(firstStep: false)
                             }
@@ -91,41 +77,12 @@ struct EnterCodeView: View {
             }
             .onAppear {
                 if !loginModel.receivedCode.isEmpty {
-                    print("receivedCode: \(loginModel.receivedCode)")
-                    withAnimation {
-                        serverHint = "Server hat folgenden Code geschickt: \"\(loginModel.receivedCode)\""
-                    }
-                }
-            }
-            .onChange(of: loginModel.isLoggingIn) { newLogin in
-                if newLogin {
-                    withAnimation {
-                        errorMessage = ""
-                        serverHint = "Du bist angemeldet!"
-                    }
-                }
-            }
-            .onChange(of: serverHint) { _ in
-                withAnimation {
                     enterCode = true
                 }
             }
-            .onChange(of: loginModel.receivedCode) { newCode in
-                withAnimation {
-                    serverHint = "Server hat folgenden Code geschickt: \"\(newCode)\""
-                }
-            }
-            .onChange(of: loginModel.canLogin) { _ in
-                canSend = loginModel.canLogin
-            }
-            .onChange(of: loginModel.pinCode) { newCode in
-                canSend = loginModel.canLogin
-            }
-            //DebugView()
-            Spacer()
+            DebugView(debugConfig: .logs)
         }
         .padding()
         .navigationTitle("Code eingeben")
     }
 }
-

@@ -34,6 +34,7 @@ public class PhoneLoginModel: ObservableObject {
             }
         }
     }
+    private var phoneResponse: PhoneResponse?
     
     @Published public var state: StateMachine.State {
         willSet { leaveState(state) }
@@ -79,10 +80,17 @@ public class PhoneLoginModel: ObservableObject {
     }
     
     public var canRequestCode: Bool {
-        return state == .error || state == .waitingForCode
+        if canSendPhoneNumber {
+            if let timestamp = phoneResponse?.timestamp, timestamp + 30 < .now {
+                return false
+            }
+            return true
+        } else {
+            return false
+        }
     }
     public var isWaiting: Bool {
-        state == .pushedToServer /* || state == .sendCode */
+        state == .pushedToServer || state == .sendCode
     }
 }
 
@@ -134,6 +142,8 @@ extension PhoneLoginModel {
                 receiveValue: { [weak self] response in
                     guard let strongSelf = self else { return }
                     
+                    strongSelf.phoneResponse = response
+                    
                     strongSelf.receivedCode = response.code
                     strongSelf.stateMachine.tryEvent(.sendingPhoneNumber)
                 })
@@ -173,17 +183,15 @@ extension PhoneLoginModel {
 extension PhoneLoginModel {
 
     func leaveState(_ state: StateMachine.State) {
-        print("leave state: <\(state)>")
+        ActionLogger.shared.add(log: LogAction(action: "leave state", info: "\(state)"))
         if case .sendCode = state, case .pushedToServer = state {
             isLoggingIn = false
         }
     }
     
     func enterState(_ state: StateMachine.State) {
-        print("enter state: <\(state)>")
-        if case .waitingForCode = state {
-            //self.canLogin = true
-        }
+        ActionLogger.shared.add(log: LogAction(action: "enter state", info: "\(state)"))
+
         if case .loggedIn = state {
             self.isLoggingIn = true
         }
