@@ -17,8 +17,8 @@ final class PhoneEndpointTests: XCTestCase {
 
         func testRequest() async throws {
             let configuration = Configuration(
-                appId: "demo-app-me0eeK",
-                appSecret: "UTXSZZTN6PEA5QHAY5JBVPUSIRNQGEZADHFUBBGZQMOCC7RNGDSA====",
+                appId: "snabble-sdk-demo-app-oguh3x",
+                appSecret: "BWXJ2BFC2JRKRNW4QBASQCF2TTANPTVPOXQJM57JDIECZJQHZWOQ====",
                 environment: .testing
             )
             let networkManager = NetworkManager()
@@ -51,7 +51,7 @@ extension PhoneEndpointTests: AuthenticatorDelegate {
     }
 
     func authenticator(_ authenticator: SnabbleNetwork.Authenticator, projectIdForConfiguration configuration: SnabbleNetwork.Configuration) -> String {
-        "demo"
+        "snabble-sdk-demo-beem8n"
     }
 
     func authenticator(_ authenticator: SnabbleNetwork.Authenticator, appUserUpdated appUser: SnabbleNetwork.AppUser) {
