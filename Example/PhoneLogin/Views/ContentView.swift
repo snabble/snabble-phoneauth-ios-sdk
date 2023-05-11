@@ -58,6 +58,9 @@ struct LoggedInView: View {
                 .font(.largeTitle)
             info
             
+            loginModel.messageView
+                .padding()
+
             Spacer()
             DebugView()
         }
