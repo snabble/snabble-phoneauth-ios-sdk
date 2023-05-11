@@ -10,26 +10,29 @@ import Foundation
 /// A namespace for types that serve as `Endpoint`.
 ///
 /// The various endpoints defined as extensions on ``Endpoint``.
-public enum Endpoints {}
+public enum Endpoints {
+    static var jsonDecoder: JSONDecoder {
+        let jsonDecoder: JSONDecoder = .init()
+        jsonDecoder.dateDecodingStrategy = .secondsSince1970
+        return jsonDecoder
+    }
+}
 
 public struct Endpoint<Response> {
     public let method: HTTPMethod
     public let path: String
     public let configuration: Configuration
 
-    var jsonDecoder: JSONDecoder = {
-        let jsonDecoder: JSONDecoder = .init()
-        jsonDecoder.dateDecodingStrategy = .secondsSince1970
-        return jsonDecoder
-    }()
+    public let parse: (Data) throws -> Response
 
     var token: Token?
     var headerFields: [String: String] = [:]
 
-    public init(path: String, method: HTTPMethod, configuration: Configuration) {
+    public init(path: String, method: HTTPMethod, configuration: Configuration, parse: @escaping (Data) throws -> Response) {
         self.path = path
         self.method = method
         self.configuration = configuration
+        self.parse = parse
     }
 
     private var environment: Environment {
