@@ -300,7 +300,7 @@ extension PhoneLoginModel {
         }
         if case .deletingAccount = state {
             errorMessage = ""
-            deleteAccount()
+            delete()
         }
    }
     

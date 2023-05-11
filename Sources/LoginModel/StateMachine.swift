@@ -96,6 +96,7 @@ public extension StateMachine {
         case .loggedIn:
             switch event {
             case .enterPhoneNumber, .success: return .start
+            case .trashAccount: return .deletingAccount
             default:
                 return nil
             }
