@@ -41,4 +41,3 @@ public class WaitTimer: ObservableObject {
         print("timer stopped: \(String(describing: endTime))")
     }
 }
-
