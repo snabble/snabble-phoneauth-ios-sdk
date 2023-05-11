@@ -50,6 +50,7 @@ struct LoggedInView: View {
             Button(action: {
                 withAnimation {
                     loginModel.logout()
+                    UserDefaults.lastPageVisited = nil
                 }
             }) {
                 Text("Logout")
@@ -63,7 +64,7 @@ struct ContentView: View {
     @EnvironmentObject var loginModel: PhoneLoginModel
     
     var showDetail: Bool {
-        return UserDefaults.pageVisited == .loginPage
+        return UserDefaults.pageVisited == .loginPage && UserDefaults.phoneNumber?.isEmpty == false
     }
     
     var body: some View {

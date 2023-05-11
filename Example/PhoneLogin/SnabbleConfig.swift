@@ -11,45 +11,6 @@ import Foundation
 import SnabbleNetwork
 import SnabblePhoneAuth
 
-extension UserDefaults {
-    private enum Keys {
-        static let appUserIdKey = "appUserId"
-        static let appUserSecretKey = "appUserSecret"
-    }
-
-    public class var appUserID: String? {
-        get {
-            UserDefaults.standard.string(forKey: Keys.appUserIdKey)
-        }
-        set {
-            UserDefaults.standard.set(newValue, forKey: Keys.appUserIdKey)
-            UserDefaults.standard.synchronize()
-        }
-    }
-    public class var appUserSecret: String? {
-        get {
-            UserDefaults.standard.string(forKey: Keys.appUserSecretKey)
-        }
-        set {
-            UserDefaults.standard.set(newValue, forKey: Keys.appUserSecretKey)
-            UserDefaults.standard.synchronize()
-        }
-    }
-
-    public class var appUser: AppUser? {
-        get {
-            if let userID = appUserID, let secret = appUserSecret {
-                return AppUser(id: userID, secret: secret)
-            }
-            return nil
-        }
-        set {
-            appUserID = newValue?.id
-            appUserSecret = newValue?.secret
-        }
-    }
-}
-
 public class Snabble {
     
     public let loginManager: PhoneLoginModel
@@ -60,6 +21,9 @@ public class Snabble {
 //        self.loginManager.logActions = false
         
         self.loginManager.authenticator.delegate = self
+        if loginManager.logActions, let appUser = UserDefaults.appUser {
+            ActionLogger.shared.add(log: LogAction(action: "appID", info: appUser.id))
+        }
     }
 }
 

@@ -9,56 +9,6 @@ import Foundation
 import Combine
 import SnabbleNetwork
 
-extension UserDefaults {
-    private enum Keys {
-        static let phoneNumber = "phoneNumber"
-    }
-
-    public class var phoneNumber: String? {
-        get {
-            UserDefaults.standard.string(forKey: Keys.phoneNumber)
-        }
-        set {
-            UserDefaults.standard.set(newValue, forKey: Keys.phoneNumber)
-            UserDefaults.standard.synchronize()
-        }
-    }
-}
-
-public class WaitTimer: ObservableObject {
-    @Published public var isRunning: Bool = false
-    
-    let publisher: Timer.TimerPublisher
-    var waitCancellable: Cancellable?
-    @Published public var startTime: Date?
-    @Published public var endTime: Date?
-
-    init(interval: TimeInterval = 1.0) {
-        self.publisher = Timer.publish(every: interval, tolerance: 0.5, on: .main, in: .default)
-    }
-    public func start() {
-        isRunning = true
-        
-        startTime = .now
-        endTime = nil
-        print("timer started: \(String(describing: startTime))")
-
-        waitCancellable = self.publisher
-            .autoconnect()
-            .receive(on: RunLoop.main)
-            .sink(receiveValue: { [weak self] timer in
-                self?.stop()
-            })
-    }
-
-    public func stop() {
-        waitCancellable = nil
-        isRunning = false
-        endTime = .now
-        print("timer stopped: \(String(describing: endTime))")
-    }
-}
-
 public class PhoneLoginModel: ObservableObject {
     
     private let stateMachine: StateMachine
@@ -212,8 +162,14 @@ extension PhoneLoginModel {
     }
     
     public func reset() {
-        pinCode = ""
+        if timerIsRunning {
+            waitTimer.stop()
+        }
+        self.phoneNumber = ""
+        self.pinCode = ""
         self.errorMessage = ""
+        UserDefaults.phoneNumber = nil
+        UserDefaults.appUser = nil
         stateMachine.tryEvent(.enterPhoneNumber)
     }
     
@@ -269,11 +225,13 @@ extension PhoneLoginModel {
                     strongSelf.errorMessage = error.localizedDescription
                     strongSelf.stateMachine.tryEvent(.failure)
                 }
-
-                print("completion: ", completion)
-            
-            } receiveValue: { response in
-                print("response: \(String(describing: response))")
+                
+            } receiveValue: { [weak self] response in
+                guard let strongSelf = self else { return }
+                
+                if strongSelf.logActions, let appUser = response {
+                    ActionLogger.shared.add(log: LogAction(action: "appID", info: appUser.id))
+                }
             }
     }
 }
@@ -295,9 +253,6 @@ extension PhoneLoginModel {
         if case .waitingForCode = state {
             UserDefaults.phoneNumber = self.phoneNumber
             startTimer()
-        }
-        if case .error = state {
-            //self.timeStamp = nil
         }
         if case .pushedToServer = state {
             errorMessage = ""
