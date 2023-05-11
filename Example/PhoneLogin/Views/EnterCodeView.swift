@@ -77,6 +77,7 @@ public struct EnterCodeView: View {
 
             if loginModel.state == .waitingForCode {
                 enterCode = true
+                loginModel.startTimer()
             }
         }
        .padding()

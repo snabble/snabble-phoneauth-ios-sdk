@@ -12,9 +12,9 @@ public struct CountDownButtonBackground: View {
     let to: Date
     let handler: () -> Void
     
-    init(from: Date, to: Date, completion: @escaping (() -> Void) = {}) {
+    init(from: Date, to: Date? = nil, completion: @escaping (() -> Void) = {}) {
         self.from = from
-        self.to = to
+        self.to = to ?? (from + 30)
         self.handler = completion
     }
 
@@ -44,6 +44,6 @@ struct CountDownView_Previews: PreviewProvider {
                         .fontWeight(.bold)
                         .padding([.leading, .trailing])
         }
-        .buttonStyle(RequestButtonStyle(firstStep: false, disabled: true, show: .constant(true)))
+        .buttonStyle(RequestButtonStyle(firstStep: false, disabled: true, show: .constant(true), sendDate: .constant(.now)))
     }
 }

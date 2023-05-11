@@ -27,7 +27,7 @@ public struct RequestCodeButton: View {
     @State private var disabled: Bool = false
     
     @EnvironmentObject var loginModel: PhoneLoginModel
-
+    
     public var body: some View {
         Button(action: {
             loginModel.sendPhoneNumber()
@@ -42,16 +42,16 @@ public struct RequestCodeButton: View {
                 Spacer(minLength: 0)
             }
         }
-        .buttonStyle(RequestButtonStyle(firstStep: firstStep, disabled: isDisabled, show: $showCountdown))
+        .buttonStyle(RequestButtonStyle(firstStep: firstStep, disabled: loginModel.waitTimer.isRunning, show: $showCountdown, sendDate: $loginModel.waitTimer.startTime))
         
         .onAppear {
-            if loginModel.state == .waitingForCode {
+            if firstStep == false, loginModel.state == .waitingForCode {
                 disabled = true
                 startCountdown()
             }
         }
         .onChange(of: loginModel.state) { newState in
-            if newState == .waitingForCode {
+            if firstStep == false, newState == .waitingForCode {
                 startCountdown()
             }
         }
@@ -69,6 +69,9 @@ public struct RequestCodeButton: View {
         guard !firstStep else {
             return
         }
+        loginModel.startTimer()
+//        sendDate = .now
+        
         withAnimation {
             showCountdown = true
         }

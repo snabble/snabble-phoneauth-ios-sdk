@@ -25,6 +25,40 @@ extension UserDefaults {
     }
 }
 
+public class WaitTimer: ObservableObject {
+    @Published public var isRunning: Bool = false
+    
+    let publisher: Timer.TimerPublisher
+    var waitCancellable: Cancellable?
+    @Published public var startTime: Date?
+    @Published public var endTime: Date?
+
+    init(interval: TimeInterval = 1.0) {
+        self.publisher = Timer.publish(every: interval, tolerance: 0.5, on: .main, in: .default)
+    }
+    public func start() {
+        isRunning = true
+        
+        startTime = .now
+        endTime = nil
+        print("timer started: \(String(describing: startTime))")
+
+        waitCancellable = self.publisher
+            .autoconnect()
+            .receive(on: RunLoop.main)
+            .sink(receiveValue: { [weak self] timer in
+                self?.stop()
+            })
+    }
+
+    public func stop() {
+        waitCancellable = nil
+        isRunning = false
+        endTime = .now
+        print("timer stopped: \(String(describing: endTime))")
+    }
+}
+
 public class PhoneLoginModel: ObservableObject {
     
     private let stateMachine: StateMachine
@@ -55,15 +89,7 @@ public class PhoneLoginModel: ObservableObject {
     }
     
     @Published public var pinCode: String = ""
-    
-    @Published public var timeStamp: Date? {
-        didSet {
-            DispatchQueue.main.async {
-                self.objectWillChange.send()
-            }
-        }
-    }
-    
+        
 #if DEBUG
     public var logActions = true
 #else
@@ -72,6 +98,8 @@ public class PhoneLoginModel: ObservableObject {
     public var authenticator: Authenticator {
         return networkManager.authenticator
     }
+
+    @Published public var waitTimer: WaitTimer
     
     public init(configuration: Configuration, logActions: Bool? = nil) {
         self.country = CountryCallingCodes.defaultCountry
@@ -96,6 +124,8 @@ public class PhoneLoginModel: ObservableObject {
         }
         self.stateMachine = stateMachine
         self.state = stateMachine.state
+        
+        self.waitTimer = WaitTimer(interval: 30)
         
         self.stateCancellable = stateMachine.statePublisher.sink { state in
             self.state = state
@@ -129,24 +159,23 @@ extension PhoneLoginModel {
         state == .loggedIn
     }
     
+    public var isWaiting: Bool {
+        state == .pushedToServer || state == .sendCode
+    }
+
+    public var timerIsRunning: Bool {
+        return waitTimer.isRunning
+    }
+
     public var canRequestCode: Bool {
         if canSendPhoneNumber {
-            if let timestamp = timeStamp {
-                if timestamp + 30 < .now {
-                    return false
-                } else {
-                    DispatchQueue.main.async {
-                        self.timeStamp = nil
-                    }
-                }
+            guard !timerIsRunning else {
+                return false
             }
             return true
         } else {
             return false
         }
-    }
-    public var isWaiting: Bool {
-        state == .pushedToServer || state == .sendCode
     }
 }
 
@@ -192,9 +221,18 @@ extension PhoneLoginModel {
         reset()
     }
 
-    private func pushToServer() {
-        let endpoint = Endpoints.Phone.auth(configuration: self.configuration, phoneNumber: dialString)
+    public func startTimer() {
+        guard !timerIsRunning else {
+            return
+        }
+        waitTimer.start()
+    }
 
+    private func pushToServer() {
+
+        let endpoint = Endpoints.Phone.auth(configuration: self.configuration, phoneNumber: dialString)
+        startTimer()
+        
         loginCancellable = networkManager.publisher(for: endpoint)
             .receive(on: RunLoop.main)
             .sink { [weak self] completion in
@@ -256,10 +294,10 @@ extension PhoneLoginModel {
         
         if case .waitingForCode = state {
             UserDefaults.phoneNumber = self.phoneNumber
-            self.timeStamp = .now
+            startTimer()
         }
         if case .error = state {
-            self.timeStamp = nil
+            //self.timeStamp = nil
         }
         if case .pushedToServer = state {
             errorMessage = ""
