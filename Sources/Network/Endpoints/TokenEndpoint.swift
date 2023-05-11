@@ -17,11 +17,14 @@ extension Endpoints {
             role: SnabbleNetwork.Token.Scope = .retailerApp
         ) -> Endpoint<SnabbleNetwork.Token> {
             var endpoint: Endpoint<SnabbleNetwork.Token> = .init(path: "/tokens",
-                                                                  method: .get([
+                                                                 method: .get([
                                                                     .init(name: "project", value: projectId),
                                                                     .init(name: "role", value: role.rawValue)
-                                                                  ]),
-                                                                  configuration: configuration)
+                                                                 ]),
+                                                                 configuration: configuration,
+                                                                 parse: { data in
+                try Endpoints.jsonDecoder.decode(SnabbleNetwork.Token.self, from: data)
+            })
             if let authorization = authorization(withConfiguration: configuration, appUser: appUser) {
                 endpoint.headerFields = ["Authorization": "Basic \(authorization)"]
             }

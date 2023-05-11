@@ -18,7 +18,10 @@ extension Endpoints {
             var endpoint: Endpoint<AppUserResponse> = .init(
                 path: "/apps/\(configuration.appId)/users",
                 method: .post(nil, queryItems),
-                configuration: configuration
+                configuration: configuration,
+                parse: { data in
+                    try Endpoints.jsonDecoder.decode(AppUserResponse.self, from: data)
+                }
             )
             if let authorization = authorization(withConfiguration: configuration) {
                 endpoint.headerFields = ["Authorization": "Basic \(authorization)"]

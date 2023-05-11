@@ -30,7 +30,7 @@ extension Publisher where Output == (data: Data, response: URLResponse), Failure
 }
 
 extension URLSession {
-    func dataTaskPublisher<Response: Decodable>(
+    func dataTaskPublisher<Response>(
         for endpoint: Endpoint<Response>
     ) -> AnyPublisher<Response, Swift.Error> {
         let urlRequest: URLRequest
@@ -43,17 +43,7 @@ extension URLSession {
             .tryVerifyResponse()
             .map(\.data)
             .tryMap { data in
-                do {
-                    return try endpoint.jsonDecoder.decode(Response.self, from: data)
-                } catch {
-                    if case DecodingError.dataCorrupted(_) = error, data.isEmpty {
-                        guard let response = NoContent() as? Response else {
-                            throw error
-                        }
-                        return response
-                    }
-                    throw error
-                }
+                try endpoint.parse(data)
             }
             .eraseToAnyPublisher()
     }
