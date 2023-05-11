@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SnabblePhoneAuth
+
 extension UserDefaults {
     private enum Keys {
         static let lastPageVisited = "lastPage"
@@ -42,20 +43,45 @@ extension UserDefaults {
 struct LoggedInView: View {
     @EnvironmentObject var loginModel: PhoneLoginModel
     
+    @ViewBuilder
+    var info: some View {
+        if let appID = UserDefaults.appUser?.id {
+            Text(appID)
+                .font(.custom("Menlo", size: 12))
+        }
+    }
+    
     var body: some View {
         VStack {
             Text("Du bist eingeloggt!")
                 .font(.largeTitle)
+            info
             
-            Button(action: {
-                withAnimation {
-                    loginModel.logout()
-                    UserDefaults.lastPageVisited = nil
+            Spacer()
+            DebugView()
+        }
+        .padding()
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                if loginModel.isLoggedIn {
+                    Button(action: {
+                        loginModel.deleteAccount()
+                    }) {
+                        Image(systemName: "trash")
+                    }
                 }
-            }) {
-                Text("Logout")
-                    .padding()
             }
+          ToolbarItem(placement: .navigationBarTrailing) {
+                if loginModel.isLoggedIn {
+                    Button(action: {
+                        loginModel.logout()
+                        UserDefaults.lastPageVisited = nil
+                    }) {
+                        Text("Logout")
+                    }
+                }
+            }
+
         }
     }
 }

@@ -12,10 +12,11 @@ open class StateMachine {
     
     public enum State {
         case start              // initial state
-        case pushedToServer     // send(phoneNumber:String) was called on Endpoint
+        case pushedToServer     // send(configuration:Configuration, phoneNumber:String) was called on Endpoint
         case waitingForCode     // previous call was successful
-        case sendCode           // loginWith(code: String) was called on Endpoint
+        case sendCode           // loginWith(configuration:Configuration, otp: String) was called on Endpoint
         case loggedIn           // previous call was successful
+        case deletingAccount    // delete(configuration:Configuration, phoneNumber:String) was called on Endpoint
         case error              // an error occured
     }
     
@@ -24,6 +25,7 @@ open class StateMachine {
         case sendingPhoneNumber // User has tapped button "Request Code"
         case enterCode          // User give code textfield focus
         case loggingIn          // User has tapped button "Login"
+        case trashAccount       // User has tapped Button "Trash"
         case success
         case failure
     }
@@ -60,16 +62,17 @@ public extension StateMachine {
         case .start:
             switch event {
             case .sendingPhoneNumber, .enterPhoneNumber: return .pushedToServer
-            case .enterCode, .loggingIn, .success, .failure: return nil
+            default:
+                return nil
             }
         case .pushedToServer:
             switch event {
             case .enterPhoneNumber: return .pushedToServer
             case .sendingPhoneNumber: return .waitingForCode
             case .enterCode: return .sendCode
-            case .loggingIn: return nil
-            case .success: return nil
             case .failure: return .error
+            default:
+                return nil
             }
         case .waitingForCode:
             switch event {
@@ -77,29 +80,39 @@ public extension StateMachine {
             case .sendingPhoneNumber: return .pushedToServer
             case .enterCode: return .waitingForCode
             case .loggingIn: return .sendCode
-            case .success: return nil
             case .failure: return .error
+            default:
+                return nil
             }
 
         case .sendCode:
             switch event {
             case .success: return .loggedIn
-            case .enterCode: return nil  // .waitingForCode
             case .failure: return .error
             case .loggingIn: return .waitingForCode
-            case .enterPhoneNumber, .sendingPhoneNumber:
+            default:
                 return nil
             }
         case .loggedIn:
             switch event {
             case .enterPhoneNumber, .success: return .start
-            case .sendingPhoneNumber, .enterCode, .loggingIn, .failure: return nil
+            default:
+                return nil
+            }
+        case .deletingAccount:
+            switch event {
+            case .trashAccount: return .start
+            default:
+                return nil
             }
         case .error:
             switch event {
             case .sendingPhoneNumber: return .pushedToServer
             case .loggingIn: return .waitingForCode
-            case .enterPhoneNumber, .enterCode, .success, .failure: return nil
+            case .trashAccount: return .loggedIn
+                
+            default:
+                return nil
             }
         }
     }

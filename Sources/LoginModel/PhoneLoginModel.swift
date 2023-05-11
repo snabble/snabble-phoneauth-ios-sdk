@@ -17,7 +17,8 @@ public class PhoneLoginModel: ObservableObject {
     
     private var stateCancellable: AnyCancellable?
     private var loginCancellable: AnyCancellable?
-    
+    private var deleteCancellable: AnyCancellable?
+
     @Published public var country: CountryCallingCode {
         didSet {
             UserDefaults.selectedCountry = country.countryCode
@@ -160,6 +161,15 @@ extension PhoneLoginModel {
         }
         stateMachine.tryEvent(.loggingIn)
     }
+    public func deleteAccount() {
+        guard UserDefaults.appUser != nil, let number = UserDefaults.phoneNumber, !number.isEmpty else {
+            return
+        }
+        if logActions {
+            ActionLogger.shared.add(log: LogAction(action: "Deleting Account", info: "\(dialString)"))
+        }
+        stateMachine.tryEvent(.trashAccount)
+    }
     
     public func reset() {
         if timerIsRunning {
@@ -234,6 +244,32 @@ extension PhoneLoginModel {
                 }
             }
     }
+    
+    private func delete() {
+        
+        if logActions {
+            ActionLogger.shared.add(log: LogAction(action: "deleting account..."))
+        }
+        let endpoint = Endpoints.Phone.delete(configuration: self.configuration, phoneNumber: dialString)
+        
+        deleteCancellable = networkManager.publisher(for: endpoint)
+            .receive(on: RunLoop.main)
+            .sink { [weak self] completion in
+                guard let strongSelf = self else { return }
+            
+                switch completion {
+                case .finished:
+                    strongSelf.reset()
+                    ActionLogger.shared.add(log: LogAction(action: "Account deleted"))
+
+                case .failure(let error):
+                    strongSelf.errorMessage = error.localizedDescription
+                    strongSelf.stateMachine.tryEvent(.failure)
+                }
+                
+            } receiveValue: { _ in
+            }
+    }
 }
 
 // MARK: - State changes
@@ -261,6 +297,10 @@ extension PhoneLoginModel {
         if case .sendCode = state {
             errorMessage = ""
             sendCode()
+        }
+        if case .deletingAccount = state {
+            errorMessage = ""
+            deleteAccount()
         }
    }
     
