@@ -17,7 +17,7 @@ public class NetworkManager {
         self.authenticator = Authenticator(urlSession: urlSession)
     }
 
-    public func publisher<Response: Decodable>(for endpoint: Endpoint<Response>) -> AnyPublisher<Response, Swift.Error> {
+    public func publisher<Response>(for endpoint: Endpoint<Response>) -> AnyPublisher<Response, Swift.Error> {
         return authenticator.validToken(withConfiguration: endpoint.configuration)
             .map { token -> Endpoint<Response> in
                 var endpoint = endpoint
