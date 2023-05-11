@@ -104,6 +104,13 @@ public class PhoneLoginModel: ObservableObject {
 }
 
 extension PhoneLoginModel {
+    public var codeWasSendOnce: Bool {
+        guard let string = UserDefaults.phoneNumber else {
+            return false
+        }
+        return !string.isEmpty
+    }
+    
     public var canSendPhoneNumber: Bool {
         guard phoneNumber.count > 2 else {
             return false

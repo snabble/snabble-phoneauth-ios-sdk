@@ -14,9 +14,7 @@ public struct EnterPhoneNumberView: View {
     @EnvironmentObject var loginModel: PhoneLoginModel
 
     @FocusState private var enterCode
-//    init(isShowingDetailView: Bool) {
-//        self.isShowingDetailView = isShowingDetailView
-//    }
+
     public var body: some View {
         VStack {
             NavigationLink(destination: EnterCodeView(), isActive: $isShowingDetailView) { EmptyView() }
@@ -56,5 +54,18 @@ public struct EnterPhoneNumberView: View {
         .padding()
         .navigationTitle("Telefon-Login")
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                if loginModel.codeWasSendOnce {
+                    Button(action: {
+                        withAnimation {
+                            isShowingDetailView = true
+                        }
+                    }) {
+                        Text("Anmelden")
+                    }
+                }
+            }
+        }
     }
 }
