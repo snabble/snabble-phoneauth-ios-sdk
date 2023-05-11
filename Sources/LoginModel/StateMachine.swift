@@ -81,6 +81,7 @@ public extension StateMachine {
             case .enterCode: return .waitingForCode
             case .loggingIn: return .sendCode
             case .failure: return .error
+            case .trashAccount: return .deletingAccount
             default:
                 return nil
             }

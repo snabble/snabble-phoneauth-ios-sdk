@@ -14,7 +14,8 @@ extension UserDefaults {
     }
     public enum Pages: String {
         case startPage
-        case loginPage
+        case sendOTPPage
+        case loggedInPage
     }
     public class var pageVisited: Pages? {
         get {
@@ -60,28 +61,26 @@ struct LoggedInView: View {
             Spacer()
             DebugView()
         }
+        .onAppear {
+            UserDefaults.pageVisited = .loggedInPage
+        }
         .padding()
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
-                if loginModel.isLoggedIn {
-                    Button(action: {
-                        loginModel.deleteAccount()
-                    }) {
-                        Image(systemName: "trash")
-                    }
+                Button(action: {
+                    loginModel.deleteAccount()
+                }) {
+                    Image(systemName: "trash")
                 }
             }
-          ToolbarItem(placement: .navigationBarTrailing) {
-                if loginModel.isLoggedIn {
-                    Button(action: {
-                        loginModel.logout()
-                        UserDefaults.lastPageVisited = nil
-                    }) {
-                        Text("Logout")
-                    }
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button(action: {
+                    loginModel.logout()
+                    UserDefaults.lastPageVisited = nil
+                }) {
+                    Text("Logout")
                 }
             }
-
         }
     }
 }
@@ -90,12 +89,17 @@ struct ContentView: View {
     @EnvironmentObject var loginModel: PhoneLoginModel
     
     var showDetail: Bool {
-        return UserDefaults.pageVisited == .loginPage && UserDefaults.phoneNumber?.isEmpty == false
+        guard !isLoggedIn else {
+            return false
+        }
+        return UserDefaults.pageVisited == .sendOTPPage && UserDefaults.phoneNumber?.isEmpty == false
     }
-    
+    var isLoggedIn: Bool {
+        return UserDefaults.pageVisited == .loggedInPage || loginModel.isLoggedIn
+    }
     var body: some View {
         NavigationView {
-            if loginModel.isLoggedIn {
+            if isLoggedIn {
                 LoggedInView()
             } else {
                 EnterPhoneNumberView(isShowingDetailView: showDetail)

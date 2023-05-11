@@ -73,7 +73,7 @@ public struct EnterCodeView: View {
             DebugView()
         }
         .onAppear {
-            UserDefaults.pageVisited = .loginPage
+            UserDefaults.pageVisited = .sendOTPPage
 
             if loginModel.state == .waitingForCode {
                 enterCode = true
