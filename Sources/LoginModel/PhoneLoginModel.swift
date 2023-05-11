@@ -240,6 +240,7 @@ extension PhoneLoginModel {
                 guard let strongSelf = self else { return }
                 
                 if strongSelf.logActions, let appUser = response {
+                    UserDefaults.appUser = appUser
                     ActionLogger.shared.add(log: LogAction(action: "appID", info: appUser.id))
                 }
             }
