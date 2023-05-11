@@ -9,12 +9,14 @@ import Combine
 import Foundation
 
 public class NetworkManager {
-    public let urlSession: URLSession
     public let authenticator: Authenticator
 
     public init(urlSession: URLSession = .shared) {
-        self.urlSession = urlSession
         self.authenticator = Authenticator(urlSession: urlSession)
+    }
+
+    public var urlSession: URLSession {
+        authenticator.urlSession
     }
 
     public func publisher<Response>(for endpoint: Endpoint<Response>) -> AnyPublisher<Response, Swift.Error> {
@@ -25,7 +27,7 @@ public class NetworkManager {
                 return endpoint
             }
             .flatMap { [self] endpoint in
-                return urlSession.dataTaskPublisher(for: endpoint)
+                urlSession.dataTaskPublisher(for: endpoint)
             }
             .retryOnce(if: { error in
                 if case let HTTPError.invalidResponse(httpStatusCode) = error {

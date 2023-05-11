@@ -16,7 +16,7 @@ let package = Package(
             targets: ["SnabblePhoneAuth"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/realm/SwiftLint", exact: "0.51.0"),
+        .package(url: "https://github.com/realm/SwiftLint", exact: "0.52.0"),
         .package(url: "https://github.com/snabble/OneTimePassword.git", from: "4.0.0"),
     ],
     targets: [
