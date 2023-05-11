@@ -7,6 +7,37 @@
 
 import SwiftUI
 import SnabblePhoneAuth
+extension UserDefaults {
+    private enum Keys {
+        static let lastPageVisited = "lastPage"
+    }
+    public enum Pages: String {
+        case startPage
+        case loginPage
+    }
+    public class var pageVisited: Pages? {
+        get {
+            if let page = lastPageVisited {
+                return Pages(rawValue: page)
+            }
+            return nil
+        }
+        set {
+            lastPageVisited = newValue?.rawValue
+        }
+
+    }
+
+    public class var lastPageVisited: String? {
+        get {
+            UserDefaults.standard.string(forKey: Keys.lastPageVisited)
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: Keys.lastPageVisited)
+            UserDefaults.standard.synchronize()
+        }
+    }
+}
 
 struct LoggedInView: View {
     @EnvironmentObject var loginModel: PhoneLoginModel
@@ -31,19 +62,16 @@ struct LoggedInView: View {
 struct ContentView: View {
     @EnvironmentObject var loginModel: PhoneLoginModel
     
-    var hasPhoneNumber: Bool {
-        guard let number = UserDefaults.phoneNumber else {
-            return false
-        }
-        return !number.isEmpty
+    var showDetail: Bool {
+        return UserDefaults.pageVisited == .loginPage
     }
     
     var body: some View {
         NavigationView {
-            if loginModel.state == .loggedIn {
+            if loginModel.isLoggedIn {
                 LoggedInView()
             } else {
-                EnterPhoneNumberView(isShowingDetailView: hasPhoneNumber)
+                EnterPhoneNumberView(isShowingDetailView: showDetail)
             }
         }
     }

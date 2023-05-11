@@ -38,12 +38,18 @@ struct DebugView: View {
     @ViewBuilder
     var logsView: some View {
         if loginModel.logActions {
-            ScrollView(.vertical) {
-                ForEach(logger.logs, id: \.id) { log in
-                    log.view
+            ScrollViewReader { value in
+                ScrollView(.vertical) {
+                    ForEach(logger.logs, id: \.id) { log in
+                        log.view
+                            .id(log.id)
+                   }
                 }
-            }
-            .frame(minHeight: 12, maxHeight: 100)
+                .frame(minHeight: 12, maxHeight: 100)
+                .onChange(of: logger.logs.count) { _ in
+                    value.scrollTo(logger.logs.last?.id)
+                }
+           }
         }
     }
         

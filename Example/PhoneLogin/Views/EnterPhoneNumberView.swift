@@ -48,13 +48,9 @@ public struct EnterPhoneNumberView: View {
             .onChange(of: loginModel.state) { _ in
                 isShowingDetailView = UserDefaults.phoneNumber?.isEmpty == false
             }
-//            .onAppear {
-//                if loginModel.state == .waitingForCode {
-//                    isShowingDetailView = true
-//                } else {
-//                    enterCode = true
-//                }
-//            }
+            .onAppear {
+                UserDefaults.pageVisited = .startPage
+            }
             DebugView()
         }
         .padding()

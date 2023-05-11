@@ -33,7 +33,7 @@ public class PhoneLoginModel: ObservableObject {
     
     private var stateCancellable: AnyCancellable?
     private var loginCancellable: AnyCancellable?
-
+    
     @Published public var country: CountryCallingCode {
         didSet {
             UserDefaults.selectedCountry = country.countryCode
@@ -41,10 +41,6 @@ public class PhoneLoginModel: ObservableObject {
     }
     
     @Published public var phoneNumber: String = ""
-    
-//    @Published public var receivedCode: String = ""
-    
-    @Published public var isLoggingIn: Bool = false
     @Published public var errorMessage: String = "" {
         didSet {
             if !errorMessage.isEmpty {
@@ -57,8 +53,17 @@ public class PhoneLoginModel: ObservableObject {
         willSet { leaveState(state) }
         didSet { enterState(state) }
     }
-
+    
     @Published public var pinCode: String = ""
+    
+    @Published public var timeStamp: Date? {
+        didSet {
+            DispatchQueue.main.async {
+                self.objectWillChange.send()
+            }
+        }
+    }
+    
 #if DEBUG
     public var logActions = true
 #else
@@ -76,7 +81,7 @@ public class PhoneLoginModel: ObservableObject {
         }
         self.configuration = configuration
         self.networkManager = NetworkManager()
-
+        
         if let flag = logActions {
             self.logActions = flag
         }
@@ -96,7 +101,9 @@ public class PhoneLoginModel: ObservableObject {
             self.state = state
         }
     }
-    
+}
+
+extension PhoneLoginModel {
     public var canSendPhoneNumber: Bool {
         guard phoneNumber.count > 2 else {
             return false
@@ -110,14 +117,9 @@ public class PhoneLoginModel: ObservableObject {
         }
         return state == .error || state == .waitingForCode
     }
-    
-    @Published
-    public var timeStamp: Date? {
-        didSet {
-            DispatchQueue.main.async {
-                self.objectWillChange.send()
-            }
-        }
+
+    public var isLoggedIn: Bool {
+        state == .loggedIn
     }
     
     public var canRequestCode: Bool {
@@ -142,15 +144,17 @@ public class PhoneLoginModel: ObservableObject {
 }
 
 extension PhoneLoginModel {
-    
     public var dialString: String {
         return country.dialString(self.phoneNumber)
     }
-
+    
     public var phoneNumberPrettyPrint: String {
         return country.prettyPrint(self.phoneNumber)
     }
-    
+}
+
+extension PhoneLoginModel {
+
     public func sendPhoneNumber() {
         guard canRequestCode else {
             return
@@ -214,7 +218,7 @@ extension PhoneLoginModel {
             
                 switch completion {
                 case .finished:
-                    break
+                    strongSelf.stateMachine.tryEvent(.success)
                     
                 case .failure(let error):
                     strongSelf.errorMessage = error.localizedDescription
@@ -236,9 +240,6 @@ extension PhoneLoginModel {
         if logActions {
             ActionLogger.shared.add(log: LogAction(action: "leave state", info: "\(state)"))
         }
-        if case .sendCode = state, case .pushedToServer = state {
-            isLoggingIn = false
-        }
     }
     
     func enterState(_ state: StateMachine.State) {
@@ -246,9 +247,6 @@ extension PhoneLoginModel {
             ActionLogger.shared.add(log: LogAction(action: "enter state", info: "\(state)"))
         }
         
-        if case .loggedIn = state {
-            self.isLoggingIn = true
-        }
         if case .waitingForCode = state {
             UserDefaults.phoneNumber = self.phoneNumber
             self.timeStamp = .now

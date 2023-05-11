@@ -34,7 +34,7 @@ public struct EnterCodeView: View {
     }
     
     public var body: some View {
-        VStack {
+        VStack(spacing: 0) {
             Form {
                 Section(
                     header: header,
@@ -70,14 +70,16 @@ public struct EnterCodeView: View {
                 )
                 .textCase(nil)
             }
-            .onAppear {
-                if loginModel.state == .waitingForCode {
-                    enterCode = true
-                }
-            }
             DebugView()
         }
-        .padding()
+        .onAppear {
+            UserDefaults.pageVisited = .loginPage
+
+            if loginModel.state == .waitingForCode {
+                enterCode = true
+            }
+        }
+       .padding()
         .navigationTitle("Code eingeben")
     }
 }
