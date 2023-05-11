@@ -36,7 +36,15 @@ extension Endpoints {
                     do {
                         return try Endpoints.jsonDecoder.decode(SnabbleNetwork.AppUser.self, from: data)
                     } catch {
-                        return nil
+                        if case DecodingError.keyNotFound(let codingKey, _) = error {
+                            if codingKey.stringValue == "secret" {
+                                return nil
+                            }
+                        }
+                        if data.isEmpty {
+                            return nil
+                        }
+                        throw error
                     }
                 })
         }
