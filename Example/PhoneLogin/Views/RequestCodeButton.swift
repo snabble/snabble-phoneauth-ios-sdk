@@ -35,7 +35,7 @@ public struct RequestCodeButton: View {
             HStack {
                 Spacer(minLength: 0)
                 HStack {
-                    Text("Code \(firstStep ? "" : "erneut ") anfordern")
+                    Text(firstStep ? "Request Code" : "Request Code Again")
                         .fontWeight(.bold)
                     loginModel.progressView
                 }

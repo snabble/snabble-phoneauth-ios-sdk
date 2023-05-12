@@ -55,7 +55,7 @@ struct LoggedInView: View {
     
     var body: some View {
         VStack {
-            Text("Du bist eingeloggt!")
+            Text("You are logged in!")
                 .font(.largeTitle)
             info
             
@@ -69,7 +69,6 @@ struct LoggedInView: View {
             UserDefaults.pageVisited = .loggedInPage
         }
         .onChange(of: loginModel.state) { newState in
-            print("newState \(newState)")
             if newState == .start {
                 UserDefaults.pageVisited = .startPage
                 dismiss()

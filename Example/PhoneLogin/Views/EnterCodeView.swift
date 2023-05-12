@@ -27,7 +27,7 @@ public struct EnterCodeView: View {
     var header: some View {
         HStack {
             Spacer()
-            Text("Wir haben dir einen Code an\n\(loginModel.phoneNumberPrettyPrint) gesendet.\nBitte gib den Code ein.\n")
+            Text("Send \(loginModel.phoneNumberPrettyPrint)")
             .multilineTextAlignment(.center)
             Spacer()
         }
@@ -41,18 +41,17 @@ public struct EnterCodeView: View {
                     footer: loginModel.messageView,
                     content: {
                             VStack {
-                                TextField("Pin-Code", text: $loginModel.pinCode)
+                                TextField("Pin Code", text: $loginModel.pinCode)
                                     .keyboardType(.decimalPad)
                                     .focused($enterCode)
                                 
                                 Button(action: {
-                                    print("login with code: \(loginModel.pinCode)")
                                     loginModel.loginWithCode(loginModel.pinCode)
                                 }) {
                                     HStack {
                                         Spacer(minLength: 0)
                                         HStack {
-                                            Text("Anmelden")
+                                            Text("Login")
                                                 .fontWeight(.bold)
                                                 .opacity(loginModel.canLogin ? 1.0 : 0.5)
                                             
@@ -81,6 +80,6 @@ public struct EnterCodeView: View {
             }
         }
        .padding()
-        .navigationTitle("Code eingeben")
+        .navigationTitle("Input Code")
     }
 }

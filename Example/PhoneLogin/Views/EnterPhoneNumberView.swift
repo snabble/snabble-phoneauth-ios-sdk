@@ -26,7 +26,7 @@ public struct EnterPhoneNumberView: View {
                             HStack {
                                 CountryCallingCodeView(country: loginModel.country)
                                 
-                                TextField("Handynummer", text: $loginModel.phoneNumber)
+                                TextField("Mobile #", text: $loginModel.phoneNumber)
                                     .keyboardType(.phonePad)
                                     .focused($enterCode)
                             }
@@ -34,7 +34,7 @@ public struct EnterPhoneNumberView: View {
                         }
                     },
                     header: {
-                        Text("Zum Aktivieren des Logins, gib deine Handynummber ein.\nAnschließend erhälst du eine SMS mit einem Aktivierungscode.")
+                        Text("phoneInputHelp")
                             .multilineTextAlignment(.center)
                     },
                     footer: {
@@ -53,7 +53,7 @@ public struct EnterPhoneNumberView: View {
             DebugView()
         }
         .padding()
-        .navigationTitle("Telefon-Login")
+        .navigationTitle("Mobile Login")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
@@ -63,7 +63,7 @@ public struct EnterPhoneNumberView: View {
                             isShowingDetailView = true
                         }
                     }) {
-                        Text("Anmelden")
+                        Text("Login")
                     }
                 }
             }
