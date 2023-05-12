@@ -216,11 +216,12 @@ extension PhoneLoginModel {
         if timerIsRunning {
             waitTimer.stop()
         }
+        self.appUser = nil
         self.phoneNumber = ""
         self.pinCode = ""
         self.errorMessage = ""
         UserDefaults.phoneNumber = nil
-        UserDefaults.appUser = nil
+
         stateMachine.tryEvent(.enterPhoneNumber)
     }
     

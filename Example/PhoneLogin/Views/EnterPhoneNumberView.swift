@@ -48,6 +48,7 @@ public struct EnterPhoneNumberView: View {
             }
             .onAppear {
                 UserDefaults.pageVisited = .startPage
+                enterCode = true
             }
             DebugView()
         }
