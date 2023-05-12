@@ -44,6 +44,7 @@ extension UserDefaults {
 struct LoggedInView: View {
     @EnvironmentObject var loginModel: PhoneLoginModel
     @Environment(\.dismiss) var dismiss
+    @Environment(\.presentationMode) var presentationMode
 
     @ViewBuilder
     var info: some View {
@@ -55,7 +56,7 @@ struct LoggedInView: View {
     
     var body: some View {
         VStack {
-            Text("You are logged in!")
+            Text(loginModel.isLoggedIn ? "You are logged in!" : "You are not logged in!")
                 .font(.largeTitle)
             info
             
@@ -65,6 +66,7 @@ struct LoggedInView: View {
             Spacer()
             DebugView()
         }
+        .padding()
         .onAppear {
             UserDefaults.pageVisited = .loggedInPage
         }
@@ -74,7 +76,6 @@ struct LoggedInView: View {
                 dismiss()
             }
         }
-        .padding()
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button(action: {
@@ -85,10 +86,14 @@ struct LoggedInView: View {
             }
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button(action: {
-                    loginModel.logout()
+                    if loginModel.isLoggedIn {
+                        loginModel.logout()
+                    }
                     UserDefaults.lastPageVisited = nil
+                    presentationMode.wrappedValue.dismiss()
+                    dismiss()
                 }) {
-                    Text("Logout")
+                    Text(loginModel.isLoggedIn ? "Logout" : "Close")
                 }
             }
         }
@@ -98,21 +103,31 @@ struct LoggedInView: View {
 struct ContentView: View {
     @EnvironmentObject var loginModel: PhoneLoginModel
     
+    @State private var isLoggedIn = false
+    
     var showDetail: Bool {
         guard !isLoggedIn else {
             return false
         }
         return UserDefaults.pageVisited == .sendOTPPage && UserDefaults.phoneNumber?.isEmpty == false
     }
-    var isLoggedIn: Bool {
-        return UserDefaults.pageVisited == .loggedInPage || loginModel.isLoggedIn
-    }
+
     var body: some View {
         NavigationView {
             if isLoggedIn {
                 LoggedInView()
             } else {
                 EnterPhoneNumberView(isShowingDetailView: showDetail)
+            }
+        }
+        .onAppear {
+            isLoggedIn = UserDefaults.pageVisited == .loggedInPage || loginModel.isLoggedIn
+        }
+        .onChange(of: loginModel.state) { newState in
+            if newState == .loggedIn {
+                isLoggedIn = true
+            } else if newState == .start {
+                isLoggedIn = false
             }
         }
     }

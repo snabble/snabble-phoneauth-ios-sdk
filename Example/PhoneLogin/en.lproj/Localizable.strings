@@ -6,8 +6,10 @@
   
 */
 "You are logged in!" = "You are logged in!";
+"You are not logged in!" = "You are not logged in!";
 "Mobile Login" = "Mobile Login";
 "Login" = "Login";
+"Close" = "Close";
 "Mobile #" = "Mobile #";
 "phoneInputHelp" = "To activate the login, enter your mobile number.\nAfter that, you will receive an SMS with an activation code.";
 "Pin Code" = "Pin Code";
