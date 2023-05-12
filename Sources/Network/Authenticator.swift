@@ -36,6 +36,11 @@ public class Authenticator {
         self.urlSession = urlSession
     }
 
+    func updateAppUser(_ appUser: AppUser) {
+        invalidateToken()
+        delegate?.authenticator(self, appUserUpdated: appUser)
+    }
+
     func invalidateToken() {
         token = nil
     }
