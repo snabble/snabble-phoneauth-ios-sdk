@@ -56,8 +56,10 @@ public class Authenticator {
             .handleEvents(receiveOutput: { [weak self] response in
                 self?.token = response.token
                 self?.delegate?.authenticator(self!, appUserUpdated: response.appUser)
-            }, receiveCompletion: { _ in })
-            .map { $0.appUser }
+            })
+            .map {
+                $0.appUser
+            }
             .eraseToAnyPublisher()
         return publisher
     }

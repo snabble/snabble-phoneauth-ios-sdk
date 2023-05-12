@@ -10,11 +10,6 @@ import Foundation
 public struct AppUser: Codable {
     public let id: String
     public let secret: String
-
-    enum CodingKeys: String, CodingKey {
-        case id = "userID"
-        case secret
-    }
     
     public init(id: String, secret: String) {
         self.id = id
