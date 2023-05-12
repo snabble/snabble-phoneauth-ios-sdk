@@ -40,7 +40,25 @@ public class PhoneLoginModel: ObservableObject {
     }
     
     @Published public var pinCode: String = ""
-        
+    
+    public private(set) var appUser: AppUser? {
+        didSet {
+            let storedAppUser = UserDefaults.appUser
+            if appUser?.id != storedAppUser?.id {
+                DispatchQueue.main.async {
+                    if self.logActions {
+                        if let user = self.appUser {
+                            ActionLogger.shared.add(log: LogAction(action: "appID", info: user.id))
+                        } else {
+                            ActionLogger.shared.add(log: LogAction(action: "remove appID"))
+                        }
+                    }
+                    UserDefaults.appUser = self.appUser
+                }
+            }
+        }
+    }
+    
 #if DEBUG
     public var logActions = true
 #else
@@ -51,8 +69,11 @@ public class PhoneLoginModel: ObservableObject {
     }
 
     @Published public var waitTimer: WaitTimer
+    let projectID: String
     
-    public init(configuration: Configuration, logActions: Bool? = nil) {
+    public init(configuration: Configuration, projectID: String, logActions: Bool? = nil) {
+
+        self.projectID = projectID
         self.country = CountryCallingCodes.defaultCountry
         
         if let savedCountry = UserDefaults.selectedCountry, let country = CountryCallingCodes.country(for: savedCountry) {
@@ -77,10 +98,30 @@ public class PhoneLoginModel: ObservableObject {
         self.state = stateMachine.state
         
         self.waitTimer = WaitTimer(interval: 30)
-        
+
+        self.appUser = UserDefaults.appUser
+
         self.stateCancellable = stateMachine.statePublisher.sink { state in
             self.state = state
         }
+        if self.logActions, let appUser = self.appUser {
+            ActionLogger.shared.add(log: LogAction(action: "appID", info: appUser.id))
+        }
+        self.authenticator.delegate = self
+    }
+}
+
+extension PhoneLoginModel: AuthenticatorDelegate {
+    public func authenticator(_ authenticator: SnabbleNetwork.Authenticator, appUserForConfiguration configuration: SnabbleNetwork.Configuration) -> SnabbleNetwork.AppUser? {
+        self.appUser
+    }
+    
+    public func authenticator(_ authenticator: SnabbleNetwork.Authenticator, appUserUpdated appUser: SnabbleNetwork.AppUser) {
+        self.appUser = appUser
+    }
+    
+    public func authenticator(_ authenticator: SnabbleNetwork.Authenticator, projectIdForConfiguration configuration: SnabbleNetwork.Configuration) -> String {
+        self.projectID
     }
 }
 

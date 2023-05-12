@@ -8,61 +8,20 @@
 
 import Foundation
 
-import SnabbleNetwork
 import SnabblePhoneAuth
+import SnabbleNetwork
 
-public class Snabble {
-    
-    public let loginManager: PhoneLoginModel
-    private var appUser: AppUser? {
-        didSet {
-            let storedAppUser = UserDefaults.appUser
-            if appUser?.id != storedAppUser?.id {
-                if loginManager.logActions {
-                    if let user = appUser {
-                        ActionLogger.shared.add(log: LogAction(action: "appID", info: user.id))
-                    } else {
-                        ActionLogger.shared.add(log: LogAction(action: "remove appID"))
-                    }
-                }
-                UserDefaults.appUser = appUser
-            }
-        }
-    }
-    
-    init(configuration: Configuration) {
-        self.loginManager = PhoneLoginModel(configuration: configuration)
-        // if DEBUG logActions is set to true by default
-//        self.loginManager.logActions = false
-
-        self.appUser = UserDefaults.appUser
-        self.loginManager.authenticator.delegate = self
-
-        if loginManager.logActions, let appUser = self.appUser {
-            ActionLogger.shared.add(log: LogAction(action: "appID", info: appUser.id))
-        }
-    }
-}
-
-extension Snabble: AuthenticatorDelegate {
-    public func authenticator(_ authenticator: SnabbleNetwork.Authenticator, appUserForConfiguration configuration: SnabbleNetwork.Configuration) -> SnabbleNetwork.AppUser? {
-        self.appUser
-    }
-    
-    public func authenticator(_ authenticator: SnabbleNetwork.Authenticator, appUserUpdated appUser: SnabbleNetwork.AppUser) {
-        self.appUser = appUser
-    }
-    
-    public func authenticator(_ authenticator: SnabbleNetwork.Authenticator, projectIdForConfiguration configuration: SnabbleNetwork.Configuration) -> String {
-        "snabble-sdk-demo-beem8n"
-    }
+extension PhoneLoginModel {
+    static var testing = PhoneLoginModel(configuration: .testing, projectID: Configuration.projectId)
 }
 
 extension Configuration {
     static var appId: String {
         "snabble-sdk-demo-app-oguh3x"
     }
-
+    public static var projectId: String {
+        "snabble-sdk-demo-beem8n"
+    }
     static var production: Self {
         return .init(
             appId: appId,

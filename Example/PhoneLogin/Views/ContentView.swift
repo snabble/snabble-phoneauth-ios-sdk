@@ -43,10 +43,11 @@ extension UserDefaults {
 
 struct LoggedInView: View {
     @EnvironmentObject var loginModel: PhoneLoginModel
-    
+    @Environment(\.dismiss) var dismiss
+
     @ViewBuilder
     var info: some View {
-        if let appID = UserDefaults.appUser?.id {
+        if let appID = loginModel.appUser?.id {
             Text(appID)
                 .font(.custom("Menlo", size: 12))
         }
@@ -66,6 +67,13 @@ struct LoggedInView: View {
         }
         .onAppear {
             UserDefaults.pageVisited = .loggedInPage
+        }
+        .onChange(of: loginModel.state) { newState in
+            print("newState \(newState)")
+            if newState == .start {
+                UserDefaults.pageVisited = .startPage
+                dismiss()
+            }
         }
         .padding()
         .toolbar {

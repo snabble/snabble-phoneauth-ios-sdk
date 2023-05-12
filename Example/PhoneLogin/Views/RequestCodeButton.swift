@@ -42,7 +42,7 @@ public struct RequestCodeButton: View {
                 Spacer(minLength: 0)
             }
         }
-        .buttonStyle(RequestButtonStyle(firstStep: firstStep, disabled: loginModel.waitTimer.isRunning, show: $showCountdown, sendDate: $loginModel.waitTimer.startTime))
+        .buttonStyle(RequestButtonStyle(firstStep: firstStep, disabled: isDisabled, show: $showCountdown, sendDate: $loginModel.waitTimer.startTime))
         
         .onAppear {
             if firstStep == false, loginModel.state == .waitingForCode {
@@ -62,6 +62,9 @@ public struct RequestCodeButton: View {
         }
     }
     var isDisabled: Bool {
+        if loginModel.waitTimer.isRunning {
+            return true
+        }
         return disabled || !loginModel.canRequestCode
     }
     
@@ -70,7 +73,6 @@ public struct RequestCodeButton: View {
             return
         }
         loginModel.startTimer()
-//        sendDate = .now
         
         withAnimation {
             showCountdown = true

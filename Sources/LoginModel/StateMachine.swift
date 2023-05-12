@@ -114,6 +114,7 @@ public extension StateMachine {
             case .sendingPhoneNumber: return .pushedToServer
             case .loggingIn: return .waitingForCode
             case .trashAccount: return .deletingAccount
+            case .enterPhoneNumber: return .start
                 
             default:
                 return nil
