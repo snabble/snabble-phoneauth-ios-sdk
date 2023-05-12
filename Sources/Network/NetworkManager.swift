@@ -39,7 +39,7 @@ public class NetworkManager {
             })
             .handleEvents(receiveOutput: { [weak self] response in
                 if let appUser = response as? AppUser {
-                    self?.authenticator.delegate?.authenticator(self!.authenticator, appUserUpdated: appUser)
+                    self?.authenticator.updateAppUser(appUser)
                 }
             })
             .eraseToAnyPublisher()
