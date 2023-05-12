@@ -103,15 +103,17 @@ public extension StateMachine {
             }
         case .deletingAccount:
             switch event {
-            case .trashAccount: return .start
+            case .trashAccount, .enterPhoneNumber, .success: return .start
+            case .failure: return .error
             default:
                 return nil
             }
         case .error:
             switch event {
+                // got an error while sending event
             case .sendingPhoneNumber: return .pushedToServer
             case .loggingIn: return .waitingForCode
-            case .trashAccount: return .loggedIn
+            case .trashAccount: return .deletingAccount
                 
             default:
                 return nil

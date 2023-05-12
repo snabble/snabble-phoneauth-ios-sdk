@@ -14,14 +14,31 @@ import SnabblePhoneAuth
 public class Snabble {
     
     public let loginManager: PhoneLoginModel
-
+    private var appUser: AppUser? {
+        didSet {
+            let storedAppUser = UserDefaults.appUser
+            if appUser?.id != storedAppUser?.id {
+                if loginManager.logActions {
+                    if let user = appUser {
+                        ActionLogger.shared.add(log: LogAction(action: "appID", info: user.id))
+                    } else {
+                        ActionLogger.shared.add(log: LogAction(action: "remove appID"))
+                    }
+                }
+                UserDefaults.appUser = appUser
+            }
+        }
+    }
+    
     init(configuration: Configuration) {
         self.loginManager = PhoneLoginModel(configuration: configuration)
         // if DEBUG logActions is set to true by default
 //        self.loginManager.logActions = false
-        
+
+        self.appUser = UserDefaults.appUser
         self.loginManager.authenticator.delegate = self
-        if loginManager.logActions, let appUser = UserDefaults.appUser {
+
+        if loginManager.logActions, let appUser = self.appUser {
             ActionLogger.shared.add(log: LogAction(action: "appID", info: appUser.id))
         }
     }
@@ -29,11 +46,11 @@ public class Snabble {
 
 extension Snabble: AuthenticatorDelegate {
     public func authenticator(_ authenticator: SnabbleNetwork.Authenticator, appUserForConfiguration configuration: SnabbleNetwork.Configuration) -> SnabbleNetwork.AppUser? {
-        UserDefaults.appUser
+        self.appUser
     }
     
     public func authenticator(_ authenticator: SnabbleNetwork.Authenticator, appUserUpdated appUser: SnabbleNetwork.AppUser) {
-        UserDefaults.appUser = appUser
+        self.appUser = appUser
     }
     
     public func authenticator(_ authenticator: SnabbleNetwork.Authenticator, projectIdForConfiguration configuration: SnabbleNetwork.Configuration) -> String {

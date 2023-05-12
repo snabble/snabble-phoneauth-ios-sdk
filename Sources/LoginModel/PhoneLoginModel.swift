@@ -204,8 +204,6 @@ extension PhoneLoginModel {
             .sink { [weak self] completion in
                 guard let strongSelf = self else { return }
                 
-                print("completion: ", completion)
-
                 switch completion {
                 case .finished:
                     strongSelf.stateMachine.tryEvent(.sendingPhoneNumber)
@@ -236,13 +234,7 @@ extension PhoneLoginModel {
                     strongSelf.stateMachine.tryEvent(.failure)
                 }
                 
-            } receiveValue: { [weak self] response in
-                guard let strongSelf = self else { return }
-                
-                if strongSelf.logActions, let appUser = response {
-                    UserDefaults.appUser = appUser
-                    ActionLogger.shared.add(log: LogAction(action: "appID", info: appUser.id))
-                }
+            } receiveValue: { _ in
             }
     }
     
@@ -260,8 +252,8 @@ extension PhoneLoginModel {
             
                 switch completion {
                 case .finished:
-                    strongSelf.reset()
                     ActionLogger.shared.add(log: LogAction(action: "Account deleted"))
+                    strongSelf.reset()
 
                 case .failure(let error):
                     strongSelf.errorMessage = error.localizedDescription
