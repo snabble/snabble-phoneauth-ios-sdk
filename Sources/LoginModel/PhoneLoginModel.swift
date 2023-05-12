@@ -197,7 +197,6 @@ extension PhoneLoginModel {
     private func pushToServer() {
 
         let endpoint = Endpoints.Phone.auth(configuration: self.configuration, phoneNumber: dialString)
-        startTimer()
         
         loginCancellable = networkManager.publisher(for: endpoint)
             .receive(on: RunLoop.main)
@@ -207,7 +206,8 @@ extension PhoneLoginModel {
                 switch completion {
                 case .finished:
                     strongSelf.stateMachine.tryEvent(.sendingPhoneNumber)
-                    
+                    strongSelf.startTimer()
+
                 case .failure(let error):
                     strongSelf.errorMessage = error.localizedDescription
                     strongSelf.stateMachine.tryEvent(.failure)
