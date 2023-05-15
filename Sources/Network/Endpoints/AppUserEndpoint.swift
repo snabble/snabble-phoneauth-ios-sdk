@@ -10,17 +10,17 @@ import OneTimePassword
 
 extension Endpoints {
     enum AppUser {
-        static func post(configuration: Configuration, projectId: String? = nil) -> Endpoint<AppUserResponse> {
+        static func post(configuration: Configuration, projectId: String? = nil) -> Endpoint<UsersResponse> {
             var queryItems: [URLQueryItem]?
             if let projectId = projectId {
                 queryItems = [.init(name: "project", value: projectId)]
             }
-            var endpoint: Endpoint<AppUserResponse> = .init(
+            var endpoint: Endpoint<UsersResponse> = .init(
                 path: "/apps/\(configuration.appId)/users",
                 method: .post(nil, queryItems),
                 configuration: configuration,
                 parse: { data in
-                    try Endpoints.jsonDecoder.decode(AppUserResponse.self, from: data)
+                    try Endpoints.jsonDecoder.decode(UsersResponse.self, from: data)
                 }
             )
             if let authorization = authorization(withConfiguration: configuration) {
@@ -57,7 +57,7 @@ extension Endpoints {
     }
 }
 
-struct AppUserResponse: Codable {
+struct UsersResponse: Codable {
     let appUser: AppUser
     let token: Token?
 }
