@@ -57,9 +57,7 @@ struct LoggedInView: View {
             }
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button(action: {
-                    if loginModel.isLoggedIn {
-                        loginModel.logout()
-                    }
+                    loginModel.logout()
                     UserDefaults.lastPageVisited = nil
                     presentationMode.wrappedValue.dismiss()
                     dismiss()

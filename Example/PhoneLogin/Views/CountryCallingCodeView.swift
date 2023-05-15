@@ -43,7 +43,7 @@ public struct CountryCallingCodeListView: View {
 
     public var body: some View {
         List {
-            ForEach(CountryCallingCodes.info, id: \.id) { country in
+            ForEach(CountryCallingCodes.countries, id: \.id) { country in
                 CountryCallingCodeRow(country: country)
                     .listRowBackground(UserDefaults.selectedCountry == country.countryCode ? Color.accentColor : Color.clear)
                     .onTapGesture {

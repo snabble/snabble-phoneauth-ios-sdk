@@ -11,6 +11,7 @@ import SnabblePhoneAuth
 @main
 struct PhoneLoginApp: App {
     let loginModel = PhoneLoginModel.testing
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
 
     var body: some Scene {
         WindowGroup {

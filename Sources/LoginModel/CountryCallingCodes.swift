@@ -35,12 +35,10 @@ public struct CountryCallingCode: Identifiable, Hashable {
     public let callingCode: String // eg. 49
     public let internationalCode: String // eg. 00
     public let trunkPrefix: String // eg. 0 (see https://en.wikipedia.org/wiki/Trunk_prefix)
-    public let indexSet: IndexSet?
     
-    public init(countryCode: String, callingCode: String, indexSet: IndexSet? = nil, internationalCode: String = "00", trunkPrefix: String = "0") {
+    public init(countryCode: String, callingCode: String, internationalCode: String = "00", trunkPrefix: String = "0") {
         self.countryCode = countryCode
         self.callingCode = callingCode
-        self.indexSet = indexSet
         self.internationalCode = internationalCode
         self.trunkPrefix = trunkPrefix
     }
@@ -68,31 +66,69 @@ public struct CountryCallingCode: Identifiable, Hashable {
     }
 }
 
-/// List of supported country codes
-/// see: https://en.wikipedia.org/wiki/Telephone_numbers_in_Europe
-///
-public enum CountryCallingCodes {
-    public static let info: [CountryCallingCode] = [
+extension CountryCallingCode: Decodable {
+    private enum CodingKeys: String, CodingKey {
+        case countryCode
+        case callingCode
+        case trunkPrefix
+        case internationalCode
+    }
+
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.countryCode = try container.decode(String.self, forKey: .countryCode)
+        self.callingCode = try container.decode(String.self, forKey: .callingCode)
+        if let prefix = try container.decodeIfPresent(String.self, forKey: .trunkPrefix) {
+            self.trunkPrefix = prefix
+        } else {
+            self.trunkPrefix = ""
+        }
+        if let intCode = try container.decodeIfPresent(String.self, forKey: .internationalCode) {
+            self.internationalCode = intCode
+        } else {
+            self.internationalCode = "00"
+        }
+    }
+}
+public protocol CountryProviding: AnyObject {
+    /// Providing a `CustomAppearance` for the given `projectId`
+    /// - Parameter domain: The domain, usually the current `Identifier<Project>`
+    /// - Returns: The custom appearance for the specified projectId or `nil`
+    func supportedCountries() -> [CountryCallingCode]?
+}
+
+public enum CountryProvider {
+    /// List of supported country codes
+    /// see: https://en.wikipedia.org/wiki/Telephone_numbers_in_Europe
+    ///
+    public static let defaultCountries: [CountryCallingCode] = [
         CountryCallingCode(countryCode: "AT", callingCode: "43"),
-        CountryCallingCode(countryCode: "BE", callingCode: "32"),
         CountryCallingCode(countryCode: "CH", callingCode: "41"),
-        defaultCountry,
-        CountryCallingCode(countryCode: "DK", callingCode: "45", trunkPrefix: ""),
-        CountryCallingCode(countryCode: "ES", callingCode: "34", trunkPrefix: ""),
-        CountryCallingCode(countryCode: "FR", callingCode: "33"),
-        CountryCallingCode(countryCode: "GR", callingCode: "423", trunkPrefix: ""),
-        CountryCallingCode(countryCode: "IT", callingCode: "39", trunkPrefix: ""),
-        CountryCallingCode(countryCode: "NL", callingCode: "31"),
-        CountryCallingCode(countryCode: "LU", callingCode: "352", trunkPrefix: ""),
-        CountryCallingCode(countryCode: "LI", callingCode: "423", trunkPrefix: "")
+        CountryCallingCode(countryCode: "DE", callingCode: "49")
     ]
+
+    /// Reference to the implementation of the `CountryProviding` implementation
+    public static weak var provider: CountryProviding?
+
+    public static var countries: [CountryCallingCode] {
+        if let countries = provider?.supportedCountries(), !countries.isEmpty {
+            return countries
+        }
+        return defaultCountries
+    }
+}
+
+public enum CountryCallingCodes {
     public static let defaultCountry = CountryCallingCode(countryCode: "DE", callingCode: "49")
     
-    public static var countries: [String] {
-        return info.compactMap({ $0.countryCode })
+    public static var countries: [CountryCallingCode] {
+        return CountryProvider.countries
+    }
+    public static var countryNames: [String] {
+        return countries.compactMap({ $0.countryCode })
     }
     public static func country(for code: String) -> CountryCallingCode? {
-        return info.first(where: { $0.countryCode == code})
+        return countries.first(where: { $0.countryCode == code})
     }
 }
 

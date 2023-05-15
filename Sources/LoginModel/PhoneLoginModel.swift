@@ -9,15 +9,25 @@ import Foundation
 import Combine
 import SnabbleNetwork
 
+/// The `PhoneLoginModel` can used as a viewModel to control the flow of:
+///
+/// * Registering by sending a phone number and request an OTP (One Time Password) via SMS `sendPhoneNumber()`
+/// * Login to an account using a valid OTP `loginWithCode(_ code: String)`
+/// * Logout from an account by reseting all locally stored data `logout()`
+/// * Requesting the deletion of an account `deleteAccount()`
+///
 public class PhoneLoginModel: ObservableObject {
 
+    /// The country using the `CountryCallingCode` struct. If `UserDefaults.selectedCountry` is set to a valid country code e.g. "DE" this will use to create a `CountryCallingCode`.
     @Published public var country: CountryCallingCode {
         didSet {
             UserDefaults.selectedCountry = country.countryCode
         }
     }
     
+    /// Typically you will bind this value to a TextField using `TextField("Mobile #", text: $loginModel.phoneNumber)`
     @Published public var phoneNumber: String = ""
+    
     @Published public var errorMessage: String = "" {
         didSet {
             if !errorMessage.isEmpty {
@@ -25,18 +35,21 @@ public class PhoneLoginModel: ObservableObject {
             }
         }
     }
-    
+    /// To observe changes in the  flow use `onChange(loginModel.state) { newState in }`
     @Published public var state: StateMachine.State {
         willSet { leaveState(state) }
         didSet { enterState(state) }
     }
     
+    /// Typically you will bind this value to a TextField using `TextField("PIN Code", text: $loginModel.pinCode)`
     @Published public var pinCode: String = ""
     
+    /// The Authenticator manages authentication and provide a new AppUser and need some information implmenting the `AuthenticatorDelegate` protocol.
     public var authenticator: Authenticator {
         return networkManager.authenticator
     }
 
+    /// A `WaitTimer` which will be started after a code request was sent. The timer provides a `@Published public var startTime` and `@Published public var endTime` structs a view can observe via `onChange(loginModel.waitTimer.endTime) { newTime in }`
     @Published public var waitTimer: WaitTimer
 
     public private(set) var appUser: AppUser? {
@@ -56,23 +69,28 @@ public class PhoneLoginModel: ObservableObject {
         }
     }
     
+    /// The `Configuration` used for backend communication
     let configuration: Configuration
+    /// A `String`with the project identifier used for backend communication
     let projectID: String
     
+    /// Logging `LogActions` is enabled by default for `DEBUG` mode.
 #if DEBUG
     public var logActions = true
 #else
     public var logActions = false
 #endif
 
+    /// The internal `StateMachine` controlling the flow
     private let stateMachine: StateMachine
+    /// The internal `NetworkManager` providing network services to request OTP's for given phoneNumbers `sendPhoneNumber()` and handle `login()` to an account and request a deletion `deleteAccount()` of an acccount.
     private let networkManager: NetworkManager
     
     private var stateCancellable: AnyCancellable?
     private var loginCancellable: AnyCancellable?
     private var deleteCancellable: AnyCancellable?
     
-    public init(configuration: Configuration, projectID: String, logActions: Bool? = nil) {
+    public init(configuration: Configuration, projectID: String, logActions: Bool? = nil, waitInterval: Double = 30.0) {
 
         self.projectID = projectID
         self.country = CountryCallingCodes.defaultCountry
@@ -98,7 +116,7 @@ public class PhoneLoginModel: ObservableObject {
         self.stateMachine = stateMachine
         self.state = stateMachine.state
         
-        self.waitTimer = WaitTimer(interval: 30)
+        self.waitTimer = WaitTimer(interval: waitInterval)
 
         self.appUser = UserDefaults.appUser
 
@@ -126,14 +144,17 @@ public class PhoneLoginModel: ObservableObject {
 }
 
 extension PhoneLoginModel: AuthenticatorDelegate {
+    /// Provide the `Authenticator` with a stored AppUser struct or nil if not yet exists or was resetted.
     public func authenticator(_ authenticator: SnabbleNetwork.Authenticator, appUserForConfiguration configuration: SnabbleNetwork.Configuration) -> SnabbleNetwork.AppUser? {
         self.appUser
     }
     
+    /// make sure to store/save an updated `AppUser`
     public func authenticator(_ authenticator: SnabbleNetwork.Authenticator, appUserUpdated appUser: SnabbleNetwork.AppUser) {
         self.appUser = appUser
     }
     
+    /// Provide the `Authenticator` with a project identifier.
     public func authenticator(_ authenticator: SnabbleNetwork.Authenticator, projectIdForConfiguration configuration: SnabbleNetwork.Configuration) -> String {
         self.projectID
     }
@@ -206,6 +227,7 @@ extension PhoneLoginModel {
 
 extension PhoneLoginModel {
 
+    /// Try to send a phone number to the backend and requesting a OTP (One Time Password)
     public func sendPhoneNumber() {
         guard canRequestCode else {
             return
@@ -216,6 +238,9 @@ extension PhoneLoginModel {
         stateMachine.tryEvent(.sendingPhoneNumber)
     }
 
+    /// Try to login with a given `String`
+    /// - Parameters:
+    ///   - string: The pinCode to use for the login request.
     public func loginWithCode(_ string: String) {
         guard canLogin else {
             return
@@ -229,11 +254,15 @@ extension PhoneLoginModel {
         stateMachine.tryEvent(.loggingIn)
     }
 
-    public func login() {
+    /// Try to login with the var `pinCode`
+    /// - Parameters:
+    ///   - string: The pinCode to use for the login request.
+   public func login() {
         loginWithCode(pinCode)
     }
 
-    public func deleteAccount() {
+    /// Try to delete the current account
+   public func deleteAccount() {
         guard UserDefaults.appUser != nil, let number = UserDefaults.phoneNumber, !number.isEmpty else {
             return
         }
@@ -243,10 +272,12 @@ extension PhoneLoginModel {
         stateMachine.tryEvent(.trashAccount)
     }
     
+    /// Logout the current user by calling `reset()`
     public func logout() {
         reset()
     }
 
+    /// Start the waitTimer to prevent spamming the backend for a SMS code request.
     public func startTimer() {
         guard !timerIsRunning else {
             return
