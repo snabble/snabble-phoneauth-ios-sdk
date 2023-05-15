@@ -10,14 +10,6 @@ import Combine
 import SnabbleNetwork
 
 public class PhoneLoginModel: ObservableObject {
-    
-    private let stateMachine: StateMachine
-    private let networkManager: NetworkManager
-    private let configuration: Configuration
-    
-    private var stateCancellable: AnyCancellable?
-    private var loginCancellable: AnyCancellable?
-    private var deleteCancellable: AnyCancellable?
 
     @Published public var country: CountryCallingCode {
         didSet {
@@ -41,10 +33,15 @@ public class PhoneLoginModel: ObservableObject {
     
     @Published public var pinCode: String = ""
     
+    public var authenticator: Authenticator {
+        return networkManager.authenticator
+    }
+
+    @Published public var waitTimer: WaitTimer
+
     public private(set) var appUser: AppUser? {
         didSet {
-            let storedAppUser = UserDefaults.appUser
-            if appUser?.id != storedAppUser?.id {
+            if appUser?.id != UserDefaults.appUser?.id {
                 DispatchQueue.main.async {
                     if self.logActions {
                         if let user = self.appUser {
@@ -59,17 +56,21 @@ public class PhoneLoginModel: ObservableObject {
         }
     }
     
+    let configuration: Configuration
+    let projectID: String
+    
 #if DEBUG
     public var logActions = true
 #else
-    public var logAction = false
+    public var logActions = false
 #endif
-    public var authenticator: Authenticator {
-        return networkManager.authenticator
-    }
 
-    @Published public var waitTimer: WaitTimer
-    let projectID: String
+    private let stateMachine: StateMachine
+    private let networkManager: NetworkManager
+    
+    private var stateCancellable: AnyCancellable?
+    private var loginCancellable: AnyCancellable?
+    private var deleteCancellable: AnyCancellable?
     
     public init(configuration: Configuration, projectID: String, logActions: Bool? = nil) {
 
@@ -109,6 +110,19 @@ public class PhoneLoginModel: ObservableObject {
         }
         self.authenticator.delegate = self
     }
+    
+    public func reset() {
+        if timerIsRunning {
+            waitTimer.stop()
+        }
+        self.appUser = nil
+        self.phoneNumber = ""
+        self.pinCode = ""
+        self.errorMessage = ""
+        UserDefaults.phoneNumber = nil
+
+        stateMachine.tryEvent(.enterPhoneNumber)
+    }
 }
 
 extension PhoneLoginModel: AuthenticatorDelegate {
@@ -126,6 +140,7 @@ extension PhoneLoginModel: AuthenticatorDelegate {
 }
 
 extension PhoneLoginModel {
+    /// - Returns: `true` if a non empty phone number is stored in UserDefaults
     public var codeWasSendOnce: Bool {
         guard let string = UserDefaults.phoneNumber else {
             return false
@@ -133,32 +148,38 @@ extension PhoneLoginModel {
         return !string.isEmpty
     }
     
+    /// - Returns: `true` if a phone number can be sent and state is `.start`, `.waitingForCode` or `.error`.
     public var canSendPhoneNumber: Bool {
         guard phoneNumber.count > 2 else {
             return false
         }
-        return state == .error || state == .start || state == .waitingForCode
+        return [.start, .waitingForCode, .error].contains(state)  // state == .error || state == .start || state == .waitingForCode
     }
     
+    /// - Returns: `true` if a the pinCode has a length of 6  and state is `.waitingForCode` or `.error`.
     public var canLogin: Bool {
         guard pinCode.count == 6 else {
             return false
         }
-        return state == .error || state == .waitingForCode
+        return [.waitingForCode, .error].contains(state) // state == .error || state == .waitingForCode
     }
 
+    /// - Returns: `true` if  state is `.loggedIn`.
     public var isLoggedIn: Bool {
         state == .loggedIn
     }
     
+    /// - Returns: `true` if state is `.pushedToServer`, `.sendCode` or `.deletingAccount` indicating a running network request.
     public var isWaiting: Bool {
-        state == .pushedToServer || state == .sendCode || state == .deletingAccount
+        [.pushedToServer, .sendCode, .deletingAccount].contains(state)
     }
 
+    /// - Returns: `true` if the current `WaitTimer` is running.
     public var timerIsRunning: Bool {
         return waitTimer.isRunning
     }
 
+    /// - Returns: `true` if a phonenumber can be sent and no `WaitTimer` is running.
     public var canRequestCode: Bool {
         if canSendPhoneNumber {
             guard !timerIsRunning else {
@@ -172,10 +193,12 @@ extension PhoneLoginModel {
 }
 
 extension PhoneLoginModel {
+    /// - Returns: A `String` formatted with the required backend format like`+49123456789`
     public var dialString: String {
         return country.dialString(self.phoneNumber)
     }
     
+    /// - Returns: A `String` formatted the country calling code with a preceiding plus sign and the entered phoneNumber separeated by a space (e.g: `+49 123456789`).
     public var phoneNumberPrettyPrint: String {
         return country.prettyPrint(self.phoneNumber)
     }
@@ -205,6 +228,7 @@ extension PhoneLoginModel {
         }
         stateMachine.tryEvent(.loggingIn)
     }
+
     public func login() {
         loginWithCode(pinCode)
     }
@@ -217,19 +241,6 @@ extension PhoneLoginModel {
             ActionLogger.shared.add(log: LogAction(action: "Deleting Account", info: "\(dialString)"))
         }
         stateMachine.tryEvent(.trashAccount)
-    }
-    
-    public func reset() {
-        if timerIsRunning {
-            waitTimer.stop()
-        }
-        self.appUser = nil
-        self.phoneNumber = ""
-        self.pinCode = ""
-        self.errorMessage = ""
-        UserDefaults.phoneNumber = nil
-
-        stateMachine.tryEvent(.enterPhoneNumber)
     }
     
     public func logout() {
@@ -301,7 +312,7 @@ extension PhoneLoginModel {
                 switch completion {
                 case .finished:
                     ActionLogger.shared.add(log: LogAction(action: "Account deleted"))
-                    strongSelf.reset()
+                    strongSelf.logout()
 
                 case .failure(let error):
                     strongSelf.errorMessage = error.localizedDescription
@@ -309,7 +320,6 @@ extension PhoneLoginModel {
                 }
                 
             } receiveValue: { _ in
-                
             }
     }
 }
@@ -345,5 +355,4 @@ extension PhoneLoginModel {
             delete()
         }
    }
-    
 }
