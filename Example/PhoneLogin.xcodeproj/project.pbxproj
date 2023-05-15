@@ -21,6 +21,7 @@
 		76A9F7202A09272200C162B1 /* SnabbleConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A9F71F2A09272100C162B1 /* SnabbleConfig.swift */; };
 		76A9F7242A0A56DA00C162B1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A9F7232A0A56DA00C162B1 /* ContentView.swift */; };
 		76FA1A812A0E57D9008C15BF /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 76FA1A832A0E57D9008C15BF /* Localizable.strings */; };
+		76FA1A882A120D60008C15BF /* LoggedInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FA1A872A120D60008C15BF /* LoggedInView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +53,7 @@
 		76A9F7232A0A56DA00C162B1 /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		76FA1A822A0E57D9008C15BF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		76FA1A842A0E580F008C15BF /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		76FA1A872A120D60008C15BF /* LoggedInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedInView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +86,7 @@
 				7659151E2A0A70BB00A610BC /* EnterPhoneNumberView.swift */,
 				7659151F2A0A70BB00A610BC /* RequestCodeButton.swift */,
 				76A9F7232A0A56DA00C162B1 /* ContentView.swift */,
+				76FA1A872A120D60008C15BF /* LoggedInView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -261,6 +264,7 @@
 				765915292A0A70BB00A610BC /* CountryCallingCodeView.swift in Sources */,
 				7691BA9B2976C3F400477EDD /* PhoneLoginApp.swift in Sources */,
 				7659152A2A0A70BB00A610BC /* CountDownView.swift in Sources */,
+				76FA1A882A120D60008C15BF /* LoggedInView.swift in Sources */,
 				765915252A0A70BB00A610BC /* EnterPhoneNumberView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

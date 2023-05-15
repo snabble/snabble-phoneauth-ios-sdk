@@ -27,7 +27,14 @@ public struct RequestCodeButton: View {
     @State private var disabled: Bool = false
     
     @EnvironmentObject var loginModel: PhoneLoginModel
-    
+
+    private var isDisabled: Bool {
+        if loginModel.waitTimer.isRunning {
+            return true
+        }
+        return disabled || !loginModel.canRequestCode
+    }
+
     public var body: some View {
         Button(action: {
             loginModel.sendPhoneNumber()
@@ -45,37 +52,26 @@ public struct RequestCodeButton: View {
         .buttonStyle(RequestButtonStyle(firstStep: firstStep, disabled: isDisabled, show: $showCountdown, sendDate: $loginModel.waitTimer.startTime))
         
         .onAppear {
-            if firstStep == false, loginModel.state == .waitingForCode {
-                disabled = true
-                startCountdown()
+            if !firstStep, loginModel.state == .waitingForCode {
+                withAnimation {
+                    showCountdown = true
+                }
             }
         }
-        .onChange(of: loginModel.state) { newState in
-            if firstStep == false, newState == .waitingForCode {
-                startCountdown()
+        .onChange(of: loginModel.waitTimer.endTime) { newValue in
+            let started = newValue == nil
+            
+            withAnimation {
+                disabled = started
+                if !firstStep {
+                    showCountdown = started
+                }
             }
         }
         .onChange(of: showCountdown) { newState in
             withAnimation {
                 disabled = newState
             }
-        }
-    }
-    var isDisabled: Bool {
-        if loginModel.waitTimer.isRunning {
-            return true
-        }
-        return disabled || !loginModel.canRequestCode
-    }
-    
-    func startCountdown() {
-        guard !firstStep else {
-            return
-        }
-        loginModel.startTimer()
-        
-        withAnimation {
-            showCountdown = true
         }
     }
 }

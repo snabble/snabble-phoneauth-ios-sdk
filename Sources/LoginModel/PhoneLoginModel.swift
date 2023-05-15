@@ -152,7 +152,7 @@ extension PhoneLoginModel {
     }
     
     public var isWaiting: Bool {
-        state == .pushedToServer || state == .sendCode
+        state == .pushedToServer || state == .sendCode || state == .deletingAccount
     }
 
     public var timerIsRunning: Bool {

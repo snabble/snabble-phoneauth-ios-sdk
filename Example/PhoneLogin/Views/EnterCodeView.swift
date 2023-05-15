@@ -79,7 +79,7 @@ public struct EnterCodeView: View {
                 loginModel.startTimer()
             }
         }
-       .padding()
+        .padding()
         .navigationTitle("Input Code")
     }
 }

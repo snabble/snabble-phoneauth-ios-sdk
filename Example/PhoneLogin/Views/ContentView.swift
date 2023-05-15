@@ -41,65 +41,6 @@ extension UserDefaults {
     }
 }
 
-struct LoggedInView: View {
-    @EnvironmentObject var loginModel: PhoneLoginModel
-    @Environment(\.dismiss) var dismiss
-    @Environment(\.presentationMode) var presentationMode
-
-    @ViewBuilder
-    var info: some View {
-        if let appID = loginModel.appUser?.id {
-            Text(appID)
-                .font(.custom("Menlo", size: 12))
-        }
-    }
-    
-    var body: some View {
-        VStack {
-            Text(loginModel.isLoggedIn ? "You are logged in!" : "You are not logged in!")
-                .font(.largeTitle)
-            info
-            
-            loginModel.messageView
-                .padding()
-
-            Spacer()
-            DebugView()
-        }
-        .padding()
-        .onAppear {
-            UserDefaults.pageVisited = .loggedInPage
-        }
-        .onChange(of: loginModel.state) { newState in
-            if newState == .start {
-                UserDefaults.pageVisited = .startPage
-                dismiss()
-            }
-        }
-        .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                Button(action: {
-                    loginModel.deleteAccount()
-                }) {
-                    Image(systemName: "trash")
-                }
-            }
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button(action: {
-                    if loginModel.isLoggedIn {
-                        loginModel.logout()
-                    }
-                    UserDefaults.lastPageVisited = nil
-                    presentationMode.wrappedValue.dismiss()
-                    dismiss()
-                }) {
-                    Text(loginModel.isLoggedIn ? "Logout" : "Close")
-                }
-            }
-        }
-    }
-}
-
 struct ContentView: View {
     @EnvironmentObject var loginModel: PhoneLoginModel
     

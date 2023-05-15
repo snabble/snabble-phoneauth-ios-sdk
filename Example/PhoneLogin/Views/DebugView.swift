@@ -49,6 +49,9 @@ struct DebugView: View {
                 .onChange(of: logger.logs.count) { _ in
                     value.scrollTo(logger.logs.last?.id)
                 }
+                .onAppear {
+                    value.scrollTo(logger.logs.last?.id)
+                }
            }
         }
     }
