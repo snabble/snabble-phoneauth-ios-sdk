@@ -194,14 +194,21 @@ extension PhoneLoginModel {
     }
 
     public func loginWithCode(_ string: String) {
-
+        guard canLogin else {
+            return
+        }
+        
         pinCode = string
-
+        
         if logActions {
             ActionLogger.shared.add(log: LogAction(action: "Login with OTP", info: "\(pinCode)"))
         }
         stateMachine.tryEvent(.loggingIn)
     }
+    public func login() {
+        loginWithCode(pinCode)
+    }
+
     public func deleteAccount() {
         guard UserDefaults.appUser != nil, let number = UserDefaults.phoneNumber, !number.isEmpty else {
             return
@@ -248,7 +255,6 @@ extension PhoneLoginModel {
                 switch completion {
                 case .finished:
                     strongSelf.stateMachine.tryEvent(.sendingPhoneNumber)
-                    strongSelf.startTimer()
 
                 case .failure(let error):
                     strongSelf.errorMessage = error.localizedDescription

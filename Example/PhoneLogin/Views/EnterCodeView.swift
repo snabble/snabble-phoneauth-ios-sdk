@@ -46,7 +46,7 @@ public struct EnterCodeView: View {
                                     .focused($enterCode)
                                 
                                 Button(action: {
-                                    loginModel.loginWithCode(loginModel.pinCode)
+                                    loginModel.login()
                                 }) {
                                     HStack {
                                         Spacer(minLength: 0)

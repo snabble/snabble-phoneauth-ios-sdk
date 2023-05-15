@@ -23,11 +23,11 @@ open class StateMachine {
     public enum Event {
         case enterPhoneNumber   // User gives phone number textfield focus
         case sendingPhoneNumber // User has tapped button "Request Code"
-        case enterCode          // User give code textfield focus
+        case enterCode          // User gives code textfield focus
         case loggingIn          // User has tapped button "Login"
-        case trashAccount       // User has tapped Button "Trash"
-        case success
-        case failure
+        case trashAccount       // User has tapped button "Delete"
+        case success            // 'Login' or 'Delete Account' was successfully executed
+        case failure            // Handle an occurred error
     }
     
     public private(set) var state: State {
