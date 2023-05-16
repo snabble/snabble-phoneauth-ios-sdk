@@ -8,6 +8,7 @@
 import Foundation
 import Combine
 
+/// A 'WaitTimer' can be started or stopped. On start startTime and endTime will be set. When the timer is stopped (manually or the timer finished the endTime is set.
 public class WaitTimer: ObservableObject {
     @Published public var isRunning: Bool = false
     
@@ -24,7 +25,6 @@ public class WaitTimer: ObservableObject {
         
         startTime = .now
         endTime = nil
-        print("timer started: \(String(describing: startTime))")
 
         waitCancellable = self.publisher
             .autoconnect()
@@ -38,6 +38,5 @@ public class WaitTimer: ObservableObject {
         waitCancellable = nil
         isRunning = false
         endTime = .now
-        print("timer stopped: \(String(describing: endTime))")
     }
 }

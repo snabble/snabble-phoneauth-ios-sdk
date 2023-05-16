@@ -8,6 +8,7 @@
 import Foundation
 import Combine
 
+/// The `LogAction` provides a simple model with an `action` and optional `info` `String` element.
 public struct LogAction: Identifiable, Hashable {
     public let action: String
     public let info: String
@@ -33,19 +34,31 @@ extension LogAction: CustomStringConvertible {
     }
 }
 
+/// The `ActionLogger` provides a simple model to collect and reset an array of `LogAction` elements.
 public class ActionLogger: ObservableObject {
     
+    ///
+    /// Can be used to update an observer.
+    ///
+    /// ```Swift
+    /// .onChange(ActionLogger.shared.logs) {
+    /// }
+    /// ```
+    ///
     @Published public var logs: [LogAction] = []
     
+    /// Add a `LogAction`element
     public func add(log: LogAction) {
         print(log.description)
         logs.append(log)
     }
+    /// Reset the `logs` array
     public func reset() {
         logs = []
     }
 }
 
 extension ActionLogger {
+    /// A shared instance of the ActionLogger
     public static var shared = ActionLogger()
 }

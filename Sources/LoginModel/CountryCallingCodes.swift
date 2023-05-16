@@ -90,10 +90,10 @@ extension CountryCallingCode: Decodable {
         }
     }
 }
+
 public protocol CountryProviding: AnyObject {
-    /// Providing a `CustomAppearance` for the given `projectId`
-    /// - Parameter domain: The domain, usually the current `Identifier<Project>`
-    /// - Returns: The custom appearance for the specified projectId or `nil`
+    /// Providing `CountryProviding` `
+    /// - Returns: The array of supported `CountryCallingCode`  or `nil`
     func supportedCountries() -> [CountryCallingCode]?
 }
 

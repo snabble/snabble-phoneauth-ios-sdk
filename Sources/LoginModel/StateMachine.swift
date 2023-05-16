@@ -8,26 +8,55 @@
 import Foundation
 import Combine
 
+/// The `StateMachine` defines how a login process will react on events and store the current state which will be triggert by the success or failure of these events.
 open class StateMachine {
     
+    /// The current `State`
     public enum State {
-        case start              // initial state
-        case pushedToServer     // send(configuration:Configuration, phoneNumber:String) was called on Endpoint
-        case waitingForCode     // previous call was successful
-        case sendCode           // loginWith(configuration:Configuration, otp: String) was called on Endpoint
-        case loggedIn           // previous call was successful
-        case deletingAccount    // delete(configuration:Configuration, phoneNumber:String) was called on Endpoint
-        case error              // an error occured
+        /// initial state
+        case start
+        
+        /// send(configuration:Configuration, phoneNumber:String) was called on Endpoint
+        case pushedToServer
+        
+        /// previous call was successful
+        case waitingForCode
+        
+        /// loginWith(configuration:Configuration, otp: String) was called on Endpoint
+        case sendCode
+        
+        /// previous call was successful
+        case loggedIn
+        
+        /// delete(configuration:Configuration, phoneNumber:String) was called on Endpoint
+        case deletingAccount
+        
+        /// an error occured
+        case error
     }
     
+    /// The user triggers one of these `Event` types
     public enum Event {
-        case enterPhoneNumber   // User gives phone number textfield focus
-        case sendingPhoneNumber // User has tapped button "Request Code"
-        case enterCode          // User gives code textfield focus
-        case loggingIn          // User has tapped button "Login"
-        case trashAccount       // User has tapped button "Delete"
-        case success            // 'Login' or 'Delete Account' was successfully executed
-        case failure            // Handle an occurred error
+        /// User gives phone number textfield focus
+        case enterPhoneNumber
+        
+        /// User has tapped button "Request Code""
+        case sendingPhoneNumber
+        
+        /// User gives code textfield focus/
+        case enterCode
+        
+        /// User has tapped button "Login"
+        case loggingIn
+        
+        /// User has tapped button "Delete""
+        case trashAccount
+        
+        /// 'Login' or 'Delete Account' was successfully executed
+        case success
+        
+        /// Handle an occurred error
+        case failure
     }
     
     public private(set) var state: State {
@@ -48,6 +77,7 @@ open class StateMachine {
 
 public extension StateMachine {
     
+    /// An `Event` is triggered by a user action, like a button click.
     @discardableResult func tryEvent(_ event: Event) -> Bool {
         guard let state = nextState(for: event) else {
             return false
@@ -57,6 +87,7 @@ public extension StateMachine {
         return true
     }
     
+    /// Discover the possible nextState for an `Event` or nil if state is final
     private func nextState(for event: Event) -> State? {
         switch state {
         case .start:

@@ -12,6 +12,10 @@ import Combine
 import SnabblePhoneAuth
 
 extension LogAction {
+    var textColor: Color {
+        return action.hasPrefix("enter") ? .green : (action.hasPrefix("leave") || action == "error" ? .red : .primary)
+    }
+    
     var view: some View {
         HStack {
             Text(timeStamp.formatted(date: .omitted, time: .standard))
@@ -22,12 +26,12 @@ extension LogAction {
                 
                 if !info.isEmpty {
                     Text(info)
-                        .foregroundColor(action.hasPrefix("enter") ? .green : (action.hasPrefix("leave") ? .red : .primary))
+                        .foregroundColor(textColor)
                 }
                 Spacer()
             }
         }
-            .font(.custom("Menlo", size: 11))
+        .font(.custom("Menlo", size: 11))
     }
 }
 

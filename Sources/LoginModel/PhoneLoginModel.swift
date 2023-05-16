@@ -9,12 +9,20 @@ import Foundation
 import Combine
 import SnabbleNetwork
 
+/// The `PhoneLoginModel` manages  a login service by sending a phone number and receiving a OTP (One Time Password) via SMS. A user can login using this OTP. Once logged-in the account could be deleted on the backend by request. A logout() function will reset to the initial state. All stored info like phone number, pin code and appUser will be cleared.
+/// 
 /// The `PhoneLoginModel` can used as a viewModel to control the flow of:
-///
 /// * Registering by sending a phone number and request an OTP (One Time Password) via SMS `sendPhoneNumber()`
 /// * Login to an account using a valid OTP `loginWithCode(_ code: String)`
 /// * Logout from an account by reseting all locally stored data `logout()`
 /// * Requesting the deletion of an account `deleteAccount()`
+///
+/// Typically a `PhoneLoginModel` will be created for different server environments, like `testing`, `stagig` or `production`.
+/// The `Configuration` struct provides `appId` and `appSecret` configurations for these environments. An additional `projectID` specifies the concrete project providing the phone login workflow.
+///
+/// ```Swift
+/// let loginModel = PhoneLoginModel(configuration: .testing, projectID: Configuration.projectId)
+/// ```
 ///
 public class PhoneLoginModel: ObservableObject {
 
@@ -25,23 +33,45 @@ public class PhoneLoginModel: ObservableObject {
         }
     }
     
-    /// Typically you will bind this value to a TextField using `TextField("Mobile #", text: $loginModel.phoneNumber)`
+    ///
+    /// Typically you will bind this value to a TextField
+    ///
+    /// ```Swift
+    /// TextField("Mobile #", text: $loginModel.phoneNumber)
+    /// ```
     @Published public var phoneNumber: String = ""
     
+    /// If an error occured the errorMessage is not empty. A user view should be informed about this message.
     @Published public var errorMessage: String = "" {
         didSet {
             if !errorMessage.isEmpty {
+                if self.logActions {
+                    ActionLogger.shared.add(log: LogAction(action: "error", info: errorMessage))
+                }
                 print("error received: \(errorMessage)")
             }
         }
     }
-    /// To observe changes in the  flow use `onChange(loginModel.state) { newState in }`
+    ///
+    /// To observe changes in the  flow use:
+    ///
+    /// ```Swift
+    /// .onChange(loginModel.state) { newState in
+    ///    // handle state
+    /// }
+    /// ```
+    ///
     @Published public var state: StateMachine.State {
         willSet { leaveState(state) }
         didSet { enterState(state) }
     }
     
-    /// Typically you will bind this value to a TextField using `TextField("PIN Code", text: $loginModel.pinCode)`
+    ///
+    /// Typically you will bind this value to a TextField.
+    ///
+    /// ```Swift
+    /// TextField("PIN Code", text: $loginModel.pinCode)
+    /// ```
     @Published public var pinCode: String = ""
     
     /// The Authenticator manages authentication and provide a new AppUser and need some information implmenting the `AuthenticatorDelegate` protocol.
@@ -49,9 +79,31 @@ public class PhoneLoginModel: ObservableObject {
         return networkManager.authenticator
     }
 
-    /// A `WaitTimer` which will be started after a code request was sent. The timer provides a `@Published public var startTime` and `@Published public var endTime` structs a view can observe via `onChange(loginModel.waitTimer.endTime) { newTime in }`
+    ///
+    /// A `WaitTimer` which will be started after a code request was sent.
+    ///
+    /// A `WaitTimer` provides:
+    ///
+    /// ```Swift
+    /// @Published public var startTime: Date?
+    /// @Published public var endTime: Date?
+    /// ```
+    ///
+    /// To observe changes use:
+    ///
+    /// ```Swift
+    /// .onChange(loginModel.waitTimer.endTime) { newTime in
+    ///     let started = newValue == nil
+    ///
+    ///     if started {
+    ///         // disable request code button to prevent spamming
+    ///     }
+    /// }
+    /// ```
     @Published public var waitTimer: WaitTimer
 
+    /// The current valid `AppUser` or nil if not yet set or the `reset()` function was called.
+    /// The appUser will set by implementing the `AuthenticatorDelegate` protocol.
     public private(set) var appUser: AppUser? {
         didSet {
             if appUser?.id != UserDefaults.appUser?.id {
@@ -74,15 +126,17 @@ public class PhoneLoginModel: ObservableObject {
     /// A `String`with the project identifier used for backend communication
     let projectID: String
     
-    /// Logging `LogActions` is enabled by default for `DEBUG` mode.
 #if DEBUG
+    /// Logging `LogActions` is enabled by default for `DEBUG` mode.
     public var logActions = true
 #else
+    /// Logging `LogActions` is enabled by default for `DEBUG` mode.
     public var logActions = false
 #endif
 
     /// The internal `StateMachine` controlling the flow
     private let stateMachine: StateMachine
+    
     /// The internal `NetworkManager` providing network services to request OTP's for given phoneNumbers `sendPhoneNumber()` and handle `login()` to an account and request a deletion `deleteAccount()` of an acccount.
     private let networkManager: NetworkManager
     
@@ -90,6 +144,11 @@ public class PhoneLoginModel: ObservableObject {
     private var loginCancellable: AnyCancellable?
     private var deleteCancellable: AnyCancellable?
     
+    /// Initialize a newly created instance
+    /// - Parameter configuration: The `Configuration` used for backend communication
+    /// - Parameter projectID: A `String`with the project identifier used for backend communication
+    /// - Parameter logActions: A `Bool` flag if running actions should be logged
+    /// - Parameter waitInterval: A `Double`interval to use by the waitTimer to prevent spamming
     public init(configuration: Configuration, projectID: String, logActions: Bool? = nil, waitInterval: Double = 30.0) {
 
         self.projectID = projectID
@@ -161,7 +220,8 @@ extension PhoneLoginModel: AuthenticatorDelegate {
 }
 
 extension PhoneLoginModel {
-    /// - Returns: `true` if a non empty phone number is stored in UserDefaults
+    
+    /// Returns `true` if a non empty phone number is stored in UserDefaults
     public var codeWasSendOnce: Bool {
         guard let string = UserDefaults.phoneNumber else {
             return false
@@ -169,7 +229,7 @@ extension PhoneLoginModel {
         return !string.isEmpty
     }
     
-    /// - Returns: `true` if a phone number can be sent and state is `.start`, `.waitingForCode` or `.error`.
+    /// Returns `true` if a phone number can be sent and state is `.start`, `.waitingForCode` or `.error`.
     public var canSendPhoneNumber: Bool {
         guard phoneNumber.count > 2 else {
             return false
@@ -177,7 +237,7 @@ extension PhoneLoginModel {
         return [.start, .waitingForCode, .error].contains(state)  // state == .error || state == .start || state == .waitingForCode
     }
     
-    /// - Returns: `true` if a the pinCode has a length of 6  and state is `.waitingForCode` or `.error`.
+    /// Returns `true` if a the pinCode has a length of 6  and state is `.waitingForCode` or `.error`.
     public var canLogin: Bool {
         guard pinCode.count == 6 else {
             return false
@@ -185,22 +245,22 @@ extension PhoneLoginModel {
         return [.waitingForCode, .error].contains(state) // state == .error || state == .waitingForCode
     }
 
-    /// - Returns: `true` if  state is `.loggedIn`.
+    /// Returns `true` if  state is `.loggedIn`.
     public var isLoggedIn: Bool {
         state == .loggedIn
     }
     
-    /// - Returns: `true` if state is `.pushedToServer`, `.sendCode` or `.deletingAccount` indicating a running network request.
+    /// Returns `true` if state is `.pushedToServer`, `.sendCode` or `.deletingAccount` indicating a running network request.
     public var isWaiting: Bool {
         [.pushedToServer, .sendCode, .deletingAccount].contains(state)
     }
 
-    /// - Returns: `true` if the current `WaitTimer` is running.
+    /// Returns `true` if the current `WaitTimer` is running.
     public var timerIsRunning: Bool {
         return waitTimer.isRunning
     }
 
-    /// - Returns: `true` if a phonenumber can be sent and no `WaitTimer` is running.
+    /// Returns `true` if a phonenumber can be sent and no `WaitTimer` is running.
     public var canRequestCode: Bool {
         if canSendPhoneNumber {
             guard !timerIsRunning else {
@@ -214,12 +274,12 @@ extension PhoneLoginModel {
 }
 
 extension PhoneLoginModel {
-    /// - Returns: A `String` formatted with the required backend format like`+49123456789`
+    /// Returns  a `String` formatted with the required backend format like `+49123456789`
     public var dialString: String {
         return country.dialString(self.phoneNumber)
     }
     
-    /// - Returns: A `String` formatted the country calling code with a preceiding plus sign and the entered phoneNumber separeated by a space (e.g: `+49 123456789`).
+    /// Returns  a `String` formatted the country calling code with a preceiding plus sign and the entered phoneNumber separeated by a space (e.g: `+49 123456789`).
     public var phoneNumberPrettyPrint: String {
         return country.prettyPrint(self.phoneNumber)
     }
