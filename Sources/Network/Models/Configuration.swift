@@ -18,3 +18,6 @@ public struct Configuration {
         self.environment = environment
     }
 }
+
+extension Configuration: Equatable {
+}
