@@ -6,6 +6,7 @@
 //
 
 import XCTest
+@testable import SnabbleNetwork
 
 final class TokenEndpointTests: XCTestCase {
 
@@ -17,12 +18,20 @@ final class TokenEndpointTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
-    }
+    var configuration: Configuration = .init(appId: "1", appSecret: "2", environment: .production)
+    var appUser: AppUser = .init(id: "555", secret: "123-456-789")
 
+    func testGet() throws {
+        let endpoint = Endpoints.Token.get(configuration: configuration, appUser: appUser, projectId: "2")
+        XCTAssertEqual(endpoint.configuration, configuration)
+        XCTAssertEqual(endpoint.environment, .production)
+        XCTAssertEqual(endpoint.method.value, "GET")
+        XCTAssertEqual(endpoint.path, "/tokens")
+        XCTAssertNotNil(endpoint.headerFields["Authorization"])
+        XCTAssertNil(endpoint.token)
+        let urlRequest = try endpoint.urlRequest()
+        XCTAssertEqual(urlRequest.url?.absoluteString, "https://api.snabble.io/tokens?project=2&role=retailerApp")
+        XCTAssertEqual(urlRequest.httpMethod, "GET")
+        XCTAssertNil(urlRequest.httpBody)
+    }
 }
