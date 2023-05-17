@@ -48,6 +48,7 @@
 		7691BAA92977AD1700477EDD /* EnterPhoneNumberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterPhoneNumberView.swift; sourceTree = "<group>"; };
 		7691BAAB2977AD2A00477EDD /* EnterCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterCodeView.swift; sourceTree = "<group>"; };
 		7691BAAF2977AD8500477EDD /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		E167829F2A14CAF6008CAB2B /* PhoneLogin.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = PhoneLogin.xctestplan; sourceTree = "<group>"; };
 		E17225482A0BB8A900377187 /* PhoneLoginTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PhoneLoginTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E172254A2A0BB8A900377187 /* PhoneLoginTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneLoginTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -103,6 +104,7 @@
 		7691BA8E2976C3F400477EDD = {
 			isa = PBXGroup;
 			children = (
+				E167829F2A14CAF6008CAB2B /* PhoneLogin.xctestplan */,
 				763438E92A01062900C99AD5 /* Packages */,
 				7691BA992976C3F400477EDD /* PhoneLogin */,
 				E17225492A0BB8A900377187 /* PhoneLoginTests */,
