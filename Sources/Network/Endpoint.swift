@@ -35,7 +35,7 @@ public struct Endpoint<Response> {
         self.parse = parse
     }
 
-    private var environment: Environment {
+    var environment: Environment {
         configuration.environment
     }
 

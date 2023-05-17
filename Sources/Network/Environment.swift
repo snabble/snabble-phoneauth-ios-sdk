@@ -29,3 +29,7 @@ public enum Environment {
         }
     }
 }
+
+extension Environment: Equatable {
+    
+}

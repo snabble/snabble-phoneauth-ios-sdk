@@ -20,6 +20,34 @@
                ReferencedContainer = "container:">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "SnabbleNetwork"
+               BuildableName = "SnabbleNetwork"
+               BlueprintName = "SnabbleNetwork"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "SnabblePhoneAuth_SnabbleNetworkTests"
+               BuildableName = "SnabblePhoneAuth_SnabbleNetworkTests"
+               BlueprintName = "SnabblePhoneAuth_SnabbleNetworkTests"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
@@ -36,6 +64,16 @@
                BlueprintIdentifier = "SnabblePhoneAuthTests"
                BuildableName = "SnabblePhoneAuthTests"
                BlueprintName = "SnabblePhoneAuthTests"
+               ReferencedContainer = "container:">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "SnabbleNetworkTests"
+               BuildableName = "SnabbleNetworkTests"
+               BlueprintName = "SnabbleNetworkTests"
                ReferencedContainer = "container:">
             </BuildableReference>
          </TestableReference>
