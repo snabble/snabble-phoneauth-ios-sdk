@@ -34,9 +34,20 @@
             parallelizable = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "E17225472A0BB8A900377187"
-               BuildableName = "PhoneLoginTests"
+               BlueprintIdentifier = "76FA1AD22A14BBFA008C15BF"
+               BuildableName = "PhoneLoginTests.xctest"
                BlueprintName = "PhoneLoginTests"
+               ReferencedContainer = "container:PhoneLogin.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "76FA1ADF2A14BC0B008C15BF"
+               BuildableName = "PhoneLoginUITests.xctest"
+               BlueprintName = "PhoneLoginUITests"
                ReferencedContainer = "container:PhoneLogin.xcodeproj">
             </BuildableReference>
          </TestableReference>

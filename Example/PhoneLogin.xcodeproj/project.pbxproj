@@ -25,10 +25,20 @@
 		76FA1A8A2A123FAF008C15BF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FA1A892A123FAF008C15BF /* AppDelegate.swift */; };
 		76FA1A8C2A1240AE008C15BF /* LoadJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FA1A8B2A1240AE008C15BF /* LoadJSON.swift */; };
 		76FA1A8E2A12420A008C15BF /* Countries.json in Resources */ = {isa = PBXBuildFile; fileRef = 76FA1A8D2A1240CD008C15BF /* Countries.json */; };
+		76FA1AD62A14BBFA008C15BF /* PhoneLoginTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FA1AD52A14BBFA008C15BF /* PhoneLoginTests.swift */; };
+		76FA1AE32A14BC0B008C15BF /* PhoneLoginUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FA1AE22A14BC0B008C15BF /* PhoneLoginUITests.swift */; };
+		76FA1AE52A14BC0B008C15BF /* PhoneLoginUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FA1AE42A14BC0B008C15BF /* PhoneLoginUITestsLaunchTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		E172254C2A0BB8A900377187 /* PBXContainerItemProxy */ = {
+		76FA1AD72A14BBFA008C15BF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7691BA8F2976C3F400477EDD /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7691BA962976C3F400477EDD;
+			remoteInfo = PhoneLogin;
+		};
+		76FA1AE62A14BC0B008C15BF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7691BA8F2976C3F400477EDD /* Project object */;
 			proxyType = 1;
@@ -60,6 +70,11 @@
 		76FA1A892A123FAF008C15BF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		76FA1A8B2A1240AE008C15BF /* LoadJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadJSON.swift; sourceTree = "<group>"; };
 		76FA1A8D2A1240CD008C15BF /* Countries.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Countries.json; sourceTree = "<group>"; };
+		76FA1AD32A14BBFA008C15BF /* PhoneLoginTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PhoneLoginTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		76FA1AD52A14BBFA008C15BF /* PhoneLoginTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneLoginTests.swift; sourceTree = "<group>"; };
+		76FA1AE02A14BC0B008C15BF /* PhoneLoginUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PhoneLoginUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		76FA1AE22A14BC0B008C15BF /* PhoneLoginUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneLoginUITests.swift; sourceTree = "<group>"; };
+		76FA1AE42A14BC0B008C15BF /* PhoneLoginUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneLoginUITestsLaunchTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,7 +86,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		E17225452A0BB8A900377187 /* Frameworks */ = {
+		76FA1AD02A14BBFA008C15BF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		76FA1ADD2A14BC0B008C15BF /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -109,6 +131,8 @@
 			children = (
 				76A9F7212A0A563C00C162B1 /* Packages */,
 				7691BA992976C3F400477EDD /* PhoneLogin */,
+				76FA1AD42A14BBFA008C15BF /* PhoneLoginTests */,
+				76FA1AE12A14BC0B008C15BF /* PhoneLoginUITests */,
 				7691BA982976C3F400477EDD /* Products */,
 				768915DE2A010BA500C4799A /* Frameworks */,
 			);
@@ -118,6 +142,8 @@
 			isa = PBXGroup;
 			children = (
 				7691BA972976C3F400477EDD /* PhoneLogin.app */,
+				76FA1AD32A14BBFA008C15BF /* PhoneLoginTests.xctest */,
+				76FA1AE02A14BC0B008C15BF /* PhoneLoginUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -156,6 +182,23 @@
 			name = Packages;
 			sourceTree = "<group>";
 		};
+		76FA1AD42A14BBFA008C15BF /* PhoneLoginTests */ = {
+			isa = PBXGroup;
+			children = (
+				76FA1AD52A14BBFA008C15BF /* PhoneLoginTests.swift */,
+			);
+			path = PhoneLoginTests;
+			sourceTree = "<group>";
+		};
+		76FA1AE12A14BC0B008C15BF /* PhoneLoginUITests */ = {
+			isa = PBXGroup;
+			children = (
+				76FA1AE22A14BC0B008C15BF /* PhoneLoginUITests.swift */,
+				76FA1AE42A14BC0B008C15BF /* PhoneLoginUITestsLaunchTests.swift */,
+			);
+			path = PhoneLoginUITests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -180,22 +223,41 @@
 			productReference = 7691BA972976C3F400477EDD /* PhoneLogin.app */;
 			productType = "com.apple.product-type.application";
 		};
-		E17225472A0BB8A900377187 /* PhoneLoginTests */ = {
+		76FA1AD22A14BBFA008C15BF /* PhoneLoginTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E17225502A0BB8A900377187 /* Build configuration list for PBXNativeTarget "PhoneLoginTests" */;
+			buildConfigurationList = 76FA1AD92A14BBFA008C15BF /* Build configuration list for PBXNativeTarget "PhoneLoginTests" */;
 			buildPhases = (
-				E17225442A0BB8A900377187 /* Sources */,
-				E17225452A0BB8A900377187 /* Frameworks */,
-				E17225462A0BB8A900377187 /* Resources */,
+				76FA1ACF2A14BBFA008C15BF /* Sources */,
+				76FA1AD02A14BBFA008C15BF /* Frameworks */,
+				76FA1AD12A14BBFA008C15BF /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				E172254D2A0BB8A900377187 /* PBXTargetDependency */,
+				76FA1AD82A14BBFA008C15BF /* PBXTargetDependency */,
 			);
 			name = PhoneLoginTests;
 			productName = PhoneLoginTests;
+			productReference = 76FA1AD32A14BBFA008C15BF /* PhoneLoginTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		76FA1ADF2A14BC0B008C15BF /* PhoneLoginUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 76FA1AE82A14BC0B008C15BF /* Build configuration list for PBXNativeTarget "PhoneLoginUITests" */;
+			buildPhases = (
+				76FA1ADC2A14BC0B008C15BF /* Sources */,
+				76FA1ADD2A14BC0B008C15BF /* Frameworks */,
+				76FA1ADE2A14BC0B008C15BF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				76FA1AE72A14BC0B008C15BF /* PBXTargetDependency */,
+			);
+			name = PhoneLoginUITests;
+			productName = PhoneLoginUITests;
+			productReference = 76FA1AE02A14BC0B008C15BF /* PhoneLoginUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
 
@@ -204,13 +266,17 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1420;
+				LastSwiftUpdateCheck = 1430;
 				LastUpgradeCheck = 1430;
 				TargetAttributes = {
 					7691BA962976C3F400477EDD = {
 						CreatedOnToolsVersion = 14.2;
 					};
-					E17225472A0BB8A900377187 = {
+					76FA1AD22A14BBFA008C15BF = {
+						CreatedOnToolsVersion = 14.3;
+						TestTargetID = 7691BA962976C3F400477EDD;
+					};
+					76FA1ADF2A14BC0B008C15BF = {
 						CreatedOnToolsVersion = 14.3;
 						TestTargetID = 7691BA962976C3F400477EDD;
 					};
@@ -234,7 +300,8 @@
 			projectRoot = "";
 			targets = (
 				7691BA962976C3F400477EDD /* PhoneLogin */,
-				E17225472A0BB8A900377187 /* PhoneLoginTests */,
+				76FA1AD22A14BBFA008C15BF /* PhoneLoginTests */,
+				76FA1ADF2A14BC0B008C15BF /* PhoneLoginUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -251,7 +318,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		E17225462A0BB8A900377187 /* Resources */ = {
+		76FA1AD12A14BBFA008C15BF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		76FA1ADE2A14BC0B008C15BF /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -281,24 +355,39 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		E17225442A0BB8A900377187 /* Sources */ = {
+		76FA1ACF2A14BBFA008C15BF /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				76FA1AD62A14BBFA008C15BF /* PhoneLoginTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		76FA1ADC2A14BC0B008C15BF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				76FA1AE32A14BC0B008C15BF /* PhoneLoginUITests.swift in Sources */,
+				76FA1AE52A14BC0B008C15BF /* PhoneLoginUITestsLaunchTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		76FA1AD82A14BBFA008C15BF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7691BA962976C3F400477EDD /* PhoneLogin */;
+			targetProxy = 76FA1AD72A14BBFA008C15BF /* PBXContainerItemProxy */;
+		};
+		76FA1AE72A14BC0B008C15BF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7691BA962976C3F400477EDD /* PhoneLogin */;
+			targetProxy = 76FA1AE62A14BC0B008C15BF /* PBXContainerItemProxy */;
+		};
 		E17225432A0BB6A000377187 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			productRef = E17225422A0BB6A000377187 /* SwiftLintPlugin */;
-		};
-		E172254D2A0BB8A900377187 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 7691BA962976C3F400477EDD /* PhoneLogin */;
-			targetProxy = E172254C2A0BB8A900377187 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -512,7 +601,7 @@
 			};
 			name = Release;
 		};
-		E172254E2A0BB8A900377187 /* Debug */ = {
+		76FA1ADA2A14BBFA008C15BF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -522,7 +611,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = io.snabble.PhoneLoginTests;
+				PRODUCT_BUNDLE_IDENTIFIER = io.snabble..PhoneLoginTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_EMIT_LOC_STRINGS = NO;
@@ -532,7 +621,7 @@
 			};
 			name = Debug;
 		};
-		E172254F2A0BB8A900377187 /* Release */ = {
+		76FA1ADB2A14BBFA008C15BF /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -542,13 +631,52 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = io.snabble.PhoneLoginTests;
+				PRODUCT_BUNDLE_IDENTIFIER = io.snabble..PhoneLoginTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PhoneLogin.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/PhoneLogin";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		76FA1AE92A14BC0B008C15BF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 53K7JS449L;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = io.snabble..PhoneLoginUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = PhoneLogin;
+			};
+			name = Debug;
+		};
+		76FA1AEA2A14BC0B008C15BF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 53K7JS449L;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = io.snabble..PhoneLoginUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = PhoneLogin;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -574,11 +702,20 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E17225502A0BB8A900377187 /* Build configuration list for PBXNativeTarget "PhoneLoginTests" */ = {
+		76FA1AD92A14BBFA008C15BF /* Build configuration list for PBXNativeTarget "PhoneLoginTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				E172254E2A0BB8A900377187 /* Debug */,
-				E172254F2A0BB8A900377187 /* Release */,
+				76FA1ADA2A14BBFA008C15BF /* Debug */,
+				76FA1ADB2A14BBFA008C15BF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		76FA1AE82A14BC0B008C15BF /* Build configuration list for PBXNativeTarget "PhoneLoginUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				76FA1AE92A14BC0B008C15BF /* Debug */,
+				76FA1AEA2A14BC0B008C15BF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

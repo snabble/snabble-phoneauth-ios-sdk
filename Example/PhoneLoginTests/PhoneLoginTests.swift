@@ -2,7 +2,7 @@
 //  PhoneLoginTests.swift
 //  PhoneLoginTests
 //
-//  Created by Andreas Osberghaus on 2023-05-10.
+//  Created by Uwe Tilemann on 17.05.23.
 //
 
 import XCTest
