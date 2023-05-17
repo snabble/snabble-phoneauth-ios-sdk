@@ -59,6 +59,8 @@
 		76FA1A842A0E580F008C15BF /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		76FA1A872A120D60008C15BF /* LoggedInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedInView.swift; sourceTree = "<group>"; };
 		76FA1A892A123FAF008C15BF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		7691BAAF2977AD8500477EDD /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		E167829F2A14CAF6008CAB2B /* PhoneLogin.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = PhoneLogin.xctestplan; sourceTree = "<group>"; };
 		76FA1A8B2A1240AE008C15BF /* LoadJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadJSON.swift; sourceTree = "<group>"; };
 		76FA1A8D2A1240CD008C15BF /* Countries.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Countries.json; sourceTree = "<group>"; };
 		76FA1AD32A14BBFA008C15BF /* PhoneLoginTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PhoneLoginTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -110,6 +112,7 @@
 		7691BA8E2976C3F400477EDD = {
 			isa = PBXGroup;
 			children = (
+				E167829F2A14CAF6008CAB2B /* PhoneLogin.xctestplan */,
 				76A9F7212A0A563C00C162B1 /* Packages */,
 				7691BA992976C3F400477EDD /* PhoneLogin */,
 				76FA1AD42A14BBFA008C15BF /* PhoneLoginTests */,

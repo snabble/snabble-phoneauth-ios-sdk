@@ -47,7 +47,10 @@ let package = Package(
         .testTarget(
             name: "SnabbleNetworkTests",
             dependencies: ["SnabbleNetwork"],
-            path: "Tests/Network"
+            path: "Tests/Network",
+            resources: [
+                .process("Resources")
+            ]
         )
     ]
 )
