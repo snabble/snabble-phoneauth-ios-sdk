@@ -35,7 +35,7 @@ let package = Package(
         .testTarget(
             name: "SnabblePhoneAuthTests",
             dependencies: ["SnabblePhoneAuth"],
-            path: "Tests/Core"
+            path: "Tests/LoginModel"
         ),
         .target(
             name: "SnabbleNetwork",
