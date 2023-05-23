@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import OneTimePassword
+import SwiftOTP
 
 extension Endpoints {
     enum AppUser {
@@ -36,23 +36,12 @@ extension Endpoints {
 
         private static func password(withSecret secret: String, forDate date: Date) -> String? {
             guard
-                let secretData = NSData(base32String: secret) as? Data,
-                let generator = try? Generator(
-                    factor: .timer(period: 30),
-                    secret: secretData,
-                    algorithm: .sha256,
-                    digits: 8
-                )
+                let secretData = base32DecodeToData(secret),
+                let totp = TOTP(secret: secretData, digits: 8, timeInterval: 30, algorithm: .sha256)
             else {
                 return nil
             }
-
-            let token = OneTimePassword.Token(name: "", issuer: "", generator: generator)
-            do {
-                return try token.generator.password(at: date)
-            } catch {
-                return nil
-            }
+            return totp.generate(time: date)
         }
     }
 }
