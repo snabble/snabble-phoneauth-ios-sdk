@@ -7,22 +7,6 @@
 
 import Foundation
 
-extension UserDefaults {
-    private enum Keys {
-        static let selectedCountry = "country"
-    }
-
-    public class var selectedCountry: String? {
-        get {
-            UserDefaults.standard.string(forKey: Keys.selectedCountry)
-        }
-        set {
-            UserDefaults.standard.set(newValue, forKey: Keys.selectedCountry)
-            UserDefaults.standard.synchronize()
-        }
-    }
-}
-
 public struct CountryCallingCode: Identifiable, Hashable {
     public var id: String {
         return countryCode
@@ -95,6 +79,7 @@ public protocol CountryProviding: AnyObject {
     /// Providing `CountryProviding` `
     /// - Returns: The array of supported `CountryCallingCode`  or `nil`
     func supportedCountries() -> [CountryCallingCode]?
+    var selectedCountry: String? { get set }
 }
 
 public enum CountryProvider {

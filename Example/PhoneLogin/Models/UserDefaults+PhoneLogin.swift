@@ -6,17 +6,38 @@
 //
 
 import Foundation
+
+import SnabblePhoneAuth
 import SnabbleNetwork
+
+extension PhoneLoginModel {
+    func resetAppUser() {
+        UserDefaults.phoneNumber = nil
+        UserDefaults.appUser = nil
+    }
+}
 
 extension UserDefaults {
     private enum Keys {
+        static let logActions = "logActions"
+        static let selectedCountry = "country"
         static let phoneNumber = "phoneNumber"
         static let appUserIdKey = "appUserId"
         static let appUserSecretKey = "appUserSecret"
     }
 
+    /// A boolean to control the logging of debug messages
+    class var logActions: Bool {
+        get {
+            UserDefaults.standard.bool(forKey: Keys.logActions)
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: Keys.logActions)
+        }
+    }
+
     /// If the phone number was successfully send to the backend to request an OTP the phone number is stored.
-    public class var phoneNumber: String? {
+    class var phoneNumber: String? {
         get {
             UserDefaults.standard.string(forKey: Keys.phoneNumber)
         }
@@ -27,7 +48,7 @@ extension UserDefaults {
     }
 
     /// The stored `appUserID`.
-    public class var appUserID: String? {
+    class var appUserID: String? {
         get {
             UserDefaults.standard.string(forKey: Keys.appUserIdKey)
         }
@@ -38,7 +59,7 @@ extension UserDefaults {
     }
 
     /// The stored `appUserSecret`.
-    public class var appUserSecret: String? {
+    class var appUserSecret: String? {
         get {
             UserDefaults.standard.string(forKey: Keys.appUserSecretKey)
         }
@@ -49,7 +70,7 @@ extension UserDefaults {
     }
     
     /// The stored `AppUser`.
-    public class var appUser: AppUser? {
+    class var appUser: AppUser? {
         get {
             if let userID = appUserID, let secret = appUserSecret {
                 return AppUser(id: userID, secret: secret)
@@ -61,4 +82,15 @@ extension UserDefaults {
             appUserSecret = newValue?.secret
         }
     }
+    
+    /// The stored `selectedCountry`.
+    class var selectedCountry: String? {
+        get {
+            UserDefaults.standard.string(forKey: Keys.selectedCountry)
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: Keys.selectedCountry)
+        }
+    }
+    
 }

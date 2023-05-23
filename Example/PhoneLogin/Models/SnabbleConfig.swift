@@ -7,20 +7,13 @@
 //
 
 import Foundation
-
-import SnabblePhoneAuth
 import SnabbleNetwork
-
-extension PhoneLoginModel {
-    static var testing = PhoneLoginModel(configuration: .testing, projectID: Configuration.projectId)
-    static var staging = PhoneLoginModel(configuration: .staging, projectID: Configuration.projectId)
-    static var production = PhoneLoginModel(configuration: .production, projectID: Configuration.projectId)
-}
 
 extension Configuration {
     static var appId: String {
         "snabble-sdk-demo-app-oguh3x"
     }
+    /// A `String`with the project identifier used for backend communication
     public static var projectId: String {
         "snabble-sdk-demo-beem8n"
     }

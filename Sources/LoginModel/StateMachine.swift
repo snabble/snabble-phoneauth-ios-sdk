@@ -58,9 +58,14 @@ open class StateMachine {
         /// Handle an occurred error
         case failure
     }
+    private var publish = true
     
     public private(set) var state: State {
-        didSet { stateSubject.send(self.state) }
+        didSet {
+            if publish {
+                stateSubject.send(self.state)
+            }
+        }
     }
     private let stateSubject: PassthroughSubject<State, Never>
     public let statePublisher: AnyPublisher<State, Never>
@@ -70,7 +75,11 @@ open class StateMachine {
         self.stateSubject = PassthroughSubject<State, Never>()
         self.statePublisher = self.stateSubject.eraseToAnyPublisher()
     }
-    
+    public func reset(state: State) {
+        publish = false
+        self.state = state
+        publish = true
+    }
 }
 
 // MARK: - State changes

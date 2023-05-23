@@ -15,7 +15,7 @@ struct LoggedInView: View {
 
     @ViewBuilder
     var info: some View {
-        if let appID = loginModel.appUser?.id {
+        if let appID = UserDefaults.appUser?.id {
             Text(appID)
                 .font(.custom("Menlo", size: 12))
         }
@@ -58,6 +58,8 @@ struct LoggedInView: View {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button(action: {
                     loginModel.logout()
+                    loginModel.resetAppUser()
+
                     UserDefaults.lastPageVisited = nil
                     presentationMode.wrappedValue.dismiss()
                     dismiss()

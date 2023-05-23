@@ -41,7 +41,7 @@ struct DebugView: View {
     
     @ViewBuilder
     var logsView: some View {
-        if loginModel.logActions {
+        if UserDefaults.logActions {
             ScrollViewReader { value in
                 ScrollView(.vertical) {
                     ForEach(logger.logs, id: \.id) { log in

@@ -9,6 +9,15 @@ import Foundation
 import Combine
 import SnabbleNetwork
 
+public protocol PhoneLoginProviding: AnyObject {
+    /// The `Configuration` used for backend communication
+    var configuration: Configuration { get }
+    var phoneNumber: String? { get set }
+    var appUser: AppUser? { get set }
+}
+
+public typealias PhoneLoginDelegate = CountryProviding & PhoneLoginProviding
+
 /// The `PhoneLoginModel` manages  a login service by sending a phone number and receiving a OTP (One Time Password) via SMS. A user can login using this OTP. Once logged-in the account could be deleted on the backend by request. A logout() function will reset to the initial state. All stored info like phone number, pin code and appUser will be cleared.
 /// 
 /// The `PhoneLoginModel` can used as a viewModel to control the flow of:
@@ -24,14 +33,10 @@ import SnabbleNetwork
 /// let loginModel = PhoneLoginModel(configuration: .testing, projectID: Configuration.projectId)
 /// ```
 ///
-public class PhoneLoginModel: ObservableObject {
+open class PhoneLoginModel: ObservableObject {
 
     /// The country using the `CountryCallingCode` struct. If `UserDefaults.selectedCountry` is set to a valid country code e.g. "DE" this will use to create a `CountryCallingCode`.
-    @Published public var country: CountryCallingCode {
-        didSet {
-            UserDefaults.selectedCountry = country.countryCode
-        }
-    }
+    @Published public var country: CountryCallingCode
     
     ///
     /// Typically you will bind this value to a TextField
@@ -42,16 +47,8 @@ public class PhoneLoginModel: ObservableObject {
     @Published public var phoneNumber: String = ""
     
     /// If an error occured the errorMessage is not empty. A user view should be informed about this message.
-    @Published public var errorMessage: String = "" {
-        didSet {
-            if !errorMessage.isEmpty {
-                if self.logActions {
-                    ActionLogger.shared.add(log: LogAction(action: "error", info: errorMessage))
-                }
-                print("error received: \(errorMessage)")
-            }
-        }
-    }
+    @Published public var errorMessage: String = ""
+    
     ///
     /// To observe changes in the  flow use:
     ///
@@ -102,40 +99,32 @@ public class PhoneLoginModel: ObservableObject {
     /// ```
     @Published public var waitTimer: WaitTimer
 
-    /// The current valid `AppUser` or nil if not yet set or the `reset()` function was called.
-    /// The appUser will set by implementing the `AuthenticatorDelegate` protocol.
-    public private(set) var appUser: AppUser? {
+    public weak var delegate: PhoneLoginDelegate? {
         didSet {
-            if appUser?.id != UserDefaults.appUser?.id {
-                DispatchQueue.main.async {
-                    if self.logActions {
-                        if let user = self.appUser {
-                            ActionLogger.shared.add(log: LogAction(action: "appID", info: user.id))
-                        } else {
-                            ActionLogger.shared.add(log: LogAction(action: "remove appID"))
-                        }
-                    }
-                    UserDefaults.appUser = self.appUser
-                }
+            if let delegate = delegate {
+                if let number = delegate.phoneNumber, !number.isEmpty {
+                    phoneNumber = number
+                    stateMachine = StateMachine(state: .waitingForCode)
+                    self.state = stateMachine.state
+               }
             }
         }
     }
     
-    /// The `Configuration` used for backend communication
-    let configuration: Configuration
-    /// A `String`with the project identifier used for backend communication
-    let projectID: String
+    public var appUser: AppUser? {
+        return delegate?.appUser
+    }
     
-#if DEBUG
-    /// Logging `LogActions` is enabled by default for `DEBUG` mode.
-    public var logActions = true
-#else
-    /// Logging `LogActions` is enabled by default for `DEBUG` mode.
-    public var logActions = false
-#endif
+    /// The `Configuration` used for backend communication
+    var configuration: Configuration {
+        guard let delegate = self.delegate else {
+            fatalError("A delegate must be set")
+        }
+        return delegate.configuration
+    }
 
     /// The internal `StateMachine` controlling the flow
-    private let stateMachine: StateMachine
+    private var stateMachine: StateMachine
     
     /// The internal `NetworkManager` providing network services to request OTP's for given phoneNumbers `sendPhoneNumber()` and handle `login()` to an account and request a deletion `deleteAccount()` of an acccount.
     private let networkManager: NetworkManager
@@ -145,77 +134,34 @@ public class PhoneLoginModel: ObservableObject {
     private var deleteCancellable: AnyCancellable?
     
     /// Initialize a newly created instance
-    /// - Parameter configuration: The `Configuration` used for backend communication
-    /// - Parameter projectID: A `String`with the project identifier used for backend communication
-    /// - Parameter logActions: A `Bool` flag if running actions should be logged
     /// - Parameter waitInterval: A `Double`interval to use by the waitTimer to prevent spamming
-    public init(configuration: Configuration, projectID: String, logActions: Bool? = nil, waitInterval: Double = 30.0) {
-
-        self.projectID = projectID
+    public init(waitInterval: Double = 30.0) {
         self.country = CountryCallingCodes.defaultCountry
         
-        if let savedCountry = UserDefaults.selectedCountry, let country = CountryCallingCodes.country(for: savedCountry) {
-            self.country = country
-        }
-        self.configuration = configuration
         self.networkManager = NetworkManager()
-        
-        if let flag = logActions {
-            self.logActions = flag
-        }
-        
-        let stateMachine: StateMachine
-        
-        if let number = UserDefaults.phoneNumber, !number.isEmpty {
-            phoneNumber = number
-            stateMachine = StateMachine(state: .waitingForCode)
-        } else {
-            stateMachine = StateMachine(state: .start)
-        }
-        self.stateMachine = stateMachine
-        self.state = stateMachine.state
-        
         self.waitTimer = WaitTimer(interval: waitInterval)
 
-        self.appUser = UserDefaults.appUser
-
+        self.stateMachine = StateMachine(state: .start)
+        self.state = .start
+        
         self.stateCancellable = stateMachine.statePublisher.sink { state in
             self.state = state
         }
-        if self.logActions, let appUser = self.appUser {
-            ActionLogger.shared.add(log: LogAction(action: "appID", info: appUser.id))
-        }
-        self.authenticator.delegate = self
+    }
+    
+    deinit {
+        self.delegate = nil
     }
     
     public func reset() {
         if timerIsRunning {
             waitTimer.stop()
         }
-        self.appUser = nil
         self.phoneNumber = ""
         self.pinCode = ""
         self.errorMessage = ""
-        UserDefaults.phoneNumber = nil
-
-        stateMachine.tryEvent(.enterPhoneNumber)
-    }
-}
-
-extension PhoneLoginModel: AuthenticatorDelegate {
-    /// Provide the `Authenticator` with a stored AppUser struct or nil if not yet exists or was resetted.
-    public func authenticator(_ authenticator: SnabbleNetwork.Authenticator, appUserForConfiguration configuration: SnabbleNetwork.Configuration) -> SnabbleNetwork.AppUser? {
-        self.appUser
-    }
-    
-    /// make sure to store/save an updated `AppUser`
-    public func authenticator(_ authenticator: SnabbleNetwork.Authenticator, appUserUpdated appUser: SnabbleNetwork.AppUser) {
-        self.appUser = appUser
-    }
-    
-    /// Provide the `Authenticator` with a project identifier.
-    public func authenticator(_ authenticator: SnabbleNetwork.Authenticator, projectIdForConfiguration configuration: SnabbleNetwork.Configuration) -> String {
-        self.projectID
+        
+        stateMachine.reset(state: .start)
     }
 }
 
@@ -223,7 +169,7 @@ extension PhoneLoginModel {
     
     /// Returns `true` if a non empty phone number is stored in UserDefaults
     public var codeWasSendOnce: Bool {
-        guard let string = UserDefaults.phoneNumber else {
+        guard let string = delegate?.phoneNumber else {
             return false
         }
         return !string.isEmpty
@@ -292,9 +238,6 @@ extension PhoneLoginModel {
         guard canRequestCode else {
             return
         }
-        if logActions {
-            ActionLogger.shared.add(log: LogAction(action: "request code for", info: "\(dialString)"))
-        }
         stateMachine.tryEvent(.sendingPhoneNumber)
     }
 
@@ -305,12 +248,7 @@ extension PhoneLoginModel {
         guard canLogin else {
             return
         }
-        
         pinCode = string
-        
-        if logActions {
-            ActionLogger.shared.add(log: LogAction(action: "Login with OTP", info: "\(pinCode)"))
-        }
         stateMachine.tryEvent(.loggingIn)
     }
 
@@ -323,11 +261,8 @@ extension PhoneLoginModel {
 
     /// Try to delete the current account
    public func deleteAccount() {
-        guard UserDefaults.appUser != nil, let number = UserDefaults.phoneNumber, !number.isEmpty else {
+        guard delegate?.appUser != nil, let number = delegate?.phoneNumber, !number.isEmpty else {
             return
-        }
-        if logActions {
-            ActionLogger.shared.add(log: LogAction(action: "Deleting Account", info: "\(dialString)"))
         }
         stateMachine.tryEvent(.trashAccount)
     }
@@ -390,9 +325,6 @@ extension PhoneLoginModel {
     
     private func delete() {
         
-        if logActions {
-            ActionLogger.shared.add(log: LogAction(action: "deleting account..."))
-        }
         let endpoint = Endpoints.Phone.delete(configuration: self.configuration, phoneNumber: dialString)
         
         deleteCancellable = networkManager.publisher(for: endpoint)
@@ -402,7 +334,6 @@ extension PhoneLoginModel {
             
                 switch completion {
                 case .finished:
-                    ActionLogger.shared.add(log: LogAction(action: "Account deleted"))
                     strongSelf.logout()
 
                 case .failure(let error):
@@ -415,22 +346,28 @@ extension PhoneLoginModel {
     }
 }
 
-// MARK: - State changes
-extension PhoneLoginModel {
+public protocol StateChanging {
+    func leaveState(_ state: StateMachine.State)
+    func enterState(_ state: StateMachine.State)
+}
 
-    func leaveState(_ state: StateMachine.State) {
-        if logActions {
-            ActionLogger.shared.add(log: LogAction(action: "leave state", info: "\(state)"))
+// MARK: - State changes
+extension PhoneLoginModel: StateChanging {
+
+    public func leaveState(_ state: StateMachine.State) {
+        guard let stateDelegate = self.delegate as? any StateChanging else {
+            return
         }
+        stateDelegate.leaveState(state)
     }
     
-    func enterState(_ state: StateMachine.State) {
-        if logActions {
-            ActionLogger.shared.add(log: LogAction(action: "enter state", info: "\(state)"))
+    public func enterState(_ state: StateMachine.State) {
+        if let stateDelegate = self.delegate as? any StateChanging {
+            stateDelegate.enterState(state)
         }
         
         if case .waitingForCode = state {
-            UserDefaults.phoneNumber = self.phoneNumber
+            delegate?.phoneNumber = self.phoneNumber
             startTimer()
         }
         if case .pushedToServer = state {

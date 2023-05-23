@@ -18,11 +18,13 @@
 		7691BA9B2976C3F400477EDD /* PhoneLoginApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7691BA9A2976C3F400477EDD /* PhoneLoginApp.swift */; };
 		7691BA9F2976C3F500477EDD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7691BA9E2976C3F500477EDD /* Assets.xcassets */; };
 		7691BAA32976C3F500477EDD /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7691BAA22976C3F500477EDD /* Preview Assets.xcassets */; };
+		769B231B2A1B444800C53B53 /* ActionLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 769B231A2A1B444800C53B53 /* ActionLogger.swift */; };
+		769B231D2A1B4F5A00C53B53 /* UserDefaults+PhoneLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 769B231C2A1B4F5A00C53B53 /* UserDefaults+PhoneLogin.swift */; };
 		76A9F7202A09272200C162B1 /* SnabbleConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A9F71F2A09272100C162B1 /* SnabbleConfig.swift */; };
 		76A9F7242A0A56DA00C162B1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A9F7232A0A56DA00C162B1 /* ContentView.swift */; };
 		76FA1A812A0E57D9008C15BF /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 76FA1A832A0E57D9008C15BF /* Localizable.strings */; };
 		76FA1A882A120D60008C15BF /* LoggedInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FA1A872A120D60008C15BF /* LoggedInView.swift */; };
-		76FA1A8A2A123FAF008C15BF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FA1A892A123FAF008C15BF /* AppDelegate.swift */; };
+		76FA1A8A2A123FAF008C15BF /* LoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FA1A892A123FAF008C15BF /* LoginModel.swift */; };
 		76FA1A8C2A1240AE008C15BF /* LoadJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FA1A8B2A1240AE008C15BF /* LoadJSON.swift */; };
 		76FA1A8E2A12420A008C15BF /* Countries.json in Resources */ = {isa = PBXBuildFile; fileRef = 76FA1A8D2A1240CD008C15BF /* Countries.json */; };
 		76FA1AD62A14BBFA008C15BF /* PhoneLoginTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FA1AD52A14BBFA008C15BF /* PhoneLoginTests.swift */; };
@@ -52,19 +54,20 @@
 		7691BA9E2976C3F500477EDD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7691BAA02976C3F500477EDD /* PhoneLogin.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PhoneLogin.entitlements; sourceTree = "<group>"; };
 		7691BAA22976C3F500477EDD /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		769B231A2A1B444800C53B53 /* ActionLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionLogger.swift; sourceTree = "<group>"; };
+		769B231C2A1B4F5A00C53B53 /* UserDefaults+PhoneLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+PhoneLogin.swift"; sourceTree = "<group>"; };
 		76A9F71F2A09272100C162B1 /* SnabbleConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnabbleConfig.swift; sourceTree = "<group>"; };
 		76A9F7222A0A563C00C162B1 /* snabble-phoneauth-ios-sdk */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "snabble-phoneauth-ios-sdk"; path = ..; sourceTree = "<group>"; };
 		76A9F7232A0A56DA00C162B1 /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		76FA1A822A0E57D9008C15BF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		76FA1A842A0E580F008C15BF /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		76FA1A872A120D60008C15BF /* LoggedInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedInView.swift; sourceTree = "<group>"; };
-		76FA1A892A123FAF008C15BF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		7691BAAF2977AD8500477EDD /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
-		E167829F2A14CAF6008CAB2B /* PhoneLogin.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = PhoneLogin.xctestplan; sourceTree = "<group>"; };
+		76FA1A892A123FAF008C15BF /* LoginModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginModel.swift; sourceTree = "<group>"; };
 		76FA1A8B2A1240AE008C15BF /* LoadJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadJSON.swift; sourceTree = "<group>"; };
 		76FA1A8D2A1240CD008C15BF /* Countries.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Countries.json; sourceTree = "<group>"; };
 		76FA1AD32A14BBFA008C15BF /* PhoneLoginTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PhoneLoginTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		76FA1AD52A14BBFA008C15BF /* PhoneLoginTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneLoginTests.swift; sourceTree = "<group>"; };
+		E167829F2A14CAF6008CAB2B /* PhoneLogin.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = PhoneLogin.xctestplan; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +105,17 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		765FFAA02A1B8F14005DE2C3 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				76A9F71F2A09272100C162B1 /* SnabbleConfig.swift */,
+				769B231C2A1B4F5A00C53B53 /* UserDefaults+PhoneLogin.swift */,
+				76FA1A892A123FAF008C15BF /* LoginModel.swift */,
+				769B231A2A1B444800C53B53 /* ActionLogger.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		768915DE2A010BA500C4799A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -135,9 +149,8 @@
 			children = (
 				768915E12A0129C100C4799A /* Info.plist */,
 				7691BA9A2976C3F400477EDD /* PhoneLoginApp.swift */,
-				76FA1A892A123FAF008C15BF /* AppDelegate.swift */,
 				76FA1A8B2A1240AE008C15BF /* LoadJSON.swift */,
-				76A9F71F2A09272100C162B1 /* SnabbleConfig.swift */,
+				765FFAA02A1B8F14005DE2C3 /* Models */,
 				763438EC2A01079B00C99AD5 /* Views */,
 				7691BA9E2976C3F500477EDD /* Assets.xcassets */,
 				76FA1A8D2A1240CD008C15BF /* Countries.json */,
@@ -282,15 +295,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				76FA1A8A2A123FAF008C15BF /* AppDelegate.swift in Sources */,
+				76FA1A8A2A123FAF008C15BF /* LoginModel.swift in Sources */,
 				765915262A0A70BB00A610BC /* RequestCodeButton.swift in Sources */,
 				76A9F7202A09272200C162B1 /* SnabbleConfig.swift in Sources */,
+				769B231B2A1B444800C53B53 /* ActionLogger.swift in Sources */,
 				765915282A0A70BB00A610BC /* EnterCodeView.swift in Sources */,
 				765915242A0A70BB00A610BC /* ButtonStyles.swift in Sources */,
 				765915272A0A70BB00A610BC /* DebugView.swift in Sources */,
 				76A9F7242A0A56DA00C162B1 /* ContentView.swift in Sources */,
 				765915292A0A70BB00A610BC /* CountryCallingCodeView.swift in Sources */,
 				7691BA9B2976C3F400477EDD /* PhoneLoginApp.swift in Sources */,
+				769B231D2A1B4F5A00C53B53 /* UserDefaults+PhoneLogin.swift in Sources */,
 				7659152A2A0A70BB00A610BC /* CountDownView.swift in Sources */,
 				76FA1A882A120D60008C15BF /* LoggedInView.swift in Sources */,
 				76FA1A8C2A1240AE008C15BF /* LoadJSON.swift in Sources */,

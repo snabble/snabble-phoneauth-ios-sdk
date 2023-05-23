@@ -10,12 +10,19 @@ import SnabblePhoneAuth
 
 @main
 struct PhoneLoginApp: App {
-    let loginModel = PhoneLoginModel.testing
-    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    let loginModel = LoginModel()
+    
+    init() {
+#if DEBUG
+        UserDefaults.logActions = true
+#else
+        UserDefaults.logActions = false
+#endif
+    }
 
     var body: some Scene {
         WindowGroup {
-            ContentView().environmentObject(loginModel)
+            ContentView().environmentObject(loginModel.phoneModel)
         }
     }
 }
