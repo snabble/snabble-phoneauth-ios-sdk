@@ -10,20 +10,25 @@ import Foundation
 import SnabblePhoneAuth
 import SnabbleNetwork
 
-extension PhoneLoginModel {
-    func resetAppUser() {
-        UserDefaults.phoneNumber = nil
-        UserDefaults.appUser = nil
-    }
-}
-
 extension UserDefaults {
     private enum Keys {
         static let logActions = "logActions"
         static let selectedCountry = "country"
         static let phoneNumber = "phoneNumber"
+        static let oneTimePassword = "otp"
         static let appUserIdKey = "appUserId"
         static let appUserSecretKey = "appUserSecret"
+    }
+
+    /// If the phone number was successfully send to the backend to request an OTP the phone number is stored.
+    class var oneTimePassword: String? {
+        get {
+            UserDefaults.standard.string(forKey: Keys.oneTimePassword)
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: Keys.oneTimePassword)
+            UserDefaults.standard.synchronize()
+        }
     }
 
     /// A boolean to control the logging of debug messages

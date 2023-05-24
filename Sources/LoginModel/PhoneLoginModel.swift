@@ -13,7 +13,10 @@ public protocol PhoneLoginProviding: AnyObject {
     /// The `Configuration` used for backend communication
     var configuration: Configuration { get }
     var phoneNumber: String? { get set }
+    var oneTimePassword: String? { get set }
     var appUser: AppUser? { get set }
+    
+    func reset(deleteAccount: Bool)
 }
 
 public typealias PhoneLoginDelegate = CountryProviding & PhoneLoginProviding
@@ -50,67 +53,58 @@ open class PhoneLoginModel: ObservableObject {
     @Published public var errorMessage: String = ""
     
     ///
-    /// To observe changes in the  flow use:
-    ///
-    /// ```Swift
-    /// .onChange(loginModel.state) { newState in
-    ///    // handle state
-    /// }
-    /// ```
-    ///
-    @Published public var state: StateMachine.State {
-        willSet { leaveState(state) }
-        didSet { enterState(state) }
-    }
-    
-    ///
     /// Typically you will bind this value to a TextField.
     ///
     /// ```Swift
-    /// TextField("PIN Code", text: $loginModel.pinCode)
+    /// TextField("PIN Code", text: $loginModel.oneTimePassword)
     /// ```
-    @Published public var pinCode: String = ""
+    @Published public var oneTimePassword: String = ""
     
+    /// Returns `true`  if a network request is running.
+    @Published public var isWaiting: Bool = false
+    
+    /// The `state` can be
+    /// * `.start` initial state. No phone number has been send to backend
+    /// * `.registered` A phone number was send to backend
+    /// * `.loggedIn` A otp was send to backend
+    public enum State {
+        case start
+        case registered
+        case loggedIn
+    }
+    
+    @Published public var state: State = .start {
+        willSet { if state != newValue { leaveState(state) }}
+        didSet { if state != oldValue { enterState(state) }}
+    }
+    
+    private var currentState: State {
+        if !phoneNumber.isEmpty, !oneTimePassword.isEmpty {
+            return appUser != nil ? .loggedIn : .registered
+        }
+        if !phoneNumber.isEmpty {
+            return .registered
+        }
+        return .start
+    }
+
     /// The Authenticator manages authentication and provide a new AppUser and need some information implmenting the `AuthenticatorDelegate` protocol.
     public var authenticator: Authenticator {
         return networkManager.authenticator
     }
-
-    ///
-    /// A `WaitTimer` which will be started after a code request was sent.
-    ///
-    /// A `WaitTimer` provides:
-    ///
-    /// ```Swift
-    /// @Published public var startTime: Date?
-    /// @Published public var endTime: Date?
-    /// ```
-    ///
-    /// To observe changes use:
-    ///
-    /// ```Swift
-    /// .onChange(loginModel.waitTimer.endTime) { newTime in
-    ///     let started = newValue == nil
-    ///
-    ///     if started {
-    ///         // disable request code button to prevent spamming
-    ///     }
-    /// }
-    /// ```
-    @Published public var waitTimer: WaitTimer
+    
+    /// Returns `true` if the current wait timer is running.
+    @Published public var spamTimerIsActive: Bool = false
 
     public weak var delegate: PhoneLoginDelegate? {
         didSet {
-            if let delegate = delegate {
-                if let number = delegate.phoneNumber, !number.isEmpty {
-                    phoneNumber = number
-                    stateMachine = StateMachine(state: .waitingForCode)
-                    self.state = stateMachine.state
-               }
-            }
+            phoneNumber = delegate?.phoneNumber ?? ""
+            oneTimePassword = delegate?.oneTimePassword ?? ""
+            state = currentState
         }
     }
     
+    /// Returns the delegate's `AppUser`
     public var appUser: AppUser? {
         return delegate?.appUser
     }
@@ -122,9 +116,6 @@ open class PhoneLoginModel: ObservableObject {
         }
         return delegate.configuration
     }
-
-    /// The internal `StateMachine` controlling the flow
-    private var stateMachine: StateMachine
     
     /// The internal `NetworkManager` providing network services to request OTP's for given phoneNumbers `sendPhoneNumber()` and handle `login()` to an account and request a deletion `deleteAccount()` of an acccount.
     private let networkManager: NetworkManager
@@ -133,89 +124,84 @@ open class PhoneLoginModel: ObservableObject {
     private var loginCancellable: AnyCancellable?
     private var deleteCancellable: AnyCancellable?
     
+    private let spamPublisher: Timer.TimerPublisher
+    private var spamCancellable: AnyCancellable?
+
     /// Initialize a newly created instance
     /// - Parameter waitInterval: A `Double`interval to use by the waitTimer to prevent spamming
     public init(waitInterval: Double = 30.0) {
         self.country = CountryCallingCodes.defaultCountry
         
         self.networkManager = NetworkManager()
-        self.waitTimer = WaitTimer(interval: waitInterval)
+        self.spamPublisher = Timer.publish(every: waitInterval, tolerance: 0.5, on: .main, in: .default)
 
-        self.stateMachine = StateMachine(state: .start)
-        self.state = .start
-        
-        self.stateCancellable = stateMachine.statePublisher.sink { state in
-            self.state = state
-        }
     }
     
     deinit {
         self.delegate = nil
     }
     
-    public func reset() {
-        if timerIsRunning {
-            waitTimer.stop()
+    public func reset(deleteAccount: Bool = false) {
+        DispatchQueue.main.async {
+            if self.spamTimerIsActive {
+                self.stopSpamTimer()
+            }
+            self.phoneNumber = ""
+            self.oneTimePassword = ""
+            self.errorMessage = ""
+            self.state = .start
+            
+            self.delegate?.reset(deleteAccount: deleteAccount)
         }
-        self.phoneNumber = ""
-        self.pinCode = ""
-        self.errorMessage = ""
-        
-        stateMachine.reset(state: .start)
     }
+    
+    /// Start a timer to prevent spamming the backend for a SMS code request.
+    public func startSpamTimer() {
+        guard !spamTimerIsActive else {
+            return
+        }
+       spamTimerIsActive = true
+        
+        spamCancellable = self.spamPublisher
+            .autoconnect()
+            .receive(on: RunLoop.main)
+            .sink(receiveValue: { [weak self] _ in
+                self?.stopSpamTimer()
+            })
+    }
+
+    /// Stop a current spam timer.
+    public func stopSpamTimer() {
+        spamCancellable = nil
+        spamTimerIsActive = false
+    }
+
 }
 
 extension PhoneLoginModel {
-    
-    /// Returns `true` if a non empty phone number is stored in UserDefaults
-    public var codeWasSendOnce: Bool {
-        guard let string = delegate?.phoneNumber else {
+        
+    /// Returns `true` if a phonenumber can be sent.
+    public var canRequestCode: Bool {
+        guard state == .start || state == .registered else {
             return false
         }
-        return !string.isEmpty
-    }
-    
-    /// Returns `true` if a phone number can be sent and state is `.start`, `.waitingForCode` or `.error`.
-    public var canSendPhoneNumber: Bool {
         guard phoneNumber.count > 2 else {
             return false
         }
-        return [.start, .waitingForCode, .error].contains(state)  // state == .error || state == .start || state == .waitingForCode
+        return true
     }
-    
+
     /// Returns `true` if a the pinCode has a length of 6  and state is `.waitingForCode` or `.error`.
     public var canLogin: Bool {
-        guard pinCode.count == 6 else {
+        guard state == .registered, oneTimePassword.count == 6 else {
             return false
         }
-        return [.waitingForCode, .error].contains(state) // state == .error || state == .waitingForCode
-    }
-
-    /// Returns `true` if  state is `.loggedIn`.
-    public var isLoggedIn: Bool {
-        state == .loggedIn
+        return true
     }
     
-    /// Returns `true` if state is `.pushedToServer`, `.sendCode` or `.deletingAccount` indicating a running network request.
-    public var isWaiting: Bool {
-        [.pushedToServer, .sendCode, .deletingAccount].contains(state)
-    }
-
-    /// Returns `true` if the current `WaitTimer` is running.
-    public var timerIsRunning: Bool {
-        return waitTimer.isRunning
-    }
-
-    /// Returns `true` if a phonenumber can be sent and no `WaitTimer` is running.
-    public var canRequestCode: Bool {
-        if canSendPhoneNumber {
-            guard !timerIsRunning else {
-                return false
-            }
-            return true
-        } else {
-            return false
-        }
+    /// Returns `true` if state is `.loggedIn`.
+    public var isLoggedIn: Bool {
+        return appUser != nil && state == .loggedIn
     }
 }
 
@@ -238,7 +224,7 @@ extension PhoneLoginModel {
         guard canRequestCode else {
             return
         }
-        stateMachine.tryEvent(.sendingPhoneNumber)
+        pushToServer()
     }
 
     /// Try to login with a given `String`
@@ -248,41 +234,43 @@ extension PhoneLoginModel {
         guard canLogin else {
             return
         }
-        pinCode = string
-        stateMachine.tryEvent(.loggingIn)
+        sendCode(string)
     }
 
     /// Try to login with the var `pinCode`
     /// - Parameters:
     ///   - string: The pinCode to use for the login request.
    public func login() {
-        loginWithCode(pinCode)
+        loginWithCode(oneTimePassword)
     }
 
     /// Try to delete the current account
    public func deleteAccount() {
-        guard delegate?.appUser != nil, let number = delegate?.phoneNumber, !number.isEmpty else {
+        guard let number = delegate?.phoneNumber, !number.isEmpty else {
             return
         }
-        stateMachine.tryEvent(.trashAccount)
+        delete()
     }
     
     /// Logout the current user by calling `reset()`
-    public func logout() {
-        reset()
+    public func logout(deleteAccount: Bool = false) {
+        reset(deleteAccount: deleteAccount)
     }
 
     /// Start the waitTimer to prevent spamming the backend for a SMS code request.
-    public func startTimer() {
-        guard !timerIsRunning else {
+    private func startTimer() {
+        guard !spamTimerIsActive else {
             return
         }
-        waitTimer.start()
+        startSpamTimer()
     }
 
     private func pushToServer() {
 
         let endpoint = Endpoints.Phone.auth(configuration: self.configuration, phoneNumber: dialString)
+
+        errorMessage = ""
+        isWaiting = true
         
         loginCancellable = networkManager.publisher(for: endpoint)
             .receive(on: RunLoop.main)
@@ -291,20 +279,25 @@ extension PhoneLoginModel {
                 
                 switch completion {
                 case .finished:
-                    strongSelf.stateMachine.tryEvent(.sendingPhoneNumber)
+                    strongSelf.startSpamTimer()
+                    strongSelf.delegate?.phoneNumber = strongSelf.phoneNumber
 
                 case .failure(let error):
                     strongSelf.errorMessage = error.localizedDescription
-                    strongSelf.stateMachine.tryEvent(.failure)
                 }
+                strongSelf.isWaiting = false
+                strongSelf.state = strongSelf.currentState
 
             } receiveValue: { _ in
             }
     }
+        
+    private func sendCode(_ otp: String) {
+        let endpoint = Endpoints.Phone.login(configuration: self.configuration, phoneNumber: dialString, OTP: otp)
 
-    private func sendCode() {
-        let endpoint = Endpoints.Phone.login(configuration: self.configuration, phoneNumber: dialString, OTP: pinCode)
-
+        errorMessage = ""
+        isWaiting = true
+        
         loginCancellable = networkManager.publisher(for: endpoint)
             .receive(on: RunLoop.main)
             .sink { [weak self] completion in
@@ -312,13 +305,19 @@ extension PhoneLoginModel {
             
                 switch completion {
                 case .finished:
-                    strongSelf.stateMachine.tryEvent(.success)
-                    
+                    strongSelf.oneTimePassword = otp
+                    strongSelf.delegate?.oneTimePassword = otp
+                    strongSelf.state = .loggedIn
+
                 case .failure(let error):
+                    strongSelf.oneTimePassword = ""
+                    strongSelf.delegate?.oneTimePassword = nil
                     strongSelf.errorMessage = error.localizedDescription
-                    strongSelf.stateMachine.tryEvent(.failure)
+                    strongSelf.state = strongSelf.currentState
+
                 }
-                
+                strongSelf.isWaiting = false
+
             } receiveValue: { _ in
             }
     }
@@ -327,6 +326,9 @@ extension PhoneLoginModel {
         
         let endpoint = Endpoints.Phone.delete(configuration: self.configuration, phoneNumber: dialString)
         
+        errorMessage = ""
+        isWaiting = true
+        
         deleteCancellable = networkManager.publisher(for: endpoint)
             .receive(on: RunLoop.main)
             .sink { [weak self] completion in
@@ -334,53 +336,37 @@ extension PhoneLoginModel {
             
                 switch completion {
                 case .finished:
-                    strongSelf.logout()
+                    strongSelf.logout(deleteAccount: true)
 
                 case .failure(let error):
                     strongSelf.errorMessage = error.localizedDescription
-                    strongSelf.stateMachine.tryEvent(.failure)
                 }
                 
+                strongSelf.isWaiting = false
+                strongSelf.state = strongSelf.currentState
             } receiveValue: { _ in
             }
     }
 }
 
 public protocol StateChanging {
-    func leaveState(_ state: StateMachine.State)
-    func enterState(_ state: StateMachine.State)
+    func leaveState(_ state: PhoneLoginModel.State)
+    func enterState(_ state: PhoneLoginModel.State)
 }
 
 // MARK: - State changes
 extension PhoneLoginModel: StateChanging {
-
-    public func leaveState(_ state: StateMachine.State) {
+    
+    public func leaveState(_ state: PhoneLoginModel.State) {
         guard let stateDelegate = self.delegate as? any StateChanging else {
             return
         }
         stateDelegate.leaveState(state)
     }
     
-    public func enterState(_ state: StateMachine.State) {
+    public func enterState(_ state: PhoneLoginModel.State) {
         if let stateDelegate = self.delegate as? any StateChanging {
             stateDelegate.enterState(state)
         }
-        
-        if case .waitingForCode = state {
-            delegate?.phoneNumber = self.phoneNumber
-            startTimer()
-        }
-        if case .pushedToServer = state {
-            errorMessage = ""
-            pushToServer()
-        }
-        if case .sendCode = state {
-            errorMessage = ""
-            sendCode()
-        }
-        if case .deletingAccount = state {
-            errorMessage = ""
-            delete()
-        }
-   }
+    }
 }

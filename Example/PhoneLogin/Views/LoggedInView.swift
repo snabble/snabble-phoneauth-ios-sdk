@@ -20,11 +20,14 @@ struct LoggedInView: View {
                 .font(.custom("Menlo", size: 12))
         }
     }
+    var isLoggedIn: Bool {
+        return loginModel.state == .loggedIn
+    }
     
     var body: some View {
         ZStack {
             VStack {
-                Text(loginModel.isLoggedIn ? "You are logged in!" : "You are not logged in!")
+                Text(isLoggedIn ? "You are logged in!" : "You are not logged in!")
                     .font(.largeTitle)
                 info
                 
@@ -40,8 +43,8 @@ struct LoggedInView: View {
         .onAppear {
             UserDefaults.pageVisited = .loggedInPage
         }
-        .onChange(of: loginModel.state) { newState in
-            if newState == .start {
+        .onChange(of: loginModel.state) { state in
+            if state == .start {
                 UserDefaults.pageVisited = .startPage
                 dismiss()
             }
@@ -58,7 +61,6 @@ struct LoggedInView: View {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button(action: {
                     loginModel.logout()
-                    loginModel.resetAppUser()
 
                     UserDefaults.lastPageVisited = nil
                     presentationMode.wrappedValue.dismiss()

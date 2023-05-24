@@ -28,8 +28,14 @@ public struct RequestCodeButton: View {
     
     @EnvironmentObject var loginModel: PhoneLoginModel
 
+    init(firstStep: Bool = true, showCountdown: Bool = false, disabled: Bool = false) {
+        self.firstStep = firstStep
+        self.showCountdown = showCountdown
+        self.disabled = disabled
+    }
+    
     private var isDisabled: Bool {
-        if loginModel.waitTimer.isRunning {
+        if loginModel.spamTimerIsActive {
             return true
         }
         return disabled || !loginModel.canRequestCode
@@ -49,28 +55,33 @@ public struct RequestCodeButton: View {
                 Spacer(minLength: 0)
             }
         }
-        .buttonStyle(RequestButtonStyle(firstStep: firstStep, disabled: isDisabled, show: $showCountdown, sendDate: $loginModel.waitTimer.startTime))
+        .buttonStyle(RequestButtonStyle(firstStep: firstStep, disabled: isDisabled, show: $showCountdown))
         
         .onAppear {
-            if !firstStep, loginModel.state == .waitingForCode {
+            if !firstStep, loginModel.state == .registered {
                 withAnimation {
-                    showCountdown = true
+                    showCountdown = loginModel.spamTimerIsActive
                 }
             }
         }
-        .onChange(of: loginModel.waitTimer.endTime) { newValue in
-            let started = newValue == nil
-            
-            withAnimation {
-                disabled = started
-                if !firstStep {
-                    showCountdown = started
-                }
-            }
+        .onChange(of: loginModel.spamTimerIsActive) { active in
+            update(isActive: active)
+        }
+        .onChange(of: loginModel.isWaiting) { started in
+            update(isActive: started)
         }
         .onChange(of: showCountdown) { newState in
             withAnimation {
                 disabled = newState
+            }
+        }
+    }
+    
+    func update(isActive: Bool) {
+        withAnimation {
+            disabled = isActive
+            if !firstStep {
+                showCountdown = isActive
             }
         }
     }

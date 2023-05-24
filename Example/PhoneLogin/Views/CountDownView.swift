@@ -44,6 +44,6 @@ struct CountDownView_Previews: PreviewProvider {
                         .fontWeight(.bold)
                         .padding([.leading, .trailing])
         }
-        .buttonStyle(RequestButtonStyle(firstStep: false, disabled: true, show: .constant(true), sendDate: .constant(.now)))
+        .buttonStyle(RequestButtonStyle(firstStep: false, disabled: true, show: .constant(true)))
     }
 }

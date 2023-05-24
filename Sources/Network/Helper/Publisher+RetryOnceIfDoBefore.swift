@@ -18,13 +18,13 @@ extension Publishers {
         let condition: (P.Failure) -> Bool
         let doBefore: () -> Void
 
-        func receive<S>(subscriber: S) where S : Subscriber, Failure == S.Failure, Output == S.Input {
+        func receive<S>(subscriber: S) where S: Subscriber, Failure == S.Failure, Output == S.Input {
             guard times > 0 else {
                 return publisher.receive(subscriber: subscriber)
             }
 
             publisher.catch { (error: P.Failure) -> AnyPublisher<Output, Failure> in
-                if condition(error)  {
+                if condition(error) {
                     doBefore()
                     return RetryOnceIf(
                         publisher: publisher,
@@ -35,7 +35,8 @@ extension Publishers {
                 } else {
                     return Fail(error: error).eraseToAnyPublisher()
                 }
-            }.receive(subscriber: subscriber)
+            }
+                .receive(subscriber: subscriber)
         }
     }
 }

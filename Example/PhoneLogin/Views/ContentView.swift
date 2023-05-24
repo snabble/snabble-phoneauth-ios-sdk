@@ -43,11 +43,9 @@ extension UserDefaults {
 
 struct ContentView: View {
     @EnvironmentObject var loginModel: PhoneLoginModel
-    
-    @State private var isLoggedIn = false
-    
+            
     var showDetail: Bool {
-        guard !isLoggedIn else {
+        guard !loginModel.isLoggedIn else {
             return false
         }
         return UserDefaults.pageVisited == .sendOTPPage && UserDefaults.phoneNumber?.isEmpty == false
@@ -55,20 +53,10 @@ struct ContentView: View {
 
     var body: some View {
         NavigationView {
-            if isLoggedIn {
+            if loginModel.isLoggedIn {
                 LoggedInView()
             } else {
-                EnterPhoneNumberView(isShowingDetailView: showDetail)
-            }
-        }
-        .onAppear {
-            isLoggedIn = UserDefaults.pageVisited == .loggedInPage || loginModel.isLoggedIn
-        }
-        .onChange(of: loginModel.state) { newState in
-            if newState == .loggedIn {
-                isLoggedIn = true
-            } else if newState == .start {
-                isLoggedIn = false
+                EnterPhoneNumberView(isShowingDetailView: loginModel.canRequestCode)
             }
         }
     }

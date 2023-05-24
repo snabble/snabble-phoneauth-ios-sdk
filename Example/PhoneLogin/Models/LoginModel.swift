@@ -12,17 +12,16 @@ import SnabblePhoneAuth
 import SnabbleNetwork
 
 class LoginModel: ObservableObject, PhoneLoginDelegate {
+    
     var countries: [SnabblePhoneAuth.CountryCallingCode]?
-    let phoneModel = PhoneLoginModel()
+    let phoneModel: PhoneLoginModel
     
     private var _appUser: AppUser?
 
     /// The current valid `AppUser` or nil if not yet set or the `reset()` function was called.
     /// The appUser will set by implementing the `AuthenticatorDelegate` protocol.
     public var appUser: AppUser? {
-        get {
-            _appUser
-        }
+        get { _appUser }
         set {
             if newValue?.id != _appUser?.id {
                 _appUser = newValue
@@ -31,7 +30,7 @@ class LoginModel: ObservableObject, PhoneLoginDelegate {
                         if let user = newValue {
                             ActionLogger.shared.add(log: LogAction(action: "appID", info: user.id))
                         } else {
-                            ActionLogger.shared.add(log: LogAction(action: "remove appID"))
+                            ActionLogger.shared.add(log: LogAction(action: "appID", info: "removed"))
                         }
                     }
                    UserDefaults.appUser = newValue
@@ -43,36 +42,56 @@ class LoginModel: ObservableObject, PhoneLoginDelegate {
     init() {
         _appUser = UserDefaults.appUser
         countries = loadJSON("Countries")
+        
+        phoneModel = PhoneLoginModel()
         phoneModel.delegate = self
         phoneModel.authenticator.delegate = self
     }
 
-    public var configuration: Configuration {
-        return .testing
+    public var configuration: Configuration { .testing }
+    
+    public var phoneNumber: String? {
+        get { UserDefaults.phoneNumber }
+        set {
+            UserDefaults.phoneNumber = newValue
+            objectWillChange.send()
+        }
+    }
+
+    var oneTimePassword: String? {
+        get { UserDefaults.oneTimePassword }
+        set { UserDefaults.oneTimePassword = newValue }
     }
     
+    var isLoggedIn: Bool? {
+        guard let phoneNumber = self.phoneNumber,
+              let otp = self.oneTimePassword else {
+            return false
+        }
+        guard let appUser = self.appUser else {
+            return false
+        }
+        return !phoneNumber.isEmpty && !otp.isEmpty == false
+    }
+
+    func reset(deleteAccount: Bool = false) {
+        oneTimePassword = nil
+        phoneNumber = nil
+        if deleteAccount {
+            appUser = nil
+        }
+    }
+}
+
+extension LoginModel {
     public var selectedCountry: String? {
-        get {
-            UserDefaults.selectedCountry
-        }
-        set {
-            UserDefaults.selectedCountry = newValue
-        }
+        get { UserDefaults.selectedCountry }
+        set { UserDefaults.selectedCountry = newValue }
     }
     
     func supportedCountries() -> [SnabblePhoneAuth.CountryCallingCode]? {
         countries
     }
-    
-    public var phoneNumber: String? {
-        get {
-            UserDefaults.phoneNumber
-        }
-        set {
-            UserDefaults.phoneNumber = newValue
-        }
-    }
-
 }
 
 extension LoginModel: AuthenticatorDelegate {
@@ -95,17 +114,13 @@ extension LoginModel: AuthenticatorDelegate {
 // MARK: - State changes
 extension LoginModel: StateChanging {
     
-    func leaveState(_ state: StateMachine.State) {
+    func leaveState(_ state: PhoneLoginModel.State) {
         if UserDefaults.logActions {
             ActionLogger.shared.add(log: LogAction(action: "leave state", info: "\(state)"))
         }
-        if case .deletingAccount = state {
-            appUser = nil
-            phoneModel.resetAppUser()
-        }
     }
     
-    func enterState(_ state: StateMachine.State) {
+    func enterState(_ state: PhoneLoginModel.State) {
         if UserDefaults.logActions {
             ActionLogger.shared.add(log: LogAction(action: "enter state", info: "\(state)"))
         }

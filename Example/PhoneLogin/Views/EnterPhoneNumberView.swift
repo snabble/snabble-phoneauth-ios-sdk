@@ -57,7 +57,7 @@ public struct EnterPhoneNumberView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
-                if loginModel.codeWasSendOnce {
+                if loginModel.state == .registered {
                     Button(action: {
                         withAnimation {
                             isShowingDetailView = true

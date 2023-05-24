@@ -41,7 +41,7 @@ public struct EnterCodeView: View {
                     footer: loginModel.messageView,
                     content: {
                             VStack {
-                                TextField("Pin Code", text: $loginModel.pinCode)
+                                TextField("Pin Code", text: $loginModel.oneTimePassword)
                                     .keyboardType(.decimalPad)
                                     .focused($enterCode)
                                 
@@ -74,9 +74,9 @@ public struct EnterCodeView: View {
         .onAppear {
             UserDefaults.pageVisited = .sendOTPPage
 
-            if loginModel.state == .waitingForCode {
+            if loginModel.canRequestCode {
                 enterCode = true
-                loginModel.startTimer()
+                loginModel.startSpamTimer()
             }
         }
         .padding()
