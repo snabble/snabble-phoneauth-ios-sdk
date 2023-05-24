@@ -38,7 +38,7 @@ public typealias PhoneLoginDelegate = CountryProviding & PhoneLoginProviding
 ///
 open class PhoneLoginModel: ObservableObject {
 
-    /// The country using the `CountryCallingCode` struct. If `UserDefaults.selectedCountry` is set to a valid country code e.g. "DE" this will use to create a `CountryCallingCode`.
+    /// The country using the `CountryCallingCode` struct.
     @Published public var country: CountryCallingCode
     
     ///
