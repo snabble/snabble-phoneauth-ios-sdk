@@ -20,7 +20,7 @@ final class CountryCallingCodeTests: XCTestCase {
         
         let phoneNumber = "0177 123 45 67"
         XCTAssertEqual(country.dialString(phoneNumber), "+491771234567")
-        XCTAssertEqual(country.prettyPrint(phoneNumber), "+49 1771234567")
+        XCTAssertEqual(country.prettyPrint(phoneNumber), "+49 177 123 45 67")
     }
 
     class Provider: CountryProviding {
