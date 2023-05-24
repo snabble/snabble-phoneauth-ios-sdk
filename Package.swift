@@ -17,7 +17,7 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/realm/SwiftLint", exact: "0.52.0"),
-        .package(url: "https://github.com/snabble/OneTimePassword.git", from: "4.0.0"),
+        .package(url: "https://github.com/lachlanbell/SwiftOTP", from: "3.0.1"),
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
@@ -27,20 +27,20 @@ let package = Package(
             dependencies: [
                 "SnabbleNetwork"
             ],
-            path: "Sources/Core",
+            path: "Sources/LoginModel",
             plugins: [
                 .plugin(name: "SwiftLintPlugin", package: "SwiftLint")
             ]
         ),
         .testTarget(
             name: "SnabblePhoneAuthTests",
-            dependencies: ["SnabblePhoneAuth"],
-            path: "Tests/Core"
+            dependencies: ["SnabbleNetwork", "SnabblePhoneAuth"],
+            path: "Tests/LoginModel"
         ),
         .target(
             name: "SnabbleNetwork",
             dependencies: [
-                "OneTimePassword"
+                "SwiftOTP"
             ],
             path: "Sources/Network"
         ),

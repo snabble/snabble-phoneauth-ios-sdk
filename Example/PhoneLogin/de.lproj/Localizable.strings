@@ -1,0 +1,19 @@
+/* 
+  Localizable.strings
+  PhoneLogin
+
+  Created by Uwe Tilemann on 12.05.23.
+  
+*/
+"You are logged in!" = "Du bist eingeloggt!";
+"You are not logged in!" = "Du bist abgemeldet!";
+"Mobile Login" = "Telefon-Login";
+"Login" = "Anmelden";
+"Close" = "Schließen";
+"Mobile #" = "Handynummer";
+"phoneInputHelp" = "Zum Aktivieren des Logins, gib deine Handynummber ein.\nAnschließend erhälst du eine SMS mit einem Aktivierungscode.";
+"Pin Code" = "Pin-Code";
+"Input Code" = "Code eingeben";
+"Request Code" = "Code anfordern";
+"Request Code Again" = "Code erneut anfordern";
+"Send %@" = "Wir haben dir einen Code an\n%@ gesendet.\nBitte gib den Code ein.\n";

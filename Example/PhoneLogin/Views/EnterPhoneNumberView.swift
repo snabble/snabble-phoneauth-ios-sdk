@@ -9,13 +9,13 @@ import Foundation
 import SwiftUI
 import SnabblePhoneAuth
 
-struct EnterPhoneNumberView: View {
-    @State private var isShowingDetailView = false
+public struct EnterPhoneNumberView: View {
+    @State var isShowingDetailView = false
     @EnvironmentObject var loginModel: PhoneLoginModel
 
     @FocusState private var enterCode
-        
-    var body: some View {
+
+    public var body: some View {
         VStack {
             NavigationLink(destination: EnterCodeView(), isActive: $isShowingDetailView) { EmptyView() }
             
@@ -26,16 +26,15 @@ struct EnterPhoneNumberView: View {
                             HStack {
                                 CountryCallingCodeView(country: loginModel.country)
                                 
-                                TextField("Handynummer", text: $loginModel.phoneNumber)
+                                TextField("Mobile #", text: $loginModel.phoneNumber)
                                     .keyboardType(.phonePad)
                                     .focused($enterCode)
                             }
                             RequestCodeButton(firstStep: true)
                         }
-                        .padding([.leading, .trailing], 20)
                     },
                     header: {
-                        Text("Zum Aktivieren des Logins, gib deine Handynummber ein.\nAnschließend erhälst du eine SMS mit einem Aktivierungscode.")
+                        Text("phoneInputHelp")
                             .multilineTextAlignment(.center)
                     },
                     footer: {
@@ -44,16 +43,30 @@ struct EnterPhoneNumberView: View {
                 )
                 .textCase(nil)
             }
-            .onChange(of: loginModel.receivedCode) { newCode in
-                isShowingDetailView = !newCode.isEmpty
+            .onChange(of: loginModel.state) { _ in
+                isShowingDetailView = UserDefaults.phoneNumber?.isEmpty == false
             }
             .onAppear {
+                UserDefaults.pageVisited = .startPage
                 enterCode = true
             }
-            DebugView(debugConfig: .logs)
+            DebugView()
         }
         .padding()
-        .navigationTitle("Telefon-Login")
+        .navigationTitle("Mobile Login")
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                if loginModel.state == .registered {
+                    Button(action: {
+                        withAnimation {
+                            isShowingDetailView = true
+                        }
+                    }) {
+                        Text("Login")
+                    }
+                }
+            }
+        }
     }
 }

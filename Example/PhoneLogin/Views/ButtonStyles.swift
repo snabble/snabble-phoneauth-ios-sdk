@@ -18,7 +18,6 @@ public struct AccentButtonStyle: ButtonStyle {
         configuration.label
             .padding([.top, .bottom], 15)
             .padding([.leading, .trailing], 20)
-            .frame(width: 300)
             .background(Color("AccentColor"))
             .foregroundColor(.white.opacity(disabled ? 0.5 : 1.0))
             .disabled(disabled)
@@ -30,7 +29,6 @@ public struct RequestButtonStyle: ButtonStyle {
     var firstStep: Bool
     var disabled: Bool
     @Binding var show: Bool
-    var sendDate: Date = .now
     
     public init(firstStep: Bool = true, disabled: Bool, show: Binding<Bool>) {
         self.firstStep = firstStep
@@ -41,7 +39,7 @@ public struct RequestButtonStyle: ButtonStyle {
     @ViewBuilder
     var background: some View {
         if !firstStep, show {
-            CountDownButtonBackground(from: sendDate, to: sendDate + 30) {
+            CountDownButtonBackground(from: .now) {
                 DispatchQueue.main.async {
                     self.show = false
                 }
@@ -54,7 +52,6 @@ public struct RequestButtonStyle: ButtonStyle {
             configuration.label
                 .padding([.top, .bottom], 15)
                 .padding([.leading, .trailing], 20)
-                .frame(width: 300)
                 .background(Color("AccentColor"))
                 .foregroundColor(.white.opacity(disabled ? 0.5 : 1.0))
                 .disabled(disabled)

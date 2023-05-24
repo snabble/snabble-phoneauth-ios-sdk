@@ -6,9 +6,10 @@
 //
 
 import SwiftUI
+
 import SnabblePhoneAuth
 
-extension PhoneLoginModel {
+public extension PhoneLoginModel {
 
     @ViewBuilder
     var progressView: some View {
@@ -19,61 +20,69 @@ extension PhoneLoginModel {
     }
 }
 
-struct RequestCodeButton: View {
-    var firstStep = true
+public struct RequestCodeButton: View {
+    public var firstStep = true
     
     @State private var showCountdown: Bool = false
+    @State private var disabled: Bool = false
+    
     @EnvironmentObject var loginModel: PhoneLoginModel
 
-    var body: some View {
+    init(firstStep: Bool = true, showCountdown: Bool = false, disabled: Bool = false) {
+        self.firstStep = firstStep
+        self.showCountdown = showCountdown
+        self.disabled = disabled
+    }
+    
+    private var isDisabled: Bool {
+        if loginModel.spamTimerIsActive {
+            return true
+        }
+        return disabled || !loginModel.canRequestCode
+    }
+
+    public var body: some View {
         Button(action: {
-            if loginModel.canRequestCode {
-                ActionLogger.shared.add(log: LogAction(action: "request code for", info: "\(loginModel.dialString)"))
-                loginModel.sendPhoneNumber()
-            }
+            loginModel.sendPhoneNumber()
         }) {
             HStack {
-                Spacer()
+                Spacer(minLength: 0)
                 HStack {
-                    Text("Code \(firstStep ? "" : "erneut ") anfordern")
+                    Text(firstStep ? "Request Code" : "Request Code Again")
                         .fontWeight(.bold)
                     loginModel.progressView
                 }
-                Spacer()
+                Spacer(minLength: 0)
             }
         }
-        .buttonStyle(RequestButtonStyle(firstStep: firstStep, disabled: !loginModel.canRequestCode, show: $showCountdown))
+        .buttonStyle(RequestButtonStyle(firstStep: firstStep, disabled: isDisabled, show: $showCountdown))
+        
         .onAppear {
-            if !loginModel.receivedCode.isEmpty {
-                startCountdown()
+            if !firstStep, loginModel.state == .registered {
+                withAnimation {
+                    showCountdown = loginModel.spamTimerIsActive
+                }
             }
         }
-        .onChange(of: loginModel.receivedCode) { _ in
-            startCountdown()
+        .onChange(of: loginModel.spamTimerIsActive) { active in
+            update(isActive: active)
         }
-        .onChange(of: loginModel.state) { newState in
-            if newState == .waitingForCode {
-                startCountdown()
+        .onChange(of: loginModel.isWaiting) { started in
+            update(isActive: started)
+        }
+        .onChange(of: showCountdown) { newState in
+            withAnimation {
+                disabled = newState
             }
         }
     }
-
-    func startCountdown() {
-        guard !firstStep else {
-            return
-        }
+    
+    func update(isActive: Bool) {
         withAnimation {
-            showCountdown = true
-        }
-    }
-}
-
-struct RequestCodeButton_Previews: PreviewProvider {
-    static let model = PhoneLoginModel()
-    static var previews: some View {
-        VStack {
-            RequestCodeButton(firstStep: true).environmentObject(model)
-            RequestCodeButton(firstStep: false).environmentObject(model)
+            disabled = isActive
+            if !firstStep {
+                showCountdown = isActive
+            }
         }
     }
 }
