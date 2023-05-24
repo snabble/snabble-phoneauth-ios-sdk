@@ -68,7 +68,7 @@ class LoginModel: ObservableObject, PhoneLoginDelegate {
               let otp = self.oneTimePassword else {
             return false
         }
-        guard let appUser = self.appUser else {
+        guard self.appUser != nil else {
             return false
         }
         return !phoneNumber.isEmpty && !otp.isEmpty == false
