@@ -8,22 +8,17 @@
 import SwiftUI
 import SnabblePhoneAuth
 
-extension PhoneLoginModel {
+public extension PhoneLoginModel {
     @ViewBuilder
     var messageView: some View {
         if !errorMessage.isEmpty {
             Text(errorMessage)
                 .foregroundColor(.red)
-        } else {
-            if !receivedCode.isEmpty {
-                Text("Server hat folgenden Code geschickt \"\(receivedCode)\"")
-                    .foregroundColor(.green)
-            }
         }
     }
 }
 
-struct EnterCodeView: View {
+public struct EnterCodeView: View {
     @EnvironmentObject var loginModel: PhoneLoginModel
     
     @FocusState private var enterCode
@@ -32,38 +27,37 @@ struct EnterCodeView: View {
     var header: some View {
         HStack {
             Spacer()
-            VStack {
-                Text("Wir haben dir einen Code an")
-                Text("\(loginModel.phoneNumberPrettyPrint) gesendet.")
-                Text("Bitte gib den Code ein.\n")
-            }
+            Text("Send \(loginModel.phoneNumberPrettyPrint)")
             .multilineTextAlignment(.center)
             Spacer()
         }
     }
     
-    var body: some View {
-        VStack {
+    public var body: some View {
+        VStack(spacing: 0) {
             Form {
                 Section(
                     header: header,
                     footer: loginModel.messageView,
                     content: {
                             VStack {
-                                TextField("Pin-Code", text: $loginModel.pinCode)
+                                TextField("Pin Code", text: $loginModel.oneTimePassword)
                                     .keyboardType(.decimalPad)
                                     .focused($enterCode)
                                 
                                 Button(action: {
-                                    print("login with code: \(loginModel.pinCode)")
-                                    loginModel.loginWithCode(loginModel.pinCode)
+                                    loginModel.login()
                                 }) {
                                     HStack {
-                                        Text("Anmelden")
-                                            .fontWeight(.bold)
-                                            .opacity(loginModel.canLogin ? 1.0 : 0.5)
-                                        
-                                        loginModel.progressView
+                                        Spacer(minLength: 0)
+                                        HStack {
+                                            Text("Login")
+                                                .fontWeight(.bold)
+                                                .opacity(loginModel.canLogin ? 1.0 : 0.5)
+                                            
+                                            loginModel.progressView
+                                        }
+                                        Spacer(minLength: 0)
                                     }
                                 }
                                 .buttonStyle(AccentButtonStyle(disabled: !loginModel.canLogin))
@@ -75,14 +69,17 @@ struct EnterCodeView: View {
                 )
                 .textCase(nil)
             }
-            .onAppear {
-                if !loginModel.receivedCode.isEmpty {
-                    enterCode = true
-                }
+            DebugView()
+        }
+        .onAppear {
+            UserDefaults.pageVisited = .sendOTPPage
+
+            if loginModel.canRequestCode {
+                enterCode = true
+                loginModel.startSpamTimer()
             }
-            DebugView(debugConfig: .logs)
         }
         .padding()
-        .navigationTitle("Code eingeben")
+        .navigationTitle("Input Code")
     }
 }

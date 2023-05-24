@@ -7,18 +7,18 @@
 
 import SwiftUI
 
-struct CountDownButtonBackground: View {
+public struct CountDownButtonBackground: View {
     let from: Date
     let to: Date
     let handler: () -> Void
     
-    init(from: Date, to: Date, completion: @escaping (() -> Void) = {}) {
+    init(from: Date, to: Date? = nil, completion: @escaping (() -> Void) = {}) {
         self.from = from
-        self.to = to
+        self.to = to ?? (from + 30)
         self.handler = completion
     }
 
-    var body: some View {
+    public var body: some View {
         TimelineView(.animation(minimumInterval: 1 / 20)) { _ in
             Canvas { context, size in
                 let interval = to.timeIntervalSinceReferenceDate - from.timeIntervalSinceReferenceDate
@@ -37,6 +37,13 @@ struct CountDownButtonBackground: View {
 
 struct CountDownView_Previews: PreviewProvider {
     static var previews: some View {
-        CountDownButtonBackground(from: .now, to: .now + 10.0)
+        Button(action: {
+            print("button action")
+        }) {
+                    Text("Code erneut anfordern")
+                        .fontWeight(.bold)
+                        .padding([.leading, .trailing])
+        }
+        .buttonStyle(RequestButtonStyle(firstStep: false, disabled: true, show: .constant(true)))
     }
 }

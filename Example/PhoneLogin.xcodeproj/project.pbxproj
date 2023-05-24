@@ -7,23 +7,31 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		768915E02A010BA500C4799A /* SnabblePhoneAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 768915DF2A010BA500C4799A /* SnabblePhoneAuth */; };
-		768915E32A02323400C4799A /* DebugView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 768915E22A02323400C4799A /* DebugView.swift */; };
-		768915E52A024DA600C4799A /* CountDownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 768915E42A024DA600C4799A /* CountDownView.swift */; };
-		768915E72A03B2C900C4799A /* CountryCallingCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 768915E62A03B2C900C4799A /* CountryCallingCodeView.swift */; };
-		768915E92A04EA7200C4799A /* RequestCodeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 768915E82A04EA7200C4799A /* RequestCodeButton.swift */; };
+		765914F92A0A5B0800A610BC /* SnabblePhoneAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 765914F82A0A5B0800A610BC /* SnabblePhoneAuth */; };
+		765915242A0A70BB00A610BC /* ButtonStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 765915232A0A70BB00A610BC /* ButtonStyles.swift */; };
+		765915252A0A70BB00A610BC /* EnterPhoneNumberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7659151E2A0A70BB00A610BC /* EnterPhoneNumberView.swift */; };
+		765915262A0A70BB00A610BC /* RequestCodeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7659151F2A0A70BB00A610BC /* RequestCodeButton.swift */; };
+		765915272A0A70BB00A610BC /* DebugView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 765915222A0A70BB00A610BC /* DebugView.swift */; };
+		765915282A0A70BB00A610BC /* EnterCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7659151D2A0A70BB00A610BC /* EnterCodeView.swift */; };
+		765915292A0A70BB00A610BC /* CountryCallingCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 765915212A0A70BB00A610BC /* CountryCallingCodeView.swift */; };
+		7659152A2A0A70BB00A610BC /* CountDownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 765915202A0A70BB00A610BC /* CountDownView.swift */; };
 		7691BA9B2976C3F400477EDD /* PhoneLoginApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7691BA9A2976C3F400477EDD /* PhoneLoginApp.swift */; };
-		7691BA9D2976C3F400477EDD /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7691BA9C2976C3F400477EDD /* ContentView.swift */; };
 		7691BA9F2976C3F500477EDD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7691BA9E2976C3F500477EDD /* Assets.xcassets */; };
 		7691BAA32976C3F500477EDD /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7691BAA22976C3F500477EDD /* Preview Assets.xcassets */; };
-		7691BAAA2977AD1700477EDD /* EnterPhoneNumberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7691BAA92977AD1700477EDD /* EnterPhoneNumberView.swift */; };
-		7691BAAC2977AD2A00477EDD /* EnterCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7691BAAB2977AD2A00477EDD /* EnterCodeView.swift */; };
-		7691BAB02977AD8500477EDD /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7691BAAF2977AD8500477EDD /* Utilities.swift */; };
-		E172254B2A0BB8A900377187 /* PhoneLoginTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E172254A2A0BB8A900377187 /* PhoneLoginTests.swift */; };
+		769B231B2A1B444800C53B53 /* ActionLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 769B231A2A1B444800C53B53 /* ActionLogger.swift */; };
+		769B231D2A1B4F5A00C53B53 /* UserDefaults+PhoneLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 769B231C2A1B4F5A00C53B53 /* UserDefaults+PhoneLogin.swift */; };
+		76A9F7202A09272200C162B1 /* SnabbleConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A9F71F2A09272100C162B1 /* SnabbleConfig.swift */; };
+		76A9F7242A0A56DA00C162B1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A9F7232A0A56DA00C162B1 /* ContentView.swift */; };
+		76FA1A812A0E57D9008C15BF /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 76FA1A832A0E57D9008C15BF /* Localizable.strings */; };
+		76FA1A882A120D60008C15BF /* LoggedInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FA1A872A120D60008C15BF /* LoggedInView.swift */; };
+		76FA1A8A2A123FAF008C15BF /* LoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FA1A892A123FAF008C15BF /* LoginModel.swift */; };
+		76FA1A8C2A1240AE008C15BF /* LoadJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FA1A8B2A1240AE008C15BF /* LoadJSON.swift */; };
+		76FA1A8E2A12420A008C15BF /* Countries.json in Resources */ = {isa = PBXBuildFile; fileRef = 76FA1A8D2A1240CD008C15BF /* Countries.json */; };
+		76FA1AD62A14BBFA008C15BF /* PhoneLoginTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FA1AD52A14BBFA008C15BF /* PhoneLoginTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		E172254C2A0BB8A900377187 /* PBXContainerItemProxy */ = {
+		76FA1AD72A14BBFA008C15BF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7691BA8F2976C3F400477EDD /* Project object */;
 			proxyType = 1;
@@ -33,24 +41,33 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		763438EA2A01062900C99AD5 /* snabble-phoneauth-ios-sdk */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "snabble-phoneauth-ios-sdk"; path = ..; sourceTree = "<group>"; };
+		7659151D2A0A70BB00A610BC /* EnterCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterCodeView.swift; sourceTree = "<group>"; };
+		7659151E2A0A70BB00A610BC /* EnterPhoneNumberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterPhoneNumberView.swift; sourceTree = "<group>"; };
+		7659151F2A0A70BB00A610BC /* RequestCodeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestCodeButton.swift; sourceTree = "<group>"; };
+		765915202A0A70BB00A610BC /* CountDownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountDownView.swift; sourceTree = "<group>"; };
+		765915212A0A70BB00A610BC /* CountryCallingCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCallingCodeView.swift; sourceTree = "<group>"; };
+		765915222A0A70BB00A610BC /* DebugView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugView.swift; sourceTree = "<group>"; };
+		765915232A0A70BB00A610BC /* ButtonStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStyles.swift; sourceTree = "<group>"; };
 		768915E12A0129C100C4799A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		768915E22A02323400C4799A /* DebugView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugView.swift; sourceTree = "<group>"; };
-		768915E42A024DA600C4799A /* CountDownView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountDownView.swift; sourceTree = "<group>"; };
-		768915E62A03B2C900C4799A /* CountryCallingCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCallingCodeView.swift; sourceTree = "<group>"; };
-		768915E82A04EA7200C4799A /* RequestCodeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestCodeButton.swift; sourceTree = "<group>"; };
 		7691BA972976C3F400477EDD /* PhoneLogin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhoneLogin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7691BA9A2976C3F400477EDD /* PhoneLoginApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneLoginApp.swift; sourceTree = "<group>"; };
-		7691BA9C2976C3F400477EDD /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		7691BA9E2976C3F500477EDD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7691BAA02976C3F500477EDD /* PhoneLogin.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PhoneLogin.entitlements; sourceTree = "<group>"; };
 		7691BAA22976C3F500477EDD /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		7691BAA92977AD1700477EDD /* EnterPhoneNumberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterPhoneNumberView.swift; sourceTree = "<group>"; };
-		7691BAAB2977AD2A00477EDD /* EnterCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterCodeView.swift; sourceTree = "<group>"; };
-		7691BAAF2977AD8500477EDD /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		769B231A2A1B444800C53B53 /* ActionLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionLogger.swift; sourceTree = "<group>"; };
+		769B231C2A1B4F5A00C53B53 /* UserDefaults+PhoneLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+PhoneLogin.swift"; sourceTree = "<group>"; };
+		76A9F71F2A09272100C162B1 /* SnabbleConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnabbleConfig.swift; sourceTree = "<group>"; };
+		76A9F7222A0A563C00C162B1 /* snabble-phoneauth-ios-sdk */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "snabble-phoneauth-ios-sdk"; path = ..; sourceTree = "<group>"; };
+		76A9F7232A0A56DA00C162B1 /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		76FA1A822A0E57D9008C15BF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		76FA1A842A0E580F008C15BF /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		76FA1A872A120D60008C15BF /* LoggedInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggedInView.swift; sourceTree = "<group>"; };
+		76FA1A892A123FAF008C15BF /* LoginModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginModel.swift; sourceTree = "<group>"; };
+		76FA1A8B2A1240AE008C15BF /* LoadJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadJSON.swift; sourceTree = "<group>"; };
+		76FA1A8D2A1240CD008C15BF /* Countries.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Countries.json; sourceTree = "<group>"; };
+		76FA1AD32A14BBFA008C15BF /* PhoneLoginTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PhoneLoginTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		76FA1AD52A14BBFA008C15BF /* PhoneLoginTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneLoginTests.swift; sourceTree = "<group>"; };
 		E167829F2A14CAF6008CAB2B /* PhoneLogin.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = PhoneLogin.xctestplan; sourceTree = "<group>"; };
-		E17225482A0BB8A900377187 /* PhoneLoginTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PhoneLoginTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		E172254A2A0BB8A900377187 /* PhoneLoginTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneLoginTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,11 +75,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				768915E02A010BA500C4799A /* SnabblePhoneAuth in Frameworks */,
+				765914F92A0A5B0800A610BC /* SnabblePhoneAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		E17225452A0BB8A900377187 /* Frameworks */ = {
+		76FA1AD02A14BBFA008C15BF /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -72,26 +89,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		763438E92A01062900C99AD5 /* Packages */ = {
-			isa = PBXGroup;
-			children = (
-				763438EA2A01062900C99AD5 /* snabble-phoneauth-ios-sdk */,
-			);
-			name = Packages;
-			sourceTree = "<group>";
-		};
 		763438EC2A01079B00C99AD5 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				7691BA9C2976C3F400477EDD /* ContentView.swift */,
-				7691BAAB2977AD2A00477EDD /* EnterCodeView.swift */,
-				768915E82A04EA7200C4799A /* RequestCodeButton.swift */,
-				7691BAA92977AD1700477EDD /* EnterPhoneNumberView.swift */,
-				768915E62A03B2C900C4799A /* CountryCallingCodeView.swift */,
-				768915E42A024DA600C4799A /* CountDownView.swift */,
-				768915E22A02323400C4799A /* DebugView.swift */,
+				765915232A0A70BB00A610BC /* ButtonStyles.swift */,
+				765915202A0A70BB00A610BC /* CountDownView.swift */,
+				765915212A0A70BB00A610BC /* CountryCallingCodeView.swift */,
+				765915222A0A70BB00A610BC /* DebugView.swift */,
+				7659151D2A0A70BB00A610BC /* EnterCodeView.swift */,
+				7659151E2A0A70BB00A610BC /* EnterPhoneNumberView.swift */,
+				7659151F2A0A70BB00A610BC /* RequestCodeButton.swift */,
+				76A9F7232A0A56DA00C162B1 /* ContentView.swift */,
+				76FA1A872A120D60008C15BF /* LoggedInView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		765FFAA02A1B8F14005DE2C3 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				76A9F71F2A09272100C162B1 /* SnabbleConfig.swift */,
+				769B231C2A1B4F5A00C53B53 /* UserDefaults+PhoneLogin.swift */,
+				76FA1A892A123FAF008C15BF /* LoginModel.swift */,
+				769B231A2A1B444800C53B53 /* ActionLogger.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		768915DE2A010BA500C4799A /* Frameworks */ = {
@@ -105,9 +127,9 @@
 			isa = PBXGroup;
 			children = (
 				E167829F2A14CAF6008CAB2B /* PhoneLogin.xctestplan */,
-				763438E92A01062900C99AD5 /* Packages */,
+				76A9F7212A0A563C00C162B1 /* Packages */,
 				7691BA992976C3F400477EDD /* PhoneLogin */,
-				E17225492A0BB8A900377187 /* PhoneLoginTests */,
+				76FA1AD42A14BBFA008C15BF /* PhoneLoginTests */,
 				7691BA982976C3F400477EDD /* Products */,
 				768915DE2A010BA500C4799A /* Frameworks */,
 			);
@@ -117,7 +139,7 @@
 			isa = PBXGroup;
 			children = (
 				7691BA972976C3F400477EDD /* PhoneLogin.app */,
-				E17225482A0BB8A900377187 /* PhoneLoginTests.xctest */,
+				76FA1AD32A14BBFA008C15BF /* PhoneLoginTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -127,9 +149,12 @@
 			children = (
 				768915E12A0129C100C4799A /* Info.plist */,
 				7691BA9A2976C3F400477EDD /* PhoneLoginApp.swift */,
-				7691BAAF2977AD8500477EDD /* Utilities.swift */,
+				76FA1A8B2A1240AE008C15BF /* LoadJSON.swift */,
+				765FFAA02A1B8F14005DE2C3 /* Models */,
 				763438EC2A01079B00C99AD5 /* Views */,
 				7691BA9E2976C3F500477EDD /* Assets.xcassets */,
+				76FA1A8D2A1240CD008C15BF /* Countries.json */,
+				76FA1A832A0E57D9008C15BF /* Localizable.strings */,
 				7691BAA02976C3F500477EDD /* PhoneLogin.entitlements */,
 				7691BAA12976C3F500477EDD /* Preview Content */,
 			);
@@ -144,10 +169,18 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		E17225492A0BB8A900377187 /* PhoneLoginTests */ = {
+		76A9F7212A0A563C00C162B1 /* Packages */ = {
 			isa = PBXGroup;
 			children = (
-				E172254A2A0BB8A900377187 /* PhoneLoginTests.swift */,
+				76A9F7222A0A563C00C162B1 /* snabble-phoneauth-ios-sdk */,
+			);
+			name = Packages;
+			sourceTree = "<group>";
+		};
+		76FA1AD42A14BBFA008C15BF /* PhoneLoginTests */ = {
+			isa = PBXGroup;
+			children = (
+				76FA1AD52A14BBFA008C15BF /* PhoneLoginTests.swift */,
 			);
 			path = PhoneLoginTests;
 			sourceTree = "<group>";
@@ -170,28 +203,28 @@
 			);
 			name = PhoneLogin;
 			packageProductDependencies = (
-				768915DF2A010BA500C4799A /* SnabblePhoneAuth */,
+				765914F82A0A5B0800A610BC /* SnabblePhoneAuth */,
 			);
 			productName = PhoneLogin;
 			productReference = 7691BA972976C3F400477EDD /* PhoneLogin.app */;
 			productType = "com.apple.product-type.application";
 		};
-		E17225472A0BB8A900377187 /* PhoneLoginTests */ = {
+		76FA1AD22A14BBFA008C15BF /* PhoneLoginTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E17225502A0BB8A900377187 /* Build configuration list for PBXNativeTarget "PhoneLoginTests" */;
+			buildConfigurationList = 76FA1AD92A14BBFA008C15BF /* Build configuration list for PBXNativeTarget "PhoneLoginTests" */;
 			buildPhases = (
-				E17225442A0BB8A900377187 /* Sources */,
-				E17225452A0BB8A900377187 /* Frameworks */,
-				E17225462A0BB8A900377187 /* Resources */,
+				76FA1ACF2A14BBFA008C15BF /* Sources */,
+				76FA1AD02A14BBFA008C15BF /* Frameworks */,
+				76FA1AD12A14BBFA008C15BF /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				E172254D2A0BB8A900377187 /* PBXTargetDependency */,
+				76FA1AD82A14BBFA008C15BF /* PBXTargetDependency */,
 			);
 			name = PhoneLoginTests;
 			productName = PhoneLoginTests;
-			productReference = E17225482A0BB8A900377187 /* PhoneLoginTests.xctest */;
+			productReference = 76FA1AD32A14BBFA008C15BF /* PhoneLoginTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -207,7 +240,7 @@
 					7691BA962976C3F400477EDD = {
 						CreatedOnToolsVersion = 14.2;
 					};
-					E17225472A0BB8A900377187 = {
+					76FA1AD22A14BBFA008C15BF = {
 						CreatedOnToolsVersion = 14.3;
 						TestTargetID = 7691BA962976C3F400477EDD;
 					};
@@ -220,6 +253,7 @@
 			knownRegions = (
 				en,
 				Base,
+				de,
 			);
 			mainGroup = 7691BA8E2976C3F400477EDD;
 			packageReferences = (
@@ -230,7 +264,7 @@
 			projectRoot = "";
 			targets = (
 				7691BA962976C3F400477EDD /* PhoneLogin */,
-				E17225472A0BB8A900377187 /* PhoneLoginTests */,
+				76FA1AD22A14BBFA008C15BF /* PhoneLoginTests */,
 			);
 		};
 /* End PBXProject section */
@@ -241,11 +275,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				7691BAA32976C3F500477EDD /* Preview Assets.xcassets in Resources */,
+				76FA1A812A0E57D9008C15BF /* Localizable.strings in Resources */,
+				76FA1A8E2A12420A008C15BF /* Countries.json in Resources */,
 				7691BA9F2976C3F500477EDD /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		E17225462A0BB8A900377187 /* Resources */ = {
+		76FA1AD12A14BBFA008C15BF /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -259,45 +295,64 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				768915E92A04EA7200C4799A /* RequestCodeButton.swift in Sources */,
-				7691BAB02977AD8500477EDD /* Utilities.swift in Sources */,
-				7691BA9D2976C3F400477EDD /* ContentView.swift in Sources */,
-				768915E52A024DA600C4799A /* CountDownView.swift in Sources */,
-				768915E72A03B2C900C4799A /* CountryCallingCodeView.swift in Sources */,
+				76FA1A8A2A123FAF008C15BF /* LoginModel.swift in Sources */,
+				765915262A0A70BB00A610BC /* RequestCodeButton.swift in Sources */,
+				76A9F7202A09272200C162B1 /* SnabbleConfig.swift in Sources */,
+				769B231B2A1B444800C53B53 /* ActionLogger.swift in Sources */,
+				765915282A0A70BB00A610BC /* EnterCodeView.swift in Sources */,
+				765915242A0A70BB00A610BC /* ButtonStyles.swift in Sources */,
+				765915272A0A70BB00A610BC /* DebugView.swift in Sources */,
+				76A9F7242A0A56DA00C162B1 /* ContentView.swift in Sources */,
+				765915292A0A70BB00A610BC /* CountryCallingCodeView.swift in Sources */,
 				7691BA9B2976C3F400477EDD /* PhoneLoginApp.swift in Sources */,
-				768915E32A02323400C4799A /* DebugView.swift in Sources */,
-				7691BAAC2977AD2A00477EDD /* EnterCodeView.swift in Sources */,
-				7691BAAA2977AD1700477EDD /* EnterPhoneNumberView.swift in Sources */,
+				769B231D2A1B4F5A00C53B53 /* UserDefaults+PhoneLogin.swift in Sources */,
+				7659152A2A0A70BB00A610BC /* CountDownView.swift in Sources */,
+				76FA1A882A120D60008C15BF /* LoggedInView.swift in Sources */,
+				76FA1A8C2A1240AE008C15BF /* LoadJSON.swift in Sources */,
+				765915252A0A70BB00A610BC /* EnterPhoneNumberView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		E17225442A0BB8A900377187 /* Sources */ = {
+		76FA1ACF2A14BBFA008C15BF /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E172254B2A0BB8A900377187 /* PhoneLoginTests.swift in Sources */,
+				76FA1AD62A14BBFA008C15BF /* PhoneLoginTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		76FA1AD82A14BBFA008C15BF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7691BA962976C3F400477EDD /* PhoneLogin */;
+			targetProxy = 76FA1AD72A14BBFA008C15BF /* PBXContainerItemProxy */;
+		};
 		E17225432A0BB6A000377187 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			productRef = E17225422A0BB6A000377187 /* SwiftLintPlugin */;
 		};
-		E172254D2A0BB8A900377187 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 7691BA962976C3F400477EDD /* PhoneLogin */;
-			targetProxy = E172254C2A0BB8A900377187 /* PBXContainerItemProxy */;
-		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		76FA1A832A0E57D9008C15BF /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				76FA1A822A0E57D9008C15BF /* en */,
+				76FA1A842A0E580F008C15BF /* de */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		7691BAA42976C3F500477EDD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -357,6 +412,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -428,8 +484,8 @@
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
@@ -438,7 +494,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = io.snabble.PhoneLogin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -468,8 +526,8 @@
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
@@ -478,14 +536,16 @@
 				PRODUCT_BUNDLE_IDENTIFIER = io.snabble.PhoneLogin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
-		E172254E2A0BB8A900377187 /* Debug */ = {
+		76FA1ADA2A14BBFA008C15BF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -495,7 +555,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = io.snabble.PhoneLoginTests;
+				PRODUCT_BUNDLE_IDENTIFIER = io.snabble..PhoneLoginTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_EMIT_LOC_STRINGS = NO;
@@ -505,7 +565,7 @@
 			};
 			name = Debug;
 		};
-		E172254F2A0BB8A900377187 /* Release */ = {
+		76FA1ADB2A14BBFA008C15BF /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -515,7 +575,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = io.snabble.PhoneLoginTests;
+				PRODUCT_BUNDLE_IDENTIFIER = io.snabble..PhoneLoginTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_EMIT_LOC_STRINGS = NO;
@@ -547,11 +607,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E17225502A0BB8A900377187 /* Build configuration list for PBXNativeTarget "PhoneLoginTests" */ = {
+		76FA1AD92A14BBFA008C15BF /* Build configuration list for PBXNativeTarget "PhoneLoginTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				E172254E2A0BB8A900377187 /* Debug */,
-				E172254F2A0BB8A900377187 /* Release */,
+				76FA1ADA2A14BBFA008C15BF /* Debug */,
+				76FA1ADB2A14BBFA008C15BF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -570,7 +630,7 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		768915DF2A010BA500C4799A /* SnabblePhoneAuth */ = {
+		765914F82A0A5B0800A610BC /* SnabblePhoneAuth */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = SnabblePhoneAuth;
 		};

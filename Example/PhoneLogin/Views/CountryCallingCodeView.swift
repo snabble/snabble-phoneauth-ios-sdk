@@ -8,7 +8,7 @@
 import SwiftUI
 import SnabblePhoneAuth
 
-struct CountryCallingCodeView: View {
+public struct CountryCallingCodeView: View {
     var country: CountryCallingCode
     @State private var showMenu = false
     @State private var selectedCountry: CountryCallingCode = CountryCallingCodes.defaultCountry
@@ -18,7 +18,7 @@ struct CountryCallingCodeView: View {
         self.country = country
     }
 
-    var body: some View {
+    public var body: some View {
         HStack {
             if let flag = country.countryCode.countryFlagSymbol {
                 Text(flag)
@@ -37,13 +37,13 @@ struct CountryCallingCodeView: View {
     }
 }
 
-struct CountryCallingCodeListView: View {
+public struct CountryCallingCodeListView: View {
     @Binding var selectedCountry: CountryCallingCode
     @Environment(\.dismiss) var dismiss
 
-    var body: some View {
+    public var body: some View {
         List {
-            ForEach(CountryCallingCodes.info, id: \.id) { country in
+            ForEach(CountryCallingCodes.countries, id: \.id) { country in
                 CountryCallingCodeRow(country: country)
                     .listRowBackground(UserDefaults.selectedCountry == country.countryCode ? Color.accentColor : Color.clear)
                     .onTapGesture {
@@ -55,10 +55,10 @@ struct CountryCallingCodeListView: View {
     }
 }
 
-struct CountryCallingCodeRow: View {
+public struct CountryCallingCodeRow: View {
     var country: CountryCallingCode
     
-    var body: some View {
+    public var body: some View {
             HStack {
                 if let flag = country.countryCode.countryFlagSymbol {
                     Text(flag)
@@ -71,13 +71,5 @@ struct CountryCallingCodeRow: View {
                         .font(.footnote)
                 }
             }
-    }
-}
-
-struct CountryCallingCodeView_Previews: PreviewProvider {
-    static var previews: some View {
-        let loginModel = PhoneLoginModel()
-
-        CountryCallingCodeView(country: CountryCallingCodes.defaultCountry).environmentObject(loginModel)
     }
 }

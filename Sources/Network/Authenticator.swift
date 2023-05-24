@@ -19,7 +19,7 @@ public protocol AuthenticatorDelegate: AnyObject {
 public class Authenticator {
     public let urlSession: URLSession
 
-    weak var delegate: AuthenticatorDelegate?
+    public weak var delegate: AuthenticatorDelegate?
 
     enum Error: Swift.Error {
         case missingAuthenticator
@@ -62,7 +62,9 @@ public class Authenticator {
                 self?.token = response.token
                 self?.delegate?.authenticator(self!, appUserUpdated: response.appUser)
             })
-            .map { $0.appUser }
+            .map {
+                $0.appUser
+            }
             .eraseToAnyPublisher()
         return publisher
     }

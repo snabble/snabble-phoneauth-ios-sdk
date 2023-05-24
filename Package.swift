@@ -27,15 +27,15 @@ let package = Package(
             dependencies: [
                 "SnabbleNetwork"
             ],
-            path: "Sources/Core",
+            path: "Sources/LoginModel",
             plugins: [
                 .plugin(name: "SwiftLintPlugin", package: "SwiftLint")
             ]
         ),
         .testTarget(
             name: "SnabblePhoneAuthTests",
-            dependencies: ["SnabblePhoneAuth"],
-            path: "Tests/Core"
+            dependencies: ["SnabbleNetwork", "SnabblePhoneAuth"],
+            path: "Tests/LoginModel"
         ),
         .target(
             name: "SnabbleNetwork",
