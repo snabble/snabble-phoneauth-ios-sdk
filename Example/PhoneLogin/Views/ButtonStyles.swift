@@ -29,17 +29,19 @@ public struct RequestButtonStyle: ButtonStyle {
     var firstStep: Bool
     var disabled: Bool
     @Binding var show: Bool
+    var interval: Double
     
-    public init(firstStep: Bool = true, disabled: Bool, show: Binding<Bool>) {
+    public init(firstStep: Bool = true, disabled: Bool, show: Binding<Bool>, interval: Double) {
         self.firstStep = firstStep
         self.disabled = disabled
         self._show = show
+        self.interval = interval
     }
 
     @ViewBuilder
     var background: some View {
         if !firstStep, show {
-            CountDownButtonBackground(from: .now) {
+            CountDownButtonBackground(interval: interval) {
                 DispatchQueue.main.async {
                     self.show = false
                 }

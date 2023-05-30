@@ -55,7 +55,7 @@ public struct RequestCodeButton: View {
                 Spacer(minLength: 0)
             }
         }
-        .buttonStyle(RequestButtonStyle(firstStep: firstStep, disabled: isDisabled, show: $showCountdown))
+        .buttonStyle(RequestButtonStyle(firstStep: firstStep, disabled: isDisabled, show: $showCountdown, interval: loginModel.waitInterval))
         
         .onAppear {
             if !firstStep, loginModel.state == .registered {
@@ -68,11 +68,8 @@ public struct RequestCodeButton: View {
             update(isActive: active)
         }
         .onChange(of: loginModel.isWaiting) { started in
-            update(isActive: started)
-        }
-        .onChange(of: showCountdown) { newState in
-            withAnimation {
-                disabled = newState
+            if !started, !loginModel.spamTimerIsActive {
+                update(isActive: started)
             }
         }
     }

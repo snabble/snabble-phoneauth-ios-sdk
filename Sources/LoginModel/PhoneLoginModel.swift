@@ -27,14 +27,15 @@ public typealias PhoneLoginDelegate = CountryProviding & PhoneLoginProviding
 /// * Registering by sending a phone number and request an OTP (One Time Password) via SMS `sendPhoneNumber()`
 /// * Login to an account using a valid OTP `loginWithCode(_ code: String)`
 /// * Logout from an account by reseting all locally stored data `logout()`
-/// * Requesting the deletion of an account `deleteAccount()`
+/// * Start a request to delete an account `deleteAccount()`
 ///
-/// Typically a `PhoneLoginModel` will be created for different server environments, like `testing`, `stagig` or `production`.
-/// The `Configuration` struct provides `appId` and `appSecret` configurations for these environments. An additional `projectID` specifies the concrete project providing the phone login workflow.
 ///
 /// ```Swift
-/// let loginModel = PhoneLoginModel(configuration: .testing, projectID: Configuration.projectId)
+/// let loginModel = PhoneLoginModel()
+/// phoneModel.delegate = self
+/// phoneModel.authenticator.delegate = self
 /// ```
+/// The delegate must implement the `PhoneLoginProviding` protocol.
 ///
 open class PhoneLoginModel: ObservableObject {
 
@@ -101,6 +102,7 @@ open class PhoneLoginModel: ObservableObject {
             phoneNumber = delegate?.phoneNumber ?? ""
             oneTimePassword = delegate?.oneTimePassword ?? ""
             state = currentState
+            CountryProvider.provider = delegate
         }
     }
     
@@ -109,6 +111,8 @@ open class PhoneLoginModel: ObservableObject {
         return delegate?.appUser
     }
     
+    /// Typically a `PhoneLoginModel` will be created for different server environments, like `testing`, `stagig` or `production`.
+    /// The `Configuration` struct provides `appId` and `appSecret` configurations for these environments. An additional specifies the concrete project providing the phone login workflow.
     /// The `Configuration` used for backend communication
     var configuration: Configuration {
         guard let delegate = self.delegate else {
@@ -126,13 +130,15 @@ open class PhoneLoginModel: ObservableObject {
     
     private let spamPublisher: Timer.TimerPublisher
     private var spamCancellable: AnyCancellable?
-
+    public let waitInterval: Double
+    
     /// Initialize a newly created instance
     /// - Parameter waitInterval: A `Double`interval to use by the waitTimer to prevent spamming
     public init(waitInterval: Double = 30.0) {
         self.country = CountryCallingCodes.defaultCountry
         
         self.networkManager = NetworkManager()
+        self.waitInterval = waitInterval
         self.spamPublisher = Timer.publish(every: waitInterval, tolerance: 0.5, on: .main, in: .default)
 
     }
