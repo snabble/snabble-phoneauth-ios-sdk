@@ -192,6 +192,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7691BAA62976C3F500477EDD /* Build configuration list for PBXNativeTarget "PhoneLogin" */;
 			buildPhases = (
+				E135A0FD2ABC589E00212BA0 /* SwiftLint */,
 				7691BA932976C3F400477EDD /* Sources */,
 				7691BA942976C3F400477EDD /* Frameworks */,
 				7691BA952976C3F400477EDD /* Resources */,
@@ -257,7 +258,6 @@
 			);
 			mainGroup = 7691BA8E2976C3F400477EDD;
 			packageReferences = (
-				E17225412A0BB69500377187 /* XCRemoteSwiftPackageReference "SwiftLint" */,
 			);
 			productRefGroup = 7691BA982976C3F400477EDD /* Products */;
 			projectDirPath = "";
@@ -289,6 +289,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		E135A0FD2ABC589E00212BA0 /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [[ -z \"$CI_XCODE_CLOUD\" ]]; then\n    if which mint > /dev/null; then\n        mint run swiftlint\n    else\n        echo \"warning: Mint not installed, download from https://github.com/yonaskolb/Mint\"\n    fi\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		7691BA932976C3F400477EDD /* Sources */ = {
@@ -617,17 +639,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		E17225412A0BB69500377187 /* XCRemoteSwiftPackageReference "SwiftLint" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/realm/SwiftLint.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.52.0;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
 		765914F82A0A5B0800A610BC /* SnabblePhoneAuth */ = {

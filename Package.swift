@@ -16,7 +16,6 @@ let package = Package(
             targets: ["SnabblePhoneAuth"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/realm/SwiftLint", exact: "0.52.0"),
         .package(url: "https://github.com/lachlanbell/SwiftOTP", from: "3.0.1"),
     ],
     targets: [
@@ -27,10 +26,7 @@ let package = Package(
             dependencies: [
                 "SnabbleNetwork"
             ],
-            path: "Sources/LoginModel",
-            plugins: [
-                .plugin(name: "SwiftLintPlugin", package: "SwiftLint")
-            ]
+            path: "Sources/LoginModel"
         ),
         .testTarget(
             name: "SnabblePhoneAuthTests",
