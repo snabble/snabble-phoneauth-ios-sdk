@@ -1,5 +1,5 @@
 //
-//  CountryCallingCodes.swift
+//  CountryCallingCode.swift
 //  
 //
 //  Created by Uwe Tilemann on 04.05.23.
@@ -7,11 +7,9 @@
 
 import Foundation
 
-public enum CountryCallingCodes {
-    public static let `default`: [CountryCallingCode] = loadJSON("countries")
-}
-
 public struct CountryCallingCode {
+    public static var `default`: [CountryCallingCode] = loadJSON("countries")
+    
     public let countryCode: String // eg. DE, AT, CH
     public let callingCode: UInt // eg. 49
     public let internationalCode: UInt // eg. 00
@@ -45,7 +43,7 @@ public struct CountryCallingCode {
         return String(string[start...])
     }
     
-    func dial(_ phoneNumber: String) -> String {
+    func internationalPhoneNumber(_ phoneNumber: String) -> String {
         let phoneNumber = numberRemovingTrunk(phoneNumber)
             .replacingOccurrences(of: " ", with: "")
         return "+\(callingCode)\(phoneNumber)"

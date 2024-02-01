@@ -38,6 +38,10 @@ public class PhoneAuth {
 }
 
 extension PhoneAuth: PhoneAuthProviding {
+    public func startAuthorization(countryCallingCode: CountryCallingCode, phoneNumber: String) async throws {
+        try await startAuthorization(phoneNumber: countryCallingCode.internationalPhoneNumber(phoneNumber))
+    }
+    
     public func startAuthorization(phoneNumber: String) async throws {
         let endpoint = Endpoints.Phone.auth(
             configuration: configuration,
@@ -61,6 +65,10 @@ extension PhoneAuth: PhoneAuthProviding {
                     continuation.resume(with: .success(value))
                 }
         }
+    }
+    
+    public func login(countryCallingCode: CountryCallingCode, phoneNumber: String, OTP: String) async throws -> SnabbleNetwork.AppUser? {
+        try await login(phoneNumber: countryCallingCode.internationalPhoneNumber(phoneNumber), OTP: OTP)
     }
     
     public func login(phoneNumber: String, OTP: String) async throws -> SnabbleNetwork.AppUser? {
@@ -87,6 +95,10 @@ extension PhoneAuth: PhoneAuthProviding {
                     continuation.resume(with: .success(value))
                 }
         }
+    }
+    
+    public func delete(countryCallingCode: CountryCallingCode, phoneNumber: String) async throws {
+        try await delete(phoneNumber: countryCallingCode.internationalPhoneNumber(phoneNumber))
     }
     
     public func delete(phoneNumber: String) async throws {

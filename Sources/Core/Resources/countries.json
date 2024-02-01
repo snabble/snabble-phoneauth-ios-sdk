@@ -1,16 +1,17 @@
 [
     {
         "countryCode": "AT",
-        "callingCode": 43
+        "callingCode": 43,
+        "trunkPrefix": 0
     },
     {
         "countryCode": "BE",
-        "callingCode": 32
+        "callingCode": 32,
+        "trunkPrefix": 0
     },
     {
         "countryCode": "CH",
-        "callingCode": 41,
-        "trunkPrefix": 0
+        "callingCode": 41
     },
     {
         "countryCode": "DE",
@@ -19,11 +20,11 @@
     },
     {
         "countryCode": "DK",
-        "callingCode": 45,
+        "callingCode": 45
     },
     {
         "countryCode": "ES",
-        "callingCode": 34,
+        "callingCode": 34
     },
     {
         "countryCode": "FR",
@@ -32,11 +33,11 @@
     },
     {
         "countryCode": "GR",
-        "callingCode": 423,
+        "callingCode": 423
     },
     {
         "countryCode": "IT",
-        "callingCode": 39,
+        "callingCode": 39
     },
     {
         "countryCode": "NL",
