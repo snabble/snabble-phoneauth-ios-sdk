@@ -30,7 +30,7 @@ public class PhoneAuth {
     
     private let networkManager: NetworkManager
     
-    init(configuration: SnabbleNetwork.Configuration, urlSession: URLSession = .shared) {
+    public init(configuration: SnabbleNetwork.Configuration, urlSession: URLSession = .shared) {
         self.configuration = configuration
         self.networkManager = NetworkManager(urlSession: urlSession)
         self.networkManager.authenticator.delegate = self
