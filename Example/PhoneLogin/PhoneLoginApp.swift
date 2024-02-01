@@ -10,7 +10,7 @@ import SnabblePhoneAuth
 
 @main
 struct PhoneLoginApp: App {
-    let loginModel = LoginModel()
+//    let loginModel = LoginModel()
     
     init() {
 #if DEBUG
@@ -22,7 +22,8 @@ struct PhoneLoginApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView().environmentObject(loginModel.phoneModel)
+            EmptyView()
+//            ContentView().environmentObject(loginModel.phoneModel)
         }
     }
 }

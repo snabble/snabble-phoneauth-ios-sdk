@@ -7,46 +7,63 @@
 
 import Foundation
 
-public struct CountryCallingCode: Identifiable, Hashable {
-    public var id: String {
-        return countryCode
-    }
-    public func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
-    }
+public enum CountryCallingCodes {
+    public static let `default`: [CountryCallingCode] = loadJSON("countries")
+}
 
+public struct CountryCallingCode {
     public let countryCode: String // eg. DE, AT, CH
-    public let callingCode: String // eg. 49
-    public let internationalCode: String // eg. 00
-    public let trunkPrefix: String // eg. 0 (see https://en.wikipedia.org/wiki/Trunk_prefix)
+    public let callingCode: UInt // eg. 49
+    public let internationalCode: UInt // eg. 00
+    public let trunkPrefix: UInt? // eg. 0 (see https://en.wikipedia.org/wiki/Trunk_prefix)
     
-    public init(countryCode: String, callingCode: String, internationalCode: String = "00", trunkPrefix: String = "0") {
+    public var countryName: String {
+        Locale.current.localizedString(forRegionCode: countryCode) ?? "n/a"
+    }
+    
+    public var flagSymbol: String? {
+        countryCode.flagSymbol
+    }
+    
+    public init(
+        countryCode: String,
+        callingCode: UInt,
+        internationalCode: UInt = 00,
+        trunkPrefix: UInt? = nil
+    ) {
         self.countryCode = countryCode
         self.callingCode = callingCode
         self.internationalCode = internationalCode
         self.trunkPrefix = trunkPrefix
     }
-    public func numberRemovingTrunk(_ string: String) -> String {
-        guard !trunkPrefix.isEmpty, string.hasPrefix(trunkPrefix) else {
+    
+    private func numberRemovingTrunk(_ string: String) -> String {
+        guard let trunkPrefix, string.hasPrefix("\(trunkPrefix)") else {
             return string
         }
-        let start = string.index(string.startIndex, offsetBy: trunkPrefix.count)
-        
+        let start = string.index(string.startIndex, offsetBy: "\(trunkPrefix)".count)
         return String(string[start...])
     }
     
-    public func dialString(_ string: String) -> String {
-        let number = numberRemovingTrunk(string).replacingOccurrences(of: " ", with: "")
-        return "+\(callingCode)\(number)" 
+    func dial(_ phoneNumber: String) -> String {
+        let phoneNumber = numberRemovingTrunk(phoneNumber)
+            .replacingOccurrences(of: " ", with: "")
+        return "+\(callingCode)\(phoneNumber)"
     }
     
-    public func prettyPrint(_ string: String) -> String {
-        let number = numberRemovingTrunk(string)
-        
-        return "+\(callingCode) \(number)"
+    public func prettyPrint(_ phoneNumber: String) -> String {
+        let phoneNumber = numberRemovingTrunk(phoneNumber)
+        return "+\(callingCode) \(phoneNumber)"
     }
-    public var countryName: String {
-        return Locale.current.localizedString(forRegionCode: countryCode) ?? "n/a"
+}
+
+extension CountryCallingCode: Identifiable, Hashable {
+    public var id: String {
+        countryCode
+    }
+    
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
     }
 }
 
@@ -61,64 +78,24 @@ extension CountryCallingCode: Decodable {
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.countryCode = try container.decode(String.self, forKey: .countryCode)
-        self.callingCode = try container.decode(String.self, forKey: .callingCode)
-        if let prefix = try container.decodeIfPresent(String.self, forKey: .trunkPrefix) {
-            self.trunkPrefix = prefix
-        } else {
-            self.trunkPrefix = ""
-        }
-        if let intCode = try container.decodeIfPresent(String.self, forKey: .internationalCode) {
-            self.internationalCode = intCode
-        } else {
-            self.internationalCode = "00"
-        }
+        self.callingCode = try container.decode(UInt.self, forKey: .callingCode)
+        self.trunkPrefix = try container.decodeIfPresent(UInt.self, forKey: .trunkPrefix)
+        self.internationalCode = try container.decodeIfPresent(UInt.self, forKey: .internationalCode) ?? 00
     }
 }
 
-public protocol CountryProviding: AnyObject {
-    /// Providing `CountryProviding` `
-    /// - Returns: The array of supported `CountryCallingCode`  or `nil`
-    func supportedCountries() -> [CountryCallingCode]?
-    var selectedCountry: String? { get set }
-}
-
-public enum CountryProvider {
-    /// List of supported country codes
-    /// see: https://en.wikipedia.org/wiki/Telephone_numbers_in_Europe
-    ///
-    public static let defaultCountries: [CountryCallingCode] = [
-        CountryCallingCode(countryCode: "AT", callingCode: "43"),
-        CountryCallingCode(countryCode: "CH", callingCode: "41"),
-        CountryCallingCode(countryCode: "DE", callingCode: "49")
-    ]
-
-    /// Reference to the implementation of the `CountryProviding` implementation
-    public static weak var provider: CountryProviding?
-
-    public static var countries: [CountryCallingCode] {
-        if let countries = provider?.supportedCountries(), !countries.isEmpty {
-            return countries
-        }
-        return defaultCountries
+public extension Array where Element == CountryCallingCode {
+    var countryCodes: [String] {
+        compactMap({ $0.countryCode })
     }
-}
-
-public enum CountryCallingCodes {
-    public static let defaultCountry = CountryCallingCode(countryCode: "DE", callingCode: "49")
     
-    public static var countries: [CountryCallingCode] {
-        return CountryProvider.countries
-    }
-    public static var countryNames: [String] {
-        return countries.compactMap({ $0.countryCode })
-    }
-    public static func country(for code: String) -> CountryCallingCode? {
-        return countries.first(where: { $0.countryCode == code})
+    func country(forCode code: String) -> Element? {
+        first(where: { $0.countryCode.lowercased() == code.lowercased()})
     }
 }
 
-extension String {
-    public var countryFlagSymbol: String? {
+private extension String {
+    var flagSymbol: String? {
         let base: UInt32 = 127397
         var result = ""
         for char in self.unicodeScalars {
