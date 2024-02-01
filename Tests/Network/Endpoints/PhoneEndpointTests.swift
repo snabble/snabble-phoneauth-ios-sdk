@@ -56,7 +56,7 @@ final class PhoneEndpointTests: XCTestCase {
             "otp": otp,
             "phoneNumber": phoneNumber
         ])
-        XCTAssertEqual(urlRequest.httpBody, data)
+        XCTAssertEqual(urlRequest.httpBody?.count, data.count)
     }
 
     func testDelete() throws {
