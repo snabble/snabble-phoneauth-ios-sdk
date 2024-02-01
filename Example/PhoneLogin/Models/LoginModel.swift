@@ -41,7 +41,7 @@ class LoginModel: ObservableObject, PhoneLoginDelegate {
 
     init() {
         _appUser = UserDefaults.appUser
-        countries = loadJSON("Countries")
+        countries = SnabblePhoneAuth.loadJSON("Countries")
         
         phoneModel = PhoneLoginModel()
         phoneModel.delegate = self

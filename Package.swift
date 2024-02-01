@@ -26,12 +26,15 @@ let package = Package(
             dependencies: [
                 "SnabbleNetwork"
             ],
-            path: "Sources/LoginModel"
+            path: "Sources/Core",
+            resources: [
+                .process("Resources/countries.json")
+            ]
         ),
         .testTarget(
             name: "SnabblePhoneAuthTests",
             dependencies: ["SnabbleNetwork", "SnabblePhoneAuth"],
-            path: "Tests/LoginModel"
+            path: "Tests/Core"
         ),
         .target(
             name: "SnabbleNetwork",

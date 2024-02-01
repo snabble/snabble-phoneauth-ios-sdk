@@ -13,15 +13,18 @@ extension Configuration {
     static var appId: String {
         "snabble-sdk-demo-app-oguh3x"
     }
+    
     /// A `String`with the project identifier used for backend communication
     public static var projectId: String {
         "snabble-sdk-demo-beem8n"
     }
+    
     static var testing: Self {
         return .init(
             appId: appId,
             appSecret: "BWXJ2BFC2JRKRNW4QBASQCF2TTANPTVPOXQJM57JDIECZJQHZWOQ====",
-            environment: .testing
+            environment: .testing,
+            projectId: Self.projectId
         )
     }
     
@@ -29,7 +32,8 @@ extension Configuration {
         return .init(
             appId: appId,
             appSecret: "P3SZXAPPVAZA5JWYXVKFSGGBN4ZV7CKCWJPQDMXSUMNPZ5IPB6NQ====",
-            environment: .staging
+            environment: .staging,
+            projectId: Self.projectId
         )
     }
 
@@ -37,7 +41,8 @@ extension Configuration {
         return .init(
             appId: appId,
             appSecret: "2TKKEG5KXWY6DFOGTZKDUIBTNIRVCYKFZBY32FFRUUWIUAFEIBHQ====",
-            environment: .production
+            environment: .production,
+            projectId: Self.projectId
         )
     }
 
