@@ -13,7 +13,7 @@ final class AuthenticatorTests: XCTestCase {
 
     var authenticator: Authenticator!
     var cancellables = Set<AnyCancellable>()
-    var configuration = Configuration(appId: "123", appSecret: "123-456-789", environment: .testing)
+    var configuration = Configuration(appId: "123", appSecret: "123-456-789", environment: .testing, projectId: "123")
     var urlSession: URLSession = .mockSession
 
     override func setUpWithError() throws {
