@@ -9,11 +9,6 @@ import Foundation
 import SnabbleNetwork
 import Combine
 
-enum PhoneAuthError: Swift.Error {
-    case phoneNumberInvalid
-    case unknown
-}
-
 public protocol PhoneAuthProviding {
     func startAuthorization(phoneNumber: String) async throws
     func login(phoneNumber: String, OTP: String) async throws -> SnabbleNetwork.AppUser?
