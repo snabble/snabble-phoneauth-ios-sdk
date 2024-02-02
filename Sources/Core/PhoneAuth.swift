@@ -24,9 +24,14 @@ public protocol PhoneAuthDelegate: AnyObject {
     func phoneAuth(_ phoneAuth: PhoneAuth, didReceiveAppUser: SnabbleNetwork.AppUser)
 }
 
+public protocol PhoneAuthDataSource: AnyObject {
+    func appUserId(forConfiguration configuration: SnabbleNetwork.Configuration) -> SnabbleNetwork.AppUser
+}
+
 public class PhoneAuth {
     public var configuration: SnabbleNetwork.Configuration
     public weak var delegate: PhoneAuthDelegate?
+    public weak var datasource: PhoneAuthDataSource?
     
     private let networkManager: NetworkManager
     
@@ -129,7 +134,7 @@ extension PhoneAuth: PhoneAuthProviding {
 
 extension PhoneAuth: AuthenticatorDelegate {
     public func authenticator(_ authenticator: SnabbleNetwork.Authenticator, appUserForConfiguration configuration: SnabbleNetwork.Configuration) -> SnabbleNetwork.AppUser? {
-        AppUser(id: configuration.appId, secret: configuration.appSecret)
+        datasource?.appUserId(forConfiguration: configuration)
     }
     
     public func authenticator(_ authenticator: SnabbleNetwork.Authenticator, appUserUpdated appUser: SnabbleNetwork.AppUser) {
