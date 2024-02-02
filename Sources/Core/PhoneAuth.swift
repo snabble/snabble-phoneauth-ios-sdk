@@ -25,7 +25,7 @@ public protocol PhoneAuthDelegate: AnyObject {
 }
 
 public protocol PhoneAuthDataSource: AnyObject {
-    func appUserId(forConfiguration configuration: SnabbleNetwork.Configuration) -> SnabbleNetwork.AppUser
+    func appUserId(forConfiguration configuration: SnabbleNetwork.Configuration) -> SnabbleNetwork.AppUser?
 }
 
 public class PhoneAuth {
