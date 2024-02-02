@@ -16,23 +16,29 @@ public struct CountryCallingCode {
     public let trunkPrefix: UInt? // eg. 0 (see https://en.wikipedia.org/wiki/Trunk_prefix)
     
     public var countryName: String {
-        Locale.current.localizedString(forRegionCode: countryCode) ?? "n/a"
+        locale.localizedString(forRegionCode: countryCode) ?? "n/a"
     }
     
     public var flagSymbol: String? {
         countryCode.flagSymbol
     }
     
+    public let locale: Locale
+    
     public init(
         countryCode: String,
         callingCode: UInt,
         internationalCode: UInt = 00,
-        trunkPrefix: UInt? = nil
+        trunkPrefix: UInt? = nil,
+        
+        locale: Locale = Locale.current
     ) {
         self.countryCode = countryCode
         self.callingCode = callingCode
         self.internationalCode = internationalCode
         self.trunkPrefix = trunkPrefix
+        
+        self.locale = locale
     }
     
     private func numberRemovingTrunk(_ string: String) -> String {
@@ -79,6 +85,7 @@ extension CountryCallingCode: Decodable {
         self.callingCode = try container.decode(UInt.self, forKey: .callingCode)
         self.trunkPrefix = try container.decodeIfPresent(UInt.self, forKey: .trunkPrefix)
         self.internationalCode = try container.decodeIfPresent(UInt.self, forKey: .internationalCode) ?? 00
+        self.locale = Locale.current
     }
 }
 
