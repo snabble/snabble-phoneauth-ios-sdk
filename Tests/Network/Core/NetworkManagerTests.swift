@@ -39,7 +39,7 @@ final class NetworkManagerTests: XCTestCase {
                     headerFields: ["Content-Type": "application/json"]
                 )!
                 return (response, try loadResource(inBundle: .module, filename: "Token", withExtension: "json"))
-            case "https://api.snabble.io/123/phone/auth":
+            case "https://api.snabble.io/123/verification/sms":
                 let response = HTTPURLResponse(
                     url: request.url!,
                     statusCode: 200,

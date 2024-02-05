@@ -29,10 +29,10 @@ final class PhoneEndpointTests: XCTestCase {
         XCTAssertEqual(endpoint.configuration, configuration)
         XCTAssertEqual(endpoint.environment, .production)
         XCTAssertEqual(endpoint.method.value, "POST")
-        XCTAssertEqual(endpoint.path, "/1/phone/auth")
+        XCTAssertEqual(endpoint.path, "/1/verification/sms")
         XCTAssertNil(endpoint.token)
         let urlRequest = try endpoint.urlRequest()
-        XCTAssertEqual(urlRequest.url?.absoluteString, "https://api.snabble.io/1/phone/auth")
+        XCTAssertEqual(urlRequest.url?.absoluteString, "https://api.snabble.io/1/verification/sms")
         XCTAssertEqual(urlRequest.httpMethod, "POST")
 
         let data = try! JSONSerialization.data(withJSONObject: [
@@ -46,10 +46,10 @@ final class PhoneEndpointTests: XCTestCase {
         XCTAssertEqual(endpoint.configuration, configuration)
         XCTAssertEqual(endpoint.environment, .production)
         XCTAssertEqual(endpoint.method.value, "POST")
-        XCTAssertEqual(endpoint.path, "/1/phone/login")
+        XCTAssertEqual(endpoint.path, "/1/verification/sms/otp")
         XCTAssertNil(endpoint.token)
         let urlRequest = try endpoint.urlRequest()
-        XCTAssertEqual(urlRequest.url?.absoluteString, "https://api.snabble.io/1/phone/login")
+        XCTAssertEqual(urlRequest.url?.absoluteString, "https://api.snabble.io/1/verification/sms/otp")
         XCTAssertEqual(urlRequest.httpMethod, "POST")
 
         let data = try! JSONSerialization.data(withJSONObject: [
@@ -63,12 +63,12 @@ final class PhoneEndpointTests: XCTestCase {
         let endpoint = Endpoints.Phone.delete(configuration: configuration, phoneNumber: phoneNumber)
         XCTAssertEqual(endpoint.configuration, configuration)
         XCTAssertEqual(endpoint.environment, .production)
-        XCTAssertEqual(endpoint.method.value, "DELETE")
-        XCTAssertEqual(endpoint.path, "/1/phone/users")
+        XCTAssertEqual(endpoint.method.value, "POST")
+        XCTAssertEqual(endpoint.path, "/1/verification/sms/delete")
         XCTAssertNil(endpoint.token)
         let urlRequest = try endpoint.urlRequest()
-        XCTAssertEqual(urlRequest.url?.absoluteString, "https://api.snabble.io/1/phone/users")
-        XCTAssertEqual(urlRequest.httpMethod, "DELETE")
+        XCTAssertEqual(urlRequest.url?.absoluteString, "https://api.snabble.io/1/verification/sms/delete")
+        XCTAssertEqual(urlRequest.httpMethod, "POST")
 
         let data = try! JSONSerialization.data(withJSONObject: [
             "phoneNumber": phoneNumber

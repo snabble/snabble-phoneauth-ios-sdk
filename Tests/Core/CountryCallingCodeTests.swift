@@ -33,4 +33,16 @@ final class CountryCallingCodeTests: XCTestCase {
         XCTAssertEqual(countries.countryCodes, ["AT", "BE", "CH", "DE", "DK", "ES", "FR", "GR", "IT", "NL", "LU", "LI"])
         XCTAssertEqual(countries.country(forCode: "DE"), countries[3])
     }
+    
+    func testInternalPhoneNumberWithTrunkPrefix() throws {
+        let code = CountryCallingCode(countryCode: "DE", callingCode: 49, trunkPrefix: 0)
+        
+        XCTAssertEqual(code.internationalPhoneNumber("015119695415"), "+4915119695415")
+    }
+    
+    func testInternalPhoneNumberWithoutTrunkPrefix() throws {
+        let code = CountryCallingCode(countryCode: "DE", callingCode: 49, trunkPrefix: nil)
+        
+        XCTAssertEqual(code.internationalPhoneNumber("015119695415"), "+49015119695415")
+    }
 }

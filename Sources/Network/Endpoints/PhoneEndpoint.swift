@@ -15,7 +15,7 @@ extension Endpoints {
                 "phoneNumber": phoneNumber
             ])
             return .init(
-                path: "/\(configuration.appId)/phone/auth",
+                path: "/\(configuration.appId)/verification/sms",
                 method: .post(data, nil),
                 configuration: configuration,
                 parse: { _ in
@@ -31,7 +31,7 @@ extension Endpoints {
                 "phoneNumber": phoneNumber
             ])
             return .init(
-                path: "/\(configuration.appId)/phone/login",
+                path: "/\(configuration.appId)/verification/sms/otp",
                 method: .post(data, nil),
                 configuration: configuration,
                 parse: { data in
@@ -57,8 +57,8 @@ extension Endpoints {
                 "phoneNumber": phoneNumber
             ])
             return .init(
-                path: "/\(configuration.appId)/phone/users",
-                method: .delete(data),
+                path: "/\(configuration.appId)/verification/sms/delete",
+                method: .post(data, nil),
                 configuration: configuration,
                 parse: { _ in
                     return ()
