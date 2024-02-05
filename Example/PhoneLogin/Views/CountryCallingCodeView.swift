@@ -10,7 +10,7 @@
 //
 //public struct CountryCallingCodeView: View {
 //    var country: CountryCallingCode
-//    @State private var showMenu = false
+//    
 //    @State private var selectedCountry: CountryCallingCode = CountryCallingCodes.default.country(forCode: "DE")!
 //    @EnvironmentObject var loginModel: PhoneLoginModel
 //
