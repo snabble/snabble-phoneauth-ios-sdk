@@ -11,10 +11,10 @@ import Combine
 private extension URLResponse {
     func verify(with data: Data) throws {
         guard let httpResponse = self as? HTTPURLResponse else {
-            throw HTTPError.unknownResponse(self)
+            throw HTTPError.unknown(self)
         }
         guard httpResponse.httpStatusCode.responseType == .success else {
-            throw HTTPError.invalidResponse(httpResponse.httpStatusCode)
+            throw HTTPError.invalid(httpResponse)
         }
     }
 }

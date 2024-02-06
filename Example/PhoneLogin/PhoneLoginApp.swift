@@ -13,7 +13,6 @@ import SnabbleNetwork
 struct PhoneLoginApp: App {
     let phoneAuth = SnabblePhoneAuth.PhoneAuth(configuration: .testing)
     
-    let test = SnabbleNetwork.HTTPError.invalidResponse(.forbidden)
 //    init() {
 //#if DEBUG
 //        UserDefaults.logActions = true

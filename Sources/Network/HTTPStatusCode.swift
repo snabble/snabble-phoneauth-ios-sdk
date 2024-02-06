@@ -289,5 +289,4 @@ public extension HTTPURLResponse {
     var httpStatusCode: HTTPStatusCode {
         return HTTPStatusCode(rawValue: statusCode) ?? .undefined
     }
-
 }

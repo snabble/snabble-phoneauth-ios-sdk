@@ -100,8 +100,8 @@ final class URLSessionEndpointTests: XCTestCase {
                     XCTAssertTrue(true)
                 case .failure(let error):
                     XCTAssertNotNil(error)
-                    if case HTTPError.invalidResponse(let statusCode) = error {
-                        XCTAssertEqual(statusCode, .notFound)
+                    if case HTTPError.invalid(let response) = error {
+                        XCTAssertEqual(response.httpStatusCode, .notFound)
                     } else {
                         XCTFail("should ne httpError invalidResponse")
                     }

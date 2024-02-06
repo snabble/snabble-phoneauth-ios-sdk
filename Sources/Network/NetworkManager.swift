@@ -30,8 +30,9 @@ public class NetworkManager {
                 urlSession.dataTaskPublisher(for: endpoint)
             }
             .retryOnce(if: { error in
-                if case let HTTPError.invalidResponse(httpStatusCode) = error {
-                    return httpStatusCode == .unauthorized || httpStatusCode == .forbidden
+                if case let HTTPError.invalid(response) = error {
+                    let statusCode = response.httpStatusCode
+                    return statusCode == .unauthorized || statusCode == .forbidden
                 }
                 return false
             }, doBefore: { [weak self] in
