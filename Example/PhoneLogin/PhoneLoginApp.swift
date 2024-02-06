@@ -11,7 +11,7 @@ import SnabblePhoneAuth
 @main
 struct PhoneLoginApp: App {
     let phoneAuth = SnabblePhoneAuth.PhoneAuth(configuration: .testing)
-    
+    let test = Domain.production
 //    init() {
 //#if DEBUG
 //        UserDefaults.logActions = true

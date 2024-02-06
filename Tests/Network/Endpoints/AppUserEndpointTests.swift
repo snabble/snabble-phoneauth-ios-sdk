@@ -7,15 +7,16 @@
 
 import XCTest
 @testable import SnabbleNetwork
+import SnabbleModels
 
 final class AppUserEndpointTests: XCTestCase {
 
-    var configuration: Configuration = .init(appId: "1", appSecret: "ABCDEFGHIJKLMNOP", environment: .production, projectId: "1")
+    var configuration: Configuration = .init(appId: "1", appSecret: "ABCDEFGHIJKLMNOP", domain: .production, projectId: "1")
 
     func testPostWithoutProject() throws {
         let endpoint = Endpoints.AppUser.post(configuration: configuration)
         XCTAssertEqual(endpoint.configuration, configuration)
-        XCTAssertEqual(endpoint.environment, .production)
+        XCTAssertEqual(endpoint.domain, .production)
         XCTAssertEqual(endpoint.method.value, "POST")
         XCTAssertEqual(endpoint.path, "/apps/1/users")
         XCTAssertNotNil(endpoint.headerFields["Authorization"])
@@ -29,7 +30,7 @@ final class AppUserEndpointTests: XCTestCase {
     func testPostWithProject() throws {
         let endpoint = Endpoints.AppUser.post(configuration: configuration, projectId: "2")
         XCTAssertEqual(endpoint.configuration, configuration)
-        XCTAssertEqual(endpoint.environment, .production)
+        XCTAssertEqual(endpoint.domain, .production)
         XCTAssertEqual(endpoint.method.value, "POST")
         XCTAssertEqual(endpoint.path, "/apps/1/users")
         XCTAssertNotNil(endpoint.headerFields["Authorization"])

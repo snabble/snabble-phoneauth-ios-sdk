@@ -7,13 +7,14 @@
 
 import XCTest
 @testable import SnabbleNetwork
+import SnabbleModels
 import Combine
 
 final class NetworkManagerTests: XCTestCase {
 
     var cancellables: Set<AnyCancellable>!
     var networkManager: NetworkManager!
-    var configuration: Configuration = .init(appId: "123", appSecret: "2", environment: .production, projectId: "123")
+    var configuration: Configuration = .init(appId: "123", appSecret: "2", domain: .production, projectId: "123")
 
     override func setUpWithError() throws {
         cancellables = Set<AnyCancellable>()

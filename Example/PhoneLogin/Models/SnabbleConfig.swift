@@ -8,6 +8,7 @@
 
 import Foundation
 import SnabbleNetwork
+import SnabbleModels
 
 extension Configuration {
     static var appId: String {
@@ -23,7 +24,7 @@ extension Configuration {
         return .init(
             appId: appId,
             appSecret: "BWXJ2BFC2JRKRNW4QBASQCF2TTANPTVPOXQJM57JDIECZJQHZWOQ====",
-            environment: .testing,
+            domain: .testing,
             projectId: Self.projectId
         )
     }
@@ -32,7 +33,7 @@ extension Configuration {
         return .init(
             appId: appId,
             appSecret: "P3SZXAPPVAZA5JWYXVKFSGGBN4ZV7CKCWJPQDMXSUMNPZ5IPB6NQ====",
-            environment: .staging,
+            domain: .staging,
             projectId: Self.projectId
         )
     }
@@ -41,7 +42,7 @@ extension Configuration {
         return .init(
             appId: appId,
             appSecret: "2TKKEG5KXWY6DFOGTZKDUIBTNIRVCYKFZBY32FFRUUWIUAFEIBHQ====",
-            environment: .production,
+            domain: .production,
             projectId: Self.projectId
         )
     }

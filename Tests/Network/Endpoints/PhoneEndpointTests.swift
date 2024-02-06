@@ -7,6 +7,7 @@
 
 import XCTest
 @testable import SnabbleNetwork
+import SnabbleModels
 
 final class PhoneEndpointTests: XCTestCase {
 
@@ -21,13 +22,13 @@ final class PhoneEndpointTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    var configuration: Configuration = .init(appId: "1", appSecret: "2", environment: .production, projectId: "1")
+    var configuration: Configuration = .init(appId: "1", appSecret: "2", domain: .production, projectId: "1")
     var appUser: AppUser = .init(id: "555", secret: "123-456-789")
 
     func testAuth() throws {
         let endpoint = Endpoints.Phone.auth(configuration: configuration, phoneNumber: phoneNumber)
         XCTAssertEqual(endpoint.configuration, configuration)
-        XCTAssertEqual(endpoint.environment, .production)
+        XCTAssertEqual(endpoint.domain, .production)
         XCTAssertEqual(endpoint.method.value, "POST")
         XCTAssertEqual(endpoint.path, "/1/verification/sms")
         XCTAssertNil(endpoint.token)
@@ -44,7 +45,7 @@ final class PhoneEndpointTests: XCTestCase {
     func testLogin() throws {
         let endpoint = Endpoints.Phone.login(configuration: configuration, phoneNumber: phoneNumber, OTP: otp)
         XCTAssertEqual(endpoint.configuration, configuration)
-        XCTAssertEqual(endpoint.environment, .production)
+        XCTAssertEqual(endpoint.domain, .production)
         XCTAssertEqual(endpoint.method.value, "POST")
         XCTAssertEqual(endpoint.path, "/1/verification/sms/otp")
         XCTAssertNil(endpoint.token)
@@ -62,7 +63,7 @@ final class PhoneEndpointTests: XCTestCase {
     func testDelete() throws {
         let endpoint = Endpoints.Phone.delete(configuration: configuration, phoneNumber: phoneNumber)
         XCTAssertEqual(endpoint.configuration, configuration)
-        XCTAssertEqual(endpoint.environment, .production)
+        XCTAssertEqual(endpoint.domain, .production)
         XCTAssertEqual(endpoint.method.value, "POST")
         XCTAssertEqual(endpoint.path, "/1/verification/sms/delete")
         XCTAssertNil(endpoint.token)

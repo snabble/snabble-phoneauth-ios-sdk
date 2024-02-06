@@ -12,7 +12,7 @@ import Combine
 final class URLSessionEndpointTests: XCTestCase {
 
     let resourceData = try! loadResource(inBundle: .module, filename: "UsersResponse", withExtension: "json")
-    let endpointUsers: Endpoint<UsersResponse> = Endpoints.AppUser.post(configuration: .init(appId: "123-456-789", appSecret: "1", environment: .production, projectId: "123-456-789"))
+    let endpointUsers: Endpoint<UsersResponse> = Endpoints.AppUser.post(configuration: .init(appId: "123-456-789", appSecret: "1", domain: .production, projectId: "123-456-789"))
     var cancellables = Set<AnyCancellable>()
 
     // MARK: - Decodable

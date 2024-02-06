@@ -6,7 +6,7 @@
 //
 
 import XCTest
-@testable import SnabbleNetwork
+@testable import SnabbleModels
 
 final class TokenTests: XCTestCase {
 

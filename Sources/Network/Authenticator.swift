@@ -8,6 +8,7 @@
 import Foundation
 import Dispatch
 import Combine
+import SnabbleModels
 
 public protocol AuthenticatorDelegate: AnyObject {
     func authenticator(_ authenticator: Authenticator, appUserForConfiguration configuration: Configuration) -> AppUser?

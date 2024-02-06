@@ -6,31 +6,32 @@
 //
 
 import Foundation
-import SnabbleNetwork
+import SnabblePhoneAuthNetwork
+import SnabblePhoneAuthModels
 import Combine
 
 public protocol PhoneAuthProviding {
     func startAuthorization(phoneNumber: String) async throws
-    func login(phoneNumber: String, OTP: String) async throws -> SnabbleNetwork.AppUser?
+    func login(phoneNumber: String, OTP: String) async throws -> AppUser?
     func delete(phoneNumber: String) async throws
 }
 
 public protocol PhoneAuthDelegate: AnyObject {
-    func phoneAuth(_ phoneAuth: PhoneAuth, didReceiveAppUser: SnabbleNetwork.AppUser)
+    func phoneAuth(_ phoneAuth: PhoneAuth, didReceiveAppUser: AppUser)
 }
 
 public protocol PhoneAuthDataSource: AnyObject {
-    func appUserId(forConfiguration configuration: SnabbleNetwork.Configuration) -> SnabbleNetwork.AppUser?
+    func appUserId(forConfiguration configuration: Configuration) -> AppUser?
 }
 
 public class PhoneAuth {
-    public var configuration: SnabbleNetwork.Configuration
+    public var configuration: Configuration
     public weak var delegate: PhoneAuthDelegate?
     public weak var dataSource: PhoneAuthDataSource?
     
     private let networkManager: NetworkManager
     
-    public init(configuration: SnabbleNetwork.Configuration, urlSession: URLSession = .shared) {
+    public init(configuration: Configuration, urlSession: URLSession = .shared) {
         self.configuration = configuration
         self.networkManager = NetworkManager(urlSession: urlSession)
         self.networkManager.authenticator.delegate = self
@@ -67,11 +68,11 @@ extension PhoneAuth: PhoneAuthProviding {
         }
     }
     
-    public func login(countryCallingCode: CountryCallingCode, phoneNumber: String, OTP: String) async throws -> SnabbleNetwork.AppUser? {
+    public func login(countryCallingCode: CountryCallingCode, phoneNumber: String, OTP: String) async throws -> AppUser? {
         try await login(phoneNumber: countryCallingCode.internationalPhoneNumber(phoneNumber), OTP: OTP)
     }
     
-    public func login(phoneNumber: String, OTP: String) async throws -> SnabbleNetwork.AppUser? {
+    public func login(phoneNumber: String, OTP: String) async throws -> AppUser? {
         let endpoint = Endpoints.Phone.login(
             configuration: configuration,
             phoneNumber: phoneNumber,
@@ -128,15 +129,15 @@ extension PhoneAuth: PhoneAuthProviding {
 }
 
 extension PhoneAuth: AuthenticatorDelegate {
-    public func authenticator(_ authenticator: SnabbleNetwork.Authenticator, appUserForConfiguration configuration: SnabbleNetwork.Configuration) -> SnabbleNetwork.AppUser? {
+    public func authenticator(_ authenticator: SnabbleNetwork.Authenticator, appUserForConfiguration configuration: Configuration) -> AppUser? {
         dataSource?.appUserId(forConfiguration: configuration)
     }
     
-    public func authenticator(_ authenticator: SnabbleNetwork.Authenticator, appUserUpdated appUser: SnabbleNetwork.AppUser) {
+    public func authenticator(_ authenticator: SnabbleNetwork.Authenticator, appUserUpdated appUser: AppUser) {
         delegate?.phoneAuth(self, didReceiveAppUser: appUser)
     }
     
-    public func authenticator(_ authenticator: SnabbleNetwork.Authenticator, projectIdForConfiguration configuration: SnabbleNetwork.Configuration) -> String {
+    public func authenticator(_ authenticator: SnabbleNetwork.Authenticator, projectIdForConfiguration configuration: Configuration) -> String {
         configuration.projectId
     }
 }

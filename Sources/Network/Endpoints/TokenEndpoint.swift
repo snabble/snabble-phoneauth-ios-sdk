@@ -7,24 +7,25 @@
 
 import Foundation
 import SwiftOTP
+import SnabbleModels
 
 extension Endpoints {
     enum Token {
         static func get(
             configuration: Configuration,
-            appUser: SnabbleNetwork.AppUser,
+            appUser: SnabbleModels.AppUser,
             projectId: String,
-            role: SnabbleNetwork.Token.Scope = .retailerApp
-        ) -> Endpoint<SnabbleNetwork.Token> {
+            role: SnabbleModels.Token.Scope = .retailerApp
+        ) -> Endpoint<SnabbleModels.Token> {
 
-            var endpoint: Endpoint<SnabbleNetwork.Token> = .init(path: "/tokens",
+            var endpoint: Endpoint<SnabbleModels.Token> = .init(path: "/tokens",
                                                                  method: .get([
                                                                     .init(name: "project", value: projectId),
                                                                     .init(name: "role", value: role.rawValue)
                                                                  ]),
                                                                  configuration: configuration,
                                                                  parse: { data in
-                try Endpoints.jsonDecoder.decode(SnabbleNetwork.Token.self, from: data)
+                try Endpoints.jsonDecoder.decode(SnabbleModels.Token.self, from: data)
             })
             if let authorization = authorization(withConfiguration: configuration, appUser: appUser) {
                 endpoint.headerFields = ["Authorization": "Basic \(authorization)"]
@@ -32,7 +33,7 @@ extension Endpoints {
             return endpoint
         }
 
-        private static func authorization(withConfiguration configuration: Configuration, appUser: SnabbleNetwork.AppUser) -> String? {
+        private static func authorization(withConfiguration configuration: Configuration, appUser: SnabbleModels.AppUser) -> String? {
             guard let password = password(withSecret: configuration.appSecret, forDate: Date()) else { return nil }
             return "\(configuration.appId):\(password):\(appUser.id):\(appUser.secret)".data(using: .utf8)?.base64EncodedString()
         }

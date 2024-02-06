@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftOTP
+import SnabbleModels
 
 extension Endpoints {
     enum AppUser {

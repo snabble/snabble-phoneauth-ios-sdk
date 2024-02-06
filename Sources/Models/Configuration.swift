@@ -10,13 +10,13 @@ import Foundation
 public struct Configuration {
     public let appId: String
     public let appSecret: String
-    public let environment: Domain
+    public let domain: Domain
     public let projectId: String
 
-    public init(appId: String, appSecret: String, environment: Domain, projectId: String) {
+    public init(appId: String, appSecret: String, domain: Domain, projectId: String) {
         self.appId = appId
         self.appSecret = appSecret
-        self.environment = environment
+        self.domain = domain
         self.projectId = projectId
     }
 }
