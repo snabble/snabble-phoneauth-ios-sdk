@@ -17,7 +17,7 @@ extension HTTPError: LocalizedError {
     public var errorDescription: String? {
         switch self {
         case let .invalidResponse(httpStatusCode):
-            return "Error: statusCode: \(httpStatusCode.rawValue))"
+            return "Error: statusCode: \(httpStatusCode.rawValue)"
         case let .unknownResponse(response):
             return "Error: unknown \(response)"
         case .unexpected:
