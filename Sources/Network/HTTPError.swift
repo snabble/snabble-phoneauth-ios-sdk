@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum HTTPError {
+public enum HTTPError {
     case invalidResponse(HTTPStatusCode)
     case unknownResponse(URLResponse)
     case unexpected(Error)
