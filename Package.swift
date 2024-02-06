@@ -13,7 +13,7 @@ let package = Package(
         // Products define the executables and libraries a package produces, and make them visible to other packages.
         .library(
             name: "SnabblePhoneAuth",
-            targets: ["SnabblePhoneAuth", "SnabbleNetwork"]),
+            targets: ["SnabblePhoneAuth"]),
     ],
     dependencies: [
         .package(url: "https://github.com/lachlanbell/SwiftOTP", from: "3.0.1"),
