@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		765914F92A0A5B0800A610BC /* SnabblePhoneAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 765914F82A0A5B0800A610BC /* SnabblePhoneAuth */; };
 		765915242A0A70BB00A610BC /* ButtonStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 765915232A0A70BB00A610BC /* ButtonStyles.swift */; };
 		765915252A0A70BB00A610BC /* EnterPhoneNumberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7659151E2A0A70BB00A610BC /* EnterPhoneNumberView.swift */; };
 		765915262A0A70BB00A610BC /* RequestCodeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7659151F2A0A70BB00A610BC /* RequestCodeButton.swift */; };
@@ -24,6 +23,7 @@
 		76FA1A812A0E57D9008C15BF /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 76FA1A832A0E57D9008C15BF /* Localizable.strings */; };
 		76FA1A882A120D60008C15BF /* LoggedInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FA1A872A120D60008C15BF /* LoggedInView.swift */; };
 		76FA1AD62A14BBFA008C15BF /* PhoneLoginTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FA1AD52A14BBFA008C15BF /* PhoneLoginTests.swift */; };
+		E17462EF2B72590B0053AF82 /* SnabblePhoneAuth in Frameworks */ = {isa = PBXBuildFile; productRef = E17462EE2B72590B0053AF82 /* SnabblePhoneAuth */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,7 +67,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				765914F92A0A5B0800A610BC /* SnabblePhoneAuth in Frameworks */,
+				E17462EF2B72590B0053AF82 /* SnabblePhoneAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -192,7 +192,7 @@
 			);
 			name = PhoneLogin;
 			packageProductDependencies = (
-				765914F82A0A5B0800A610BC /* SnabblePhoneAuth */,
+				E17462EE2B72590B0053AF82 /* SnabblePhoneAuth */,
 			);
 			productName = PhoneLogin;
 			productReference = 7691BA972976C3F400477EDD /* PhoneLogin.app */;
@@ -625,13 +625,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		765914F82A0A5B0800A610BC /* SnabblePhoneAuth */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = SnabblePhoneAuth;
-		};
 		E17225422A0BB6A000377187 /* SwiftLintPlugin */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = "plugin:SwiftLintPlugin";
+		};
+		E17462EE2B72590B0053AF82 /* SnabblePhoneAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SnabblePhoneAuth;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

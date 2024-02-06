@@ -14,8 +14,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/lachlanbell/SwiftOTP",
       "state" : {
-        "revision" : "e43757cd3851b77ca7da195b3355c4a6f2991a0e",
-        "version" : "3.0.1"
+        "revision" : "9660551ea3df153c3cbacfa34ac3abbec73a8b84",
+        "version" : "3.0.2"
       }
     }
   ],

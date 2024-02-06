@@ -16,7 +16,7 @@ let package = Package(
             targets: ["SnabblePhoneAuth"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/lachlanbell/SwiftOTP", from: "3.0.1"),
+        .package(url: "https://github.com/lachlanbell/SwiftOTP", from: "3.0.2"),
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
