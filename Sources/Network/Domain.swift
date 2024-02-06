@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum Environment {
+public enum Domain {
     case testing
     case staging
     case production
@@ -30,6 +30,6 @@ public enum Environment {
     }
 }
 
-extension Environment: Equatable {
+extension Domain: Equatable {
     
 }

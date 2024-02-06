@@ -46,7 +46,7 @@ extension Configuration {
         )
     }
 
-    static func config(for environment: Environment) -> Self {
+    static func config(for environment: Domain) -> Self {
         switch environment {
         case .testing:
             return Self.testing

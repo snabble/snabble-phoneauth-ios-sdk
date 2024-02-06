@@ -7,11 +7,13 @@
 
 import SwiftUI
 import SnabblePhoneAuth
+import SnabbleNetwork
 
 @main
 struct PhoneLoginApp: App {
-    let phoneAuth = PhoneAuth(configuration: .testing)
+    let phoneAuth = SnabblePhoneAuth.PhoneAuth(configuration: .testing)
     
+    let test = SnabbleNetwork.HTTPError.invalidResponse(.forbidden)
 //    init() {
 //#if DEBUG
 //        UserDefaults.logActions = true
