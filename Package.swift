@@ -24,8 +24,7 @@ let package = Package(
         .target(
             name: "SnabblePhoneAuth",
             dependencies: [
-                "SnabbleNetwork",
-                "SnabbleModels"
+                "SnabbleNetwork"
             ],
             path: "Sources/Core",
             resources: [
@@ -34,7 +33,7 @@ let package = Package(
         ),
         .testTarget(
             name: "SnabblePhoneAuthTests",
-            dependencies: ["SnabbleNetwork", "SnabblePhoneAuth", "SnabbleModels"],
+            dependencies: ["SnabbleNetwork", "SnabblePhoneAuth"],
             path: "Tests/Core",
             resources: [
                 .process("Resources")
@@ -43,27 +42,14 @@ let package = Package(
         .target(
             name: "SnabbleNetwork",
             dependencies: [
-                "SwiftOTP",
-                "SnabbleModels"
+                "SwiftOTP"
             ],
             path: "Sources/Network"
         ),
         .testTarget(
             name: "SnabbleNetworkTests",
-            dependencies: ["SnabbleNetwork", "SnabbleModels"],
+            dependencies: ["SnabbleNetwork"],
             path: "Tests/Network",
-            resources: [
-                .process("Resources")
-            ]
-        ),
-        .target(
-            name: "SnabbleModels",
-            path: "Sources/Models"
-        ),
-        .testTarget(
-            name: "SnabbleModelsTests",
-            dependencies: ["SnabbleModels"],
-            path: "Tests/Models",
             resources: [
                 .process("Resources")
             ]

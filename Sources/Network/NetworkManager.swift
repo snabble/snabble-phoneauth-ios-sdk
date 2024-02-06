@@ -7,7 +7,6 @@
 
 import Combine
 import Foundation
-import SnabbleModels
 
 public class NetworkManager {
     public let authenticator: Authenticator

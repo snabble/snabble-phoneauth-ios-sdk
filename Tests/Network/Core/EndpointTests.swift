@@ -7,7 +7,6 @@
 
 import XCTest
 @testable import SnabbleNetwork
-import SnabbleModels
 
 struct Mock: Decodable {
     let name: String

@@ -6,7 +6,7 @@
 //
 
 import XCTest
-@testable import SnabbleModels
+@testable import SnabbleNetwork
 
 final class DomainTests: XCTestCase {
     func testDevelopmentBaseURL() throws {

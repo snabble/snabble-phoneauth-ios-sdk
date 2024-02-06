@@ -6,8 +6,7 @@
 //
 
 import Foundation
-import SnabblePhoneAuthNetwork
-import SnabblePhoneAuthModels
+import SnabbleNetwork
 import Combine
 
 public protocol PhoneAuthProviding {
@@ -45,7 +44,7 @@ extension PhoneAuth: PhoneAuthProviding {
     
     public func startAuthorization(phoneNumber: String) async throws {
         let endpoint = Endpoints.Phone.auth(
-            configuration: configuration,
+            configuration: configuration.toDTO(),
             phoneNumber: phoneNumber
         )
         
@@ -74,7 +73,7 @@ extension PhoneAuth: PhoneAuthProviding {
     
     public func login(phoneNumber: String, OTP: String) async throws -> AppUser? {
         let endpoint = Endpoints.Phone.login(
-            configuration: configuration,
+            configuration: configuration.toDTO(),
             phoneNumber: phoneNumber,
             OTP: OTP
         )
@@ -93,7 +92,7 @@ extension PhoneAuth: PhoneAuthProviding {
                     cancellable?.cancel()
 
                 } receiveValue: { value in
-                    continuation.resume(with: .success(value))
+                    continuation.resume(with: .success(value?.fromDTO()))
                 }
         }
     }
@@ -104,7 +103,7 @@ extension PhoneAuth: PhoneAuthProviding {
     
     public func delete(phoneNumber: String) async throws {
         let endpoint = Endpoints.Phone.delete(
-            configuration: configuration,
+            configuration: configuration.toDTO(),
             phoneNumber: phoneNumber
         )
         
@@ -129,15 +128,15 @@ extension PhoneAuth: PhoneAuthProviding {
 }
 
 extension PhoneAuth: AuthenticatorDelegate {
-    public func authenticator(_ authenticator: SnabbleNetwork.Authenticator, appUserForConfiguration configuration: Configuration) -> AppUser? {
-        dataSource?.appUserId(forConfiguration: configuration)
+    public func authenticator(_ authenticator: SnabbleNetwork.Authenticator, appUserForConfiguration configuration: SnabbleNetwork.Configuration) -> SnabbleNetwork.AppUser? {
+        dataSource?.appUserId(forConfiguration: configuration.fromDTO())?.toDTO()
     }
     
-    public func authenticator(_ authenticator: SnabbleNetwork.Authenticator, appUserUpdated appUser: AppUser) {
-        delegate?.phoneAuth(self, didReceiveAppUser: appUser)
+    public func authenticator(_ authenticator: SnabbleNetwork.Authenticator, appUserUpdated appUser: SnabbleNetwork.AppUser) {
+        delegate?.phoneAuth(self, didReceiveAppUser: appUser.fromDTO())
     }
     
-    public func authenticator(_ authenticator: SnabbleNetwork.Authenticator, projectIdForConfiguration configuration: Configuration) -> String {
+    public func authenticator(_ authenticator: SnabbleNetwork.Authenticator, projectIdForConfiguration configuration: SnabbleNetwork.Configuration) -> String {
         configuration.projectId
     }
 }

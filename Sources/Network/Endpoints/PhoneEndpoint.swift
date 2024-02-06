@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import SnabbleModels
 
 extension Endpoints {
     public enum Phone {
@@ -25,7 +24,7 @@ extension Endpoints {
             )
         }
 
-        public static func login(configuration: Configuration, phoneNumber: String, OTP: String) -> Endpoint<SnabbleModels.AppUser?> {
+        public static func login(configuration: Configuration, phoneNumber: String, OTP: String) -> Endpoint<SnabbleNetwork.AppUser?> {
             // swiftlint:disable:next force_try
             let data = try! JSONSerialization.data(withJSONObject: [
                 "otp": OTP,
@@ -37,7 +36,7 @@ extension Endpoints {
                 configuration: configuration,
                 parse: { data in
                     do {
-                        return try Endpoints.jsonDecoder.decode(SnabbleModels.AppUser.self, from: data)
+                        return try Endpoints.jsonDecoder.decode(SnabbleNetwork.AppUser.self, from: data)
                     } catch {
                         if case DecodingError.keyNotFound(let codingKey, _) = error {
                             if codingKey.stringValue == "secret" {

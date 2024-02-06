@@ -7,7 +7,6 @@
 
 import XCTest
 @testable import SnabbleNetwork
-import SnabbleModels
 
 final class PhoneEndpointTests: XCTestCase {
 

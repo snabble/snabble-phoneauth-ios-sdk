@@ -7,8 +7,7 @@
 //
 
 import Foundation
-import SnabbleNetwork
-import SnabbleModels
+import SnabblePhoneAuth
 
 extension Configuration {
     static var appId: String {

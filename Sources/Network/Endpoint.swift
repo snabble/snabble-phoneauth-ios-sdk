@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import SnabbleModels
 
 /// A namespace for types that serve as `Endpoint`.
 ///

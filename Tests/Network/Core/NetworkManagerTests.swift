@@ -7,7 +7,6 @@
 
 import XCTest
 @testable import SnabbleNetwork
-import SnabbleModels
 import Combine
 
 final class NetworkManagerTests: XCTestCase {
