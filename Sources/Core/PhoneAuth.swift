@@ -51,6 +51,7 @@ extension PhoneAuth: PhoneAuthProviding {
         return try await withCheckedThrowingContinuation { continuation in
             var cancellable: AnyCancellable?
             cancellable = networkManager.publisher(for: endpoint)
+                .mapHTTPErrorIfPossible()
                 .receive(on: RunLoop.main)
                 .sink { completion in
                     switch completion {
@@ -81,6 +82,7 @@ extension PhoneAuth: PhoneAuthProviding {
         return try await withCheckedThrowingContinuation { continuation in
             var cancellable: AnyCancellable?
             cancellable = networkManager.publisher(for: endpoint)
+                .mapHTTPErrorIfPossible()
                 .receive(on: RunLoop.main)
                 .sink { completion in
                     switch completion {
@@ -110,6 +112,7 @@ extension PhoneAuth: PhoneAuthProviding {
         return try await withCheckedThrowingContinuation { continuation in
             var cancellable: AnyCancellable?
             cancellable = networkManager.publisher(for: endpoint)
+                .mapHTTPErrorIfPossible()
                 .receive(on: RunLoop.main)
                 .sink { completion in
                     switch completion {
@@ -124,6 +127,18 @@ extension PhoneAuth: PhoneAuthProviding {
                     continuation.resume(with: .success(value))
                 }
         }
+    }
+}
+
+extension Publisher {
+    func mapHTTPErrorIfPossible() -> AnyPublisher<Self.Output, Error> {
+        mapError {
+            guard let error = $0 as? SnabbleNetwork.HTTPError else {
+                return $0
+            }
+            return error.fromDTO()
+        }
+        .eraseToAnyPublisher()
     }
 }
 
