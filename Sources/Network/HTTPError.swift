@@ -7,13 +7,11 @@
 
 import Foundation
 
-public enum HTTPError {
+public enum HTTPError: LocalizedError {
     case invalidResponse(HTTPStatusCode)
     case unknownResponse(URLResponse)
     case unexpected(Error)
-}
-
-extension HTTPError: LocalizedError {
+    
     public var errorDescription: String? {
         switch self {
         case let .invalidResponse(httpStatusCode):
