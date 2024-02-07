@@ -10,7 +10,8 @@ import SnabbleNetwork
 import Combine
 
 public protocol PhoneAuthProviding {
-    func startAuthorization(phoneNumber: String) async throws
+    func startAuthorization(countryCallingCode: CountryCallingCode, phoneNumber: String) async throws -> String
+    func startAuthorization(phoneNumber: String) async throws -> String
     func login(phoneNumber: String, OTP: String) async throws -> AppUser?
     func delete(phoneNumber: String) async throws
 }
@@ -38,11 +39,11 @@ public class PhoneAuth {
 }
 
 extension PhoneAuth: PhoneAuthProviding {
-    public func startAuthorization(countryCallingCode: CountryCallingCode, phoneNumber: String) async throws {
+    public func startAuthorization(countryCallingCode: CountryCallingCode, phoneNumber: String) async throws -> String {
         try await startAuthorization(phoneNumber: countryCallingCode.internationalPhoneNumber(phoneNumber))
     }
     
-    public func startAuthorization(phoneNumber: String) async throws {
+    public func startAuthorization(phoneNumber: String) async throws -> String {
         let endpoint = Endpoints.Phone.auth(
             configuration: configuration.toDTO(),
             phoneNumber: phoneNumber
@@ -63,7 +64,7 @@ extension PhoneAuth: PhoneAuthProviding {
                     cancellable?.cancel()
 
                 } receiveValue: { value in
-                    continuation.resume(with: .success(value))
+                    continuation.resume(with: .success(phoneNumber))
                 }
         }
     }

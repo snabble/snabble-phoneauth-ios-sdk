@@ -49,7 +49,7 @@ public struct CountryCallingCode {
         return String(string[start...])
     }
     
-    func internationalPhoneNumber(_ phoneNumber: String) -> String {
+    public func internationalPhoneNumber(_ phoneNumber: String) -> String {
         let phoneNumber = numberRemovingTrunk(phoneNumber)
             .replacingOccurrences(of: " ", with: "")
         return "+\(callingCode)\(phoneNumber)"
