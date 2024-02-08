@@ -1,13 +1,11 @@
 [
     {
         "countryCode": "AT",
-        "callingCode": 43,
-        "trunkPrefix": 0
+        "callingCode": 43
     },
     {
         "countryCode": "BE",
-        "callingCode": 32,
-        "trunkPrefix": 0
+        "callingCode": 32
     },
     {
         "countryCode": "CH",
@@ -15,8 +13,7 @@
     },
     {
         "countryCode": "DE",
-        "callingCode": 49,
-        "trunkPrefix": 0
+        "callingCode": 49
     },
     {
         "countryCode": "DK",
@@ -28,8 +25,7 @@
     },
     {
         "countryCode": "FR",
-        "callingCode": 33,
-        "trunkPrefix": 0
+        "callingCode": 33
     },
     {
         "countryCode": "GR",
@@ -41,8 +37,7 @@
     },
     {
         "countryCode": "NL",
-        "callingCode": 31,
-        "trunkPrefix": 0
+        "callingCode": 31
     },
     {
         "countryCode": "LU",
