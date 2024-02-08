@@ -10,7 +10,6 @@ import SnabbleNetwork
 import Combine
 
 public protocol PhoneAuthProviding {
-    func startAuthorization(countryCallingCode: CountryCallingCode, phoneNumber: String) async throws -> String
     func startAuthorization(phoneNumber: String) async throws -> String
     func login(phoneNumber: String, OTP: String) async throws -> AppUser?
     func delete(phoneNumber: String) async throws
@@ -39,10 +38,6 @@ public class PhoneAuth {
 }
 
 extension PhoneAuth: PhoneAuthProviding {
-    public func startAuthorization(countryCallingCode: CountryCallingCode, phoneNumber: String) async throws -> String {
-        try await startAuthorization(phoneNumber: countryCallingCode.internationalPhoneNumber(phoneNumber))
-    }
-    
     public func startAuthorization(phoneNumber: String) async throws -> String {
         let endpoint = Endpoints.Phone.auth(
             configuration: configuration.toDTO(),
@@ -63,15 +58,10 @@ extension PhoneAuth: PhoneAuthProviding {
                     }
                     cancellable?.cancel()
 
-                } receiveValue: { value in
+                } receiveValue: { _ in
                     continuation.resume(with: .success(phoneNumber))
                 }
         }
-    }
-    
-    @discardableResult
-    public func login(countryCallingCode: CountryCallingCode, phoneNumber: String, OTP: String) async throws -> AppUser? {
-        try await login(phoneNumber: countryCallingCode.internationalPhoneNumber(phoneNumber), OTP: OTP)
     }
     
     @discardableResult
@@ -100,10 +90,6 @@ extension PhoneAuth: PhoneAuthProviding {
                     continuation.resume(with: .success(value?.fromDTO()))
                 }
         }
-    }
-    
-    public func delete(countryCallingCode: CountryCallingCode, phoneNumber: String) async throws {
-        try await delete(phoneNumber: countryCallingCode.internationalPhoneNumber(phoneNumber))
     }
     
     public func delete(phoneNumber: String) async throws {
