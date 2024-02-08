@@ -69,10 +69,12 @@ extension PhoneAuth: PhoneAuthProviding {
         }
     }
     
+    @discardableResult
     public func login(countryCallingCode: CountryCallingCode, phoneNumber: String, OTP: String) async throws -> AppUser? {
         try await login(phoneNumber: countryCallingCode.internationalPhoneNumber(phoneNumber), OTP: OTP)
     }
     
+    @discardableResult
     public func login(phoneNumber: String, OTP: String) async throws -> AppUser? {
         let endpoint = Endpoints.Phone.login(
             configuration: configuration.toDTO(),
