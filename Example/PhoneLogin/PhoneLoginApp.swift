@@ -10,19 +10,9 @@ import SnabblePhoneAuth
 
 @main
 struct PhoneLoginApp: App {
-    let phoneAuth = SnabblePhoneAuth.PhoneAuth(configuration: .testing)
-    
-//    init() {
-//#if DEBUG
-//        UserDefaults.logActions = true
-//#else
-//        UserDefaults.logActions = false
-//#endif
-//    }
-
     var body: some Scene {
         WindowGroup {
-            PhoneAuthScreen()
+            PhoneAuthScreen(configuration: .testing)
         }
     }
 }
