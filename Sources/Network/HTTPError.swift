@@ -7,21 +7,8 @@
 
 import Foundation
 
-enum HTTPError {
-    case invalidResponse(HTTPStatusCode)
-    case unknownResponse(URLResponse)
+public enum HTTPError: Error {
+    case invalid(HTTPURLResponse)
+    case unknown(URLResponse)
     case unexpected(Error)
-}
-
-extension HTTPError: LocalizedError {
-    public var errorDescription: String? {
-        switch self {
-        case let .invalidResponse(httpStatusCode):
-            return "Error: statusCode: \(httpStatusCode.rawValue))"
-        case let .unknownResponse(response):
-            return "Error: unknown \(response)"
-        case .unexpected:
-            return "Error: unexpected should not happen"
-        }
-    }
 }

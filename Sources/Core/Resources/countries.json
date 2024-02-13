@@ -1,54 +1,50 @@
 [
     {
         "countryCode": "AT",
-        "callingCode": "43"
+        "callingCode": 43
     },
     {
         "countryCode": "BE",
-        "callingCode": "32"
+        "callingCode": 32
     },
     {
         "countryCode": "CH",
-        "callingCode": "41",
-        "trunkPrefix": "0"
+        "callingCode": 41
     },
     {
         "countryCode": "DE",
-        "callingCode": "49",
-        "trunkPrefix": "0"
+        "callingCode": 49
     },
     {
         "countryCode": "DK",
-        "callingCode": "45",
+        "callingCode": 45
     },
     {
         "countryCode": "ES",
-        "callingCode": "34",
+        "callingCode": 34
     },
     {
         "countryCode": "FR",
-        "callingCode": "33",
-        "trunkPrefix": "0"
+        "callingCode": 33
     },
     {
         "countryCode": "GR",
-        "callingCode": "423",
+        "callingCode": 423
     },
     {
         "countryCode": "IT",
-        "callingCode": "39",
+        "callingCode": 39
     },
     {
         "countryCode": "NL",
-        "callingCode": "31",
-        "trunkPrefix": "0"
+        "callingCode": 31
     },
     {
         "countryCode": "LU",
-        "callingCode": "352",
+        "callingCode": 352,
     },
     {
         "countryCode": "LI",
-        "callingCode": "423",
+        "callingCode": 423,
     }
 ]

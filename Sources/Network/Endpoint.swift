@@ -35,8 +35,8 @@ public struct Endpoint<Response> {
         self.parse = parse
     }
 
-    var environment: Environment {
-        configuration.environment
+    var domain: Domain {
+        configuration.domain
     }
 
     enum Error: Swift.Error {
@@ -47,7 +47,7 @@ public struct Endpoint<Response> {
 extension Endpoint {
     public func urlRequest() throws -> URLRequest {
         var components = URLComponents(
-            url: environment.baseURL,
+            url: domain.baseURL,
             resolvingAgainstBaseURL: false
         )
         components?.path = path
@@ -62,7 +62,7 @@ extension Endpoint {
         }
 
         guard let url = components?.url else {
-            throw Error.invalidRequestError("baseURL: \(environment.baseURL), path: \(path)")
+            throw Error.invalidRequestError("baseURL: \(domain.baseURL), path: \(path)")
         }
 
         var request = URLRequest(url: url)
@@ -74,7 +74,7 @@ extension Endpoint {
             request.httpBody = nil
         }
 
-        let headerFields = environment.headerFields.merging(headerFields, uniquingKeysWith: { _, new in new })
+        let headerFields = domain.headerFields.merging(headerFields, uniquingKeysWith: { _, new in new })
         request.allHTTPHeaderFields = headerFields
 
         if let token = token {

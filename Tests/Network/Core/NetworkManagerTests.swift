@@ -13,7 +13,7 @@ final class NetworkManagerTests: XCTestCase {
 
     var cancellables: Set<AnyCancellable>!
     var networkManager: NetworkManager!
-    var configuration: Configuration = .init(appId: "123", appSecret: "2", environment: .production)
+    var configuration: Configuration = .init(appId: "123", appSecret: "2", domain: .production, projectId: "123")
 
     override func setUpWithError() throws {
         cancellables = Set<AnyCancellable>()
@@ -39,7 +39,7 @@ final class NetworkManagerTests: XCTestCase {
                     headerFields: ["Content-Type": "application/json"]
                 )!
                 return (response, try loadResource(inBundle: .module, filename: "Token", withExtension: "json"))
-            case "https://api.snabble.io/123/phone/auth":
+            case "https://api.snabble.io/123/verification/sms":
                 let response = HTTPURLResponse(
                     url: request.url!,
                     statusCode: 200,

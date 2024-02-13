@@ -12,7 +12,7 @@ import Combine
 final class URLSessionEndpointTests: XCTestCase {
 
     let resourceData = try! loadResource(inBundle: .module, filename: "UsersResponse", withExtension: "json")
-    let endpointUsers: Endpoint<UsersResponse> = Endpoints.AppUser.post(configuration: .init(appId: "123-456-789", appSecret: "1", environment: .production))
+    let endpointUsers: Endpoint<UsersResponse> = Endpoints.AppUser.post(configuration: .init(appId: "123-456-789", appSecret: "1", domain: .production, projectId: "123-456-789"))
     var cancellables = Set<AnyCancellable>()
 
     // MARK: - Decodable
@@ -100,8 +100,8 @@ final class URLSessionEndpointTests: XCTestCase {
                     XCTAssertTrue(true)
                 case .failure(let error):
                     XCTAssertNotNil(error)
-                    if case HTTPError.invalidResponse(let statusCode) = error {
-                        XCTAssertEqual(statusCode, .notFound)
+                    if case HTTPError.invalid(let response) = error {
+                        XCTAssertEqual(response.httpStatusCode, .notFound)
                     } else {
                         XCTFail("should ne httpError invalidResponse")
                     }

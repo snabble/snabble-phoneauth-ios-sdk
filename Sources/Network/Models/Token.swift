@@ -26,8 +26,15 @@ public struct Token: Codable {
         case pointOfSale
         case gatekeeper
     }
+    
+    public init(id: String, value: String, issuedAt: Date, expiresAt: Date) {
+        self.id = id
+        self.value = value
+        self.issuedAt = issuedAt
+        self.expiresAt = expiresAt
+    }
 
-    func isValid() -> Bool {
+    public func isValid() -> Bool {
         expiresAt.timeIntervalSinceNow.sign == .plus
     }
 }

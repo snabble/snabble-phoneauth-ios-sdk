@@ -1,0 +1,55 @@
+[
+    {
+        "countryCode": "AT",
+        "callingCode": 43,
+        "trunkPrefix": 0
+    },
+    {
+        "countryCode": "BE",
+        "callingCode": 32,
+        "trunkPrefix": 0
+    },
+    {
+        "countryCode": "CH",
+        "callingCode": 41
+    },
+    {
+        "countryCode": "DE",
+        "callingCode": 49,
+        "trunkPrefix": 0
+    },
+    {
+        "countryCode": "DK",
+        "callingCode": 45
+    },
+    {
+        "countryCode": "ES",
+        "callingCode": 34
+    },
+    {
+        "countryCode": "FR",
+        "callingCode": 33,
+        "trunkPrefix": 0
+    },
+    {
+        "countryCode": "GR",
+        "callingCode": 423
+    },
+    {
+        "countryCode": "IT",
+        "callingCode": 39
+    },
+    {
+        "countryCode": "NL",
+        "callingCode": 31,
+        "trunkPrefix": 0
+    },
+    {
+        "countryCode": "LU",
+        "callingCode": 352,
+    },
+    {
+        "countryCode": "LI",
+        "callingCode": 423,
+    }
+]

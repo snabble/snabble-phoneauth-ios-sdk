@@ -7,18 +7,18 @@
 
 import Foundation
 
-public enum Environment {
+public enum Domain {
     case testing
     case staging
     case production
 
-    var headerFields: [String: String] {
+    public var headerFields: [String: String] {
         return [
             "Content-Type": "application/json"
         ]
     }
 
-    var baseURL: URL {
+    public var baseURL: URL {
         switch self {
         case .testing:
             return "https://api.snabble-testing.io"
@@ -30,6 +30,10 @@ public enum Environment {
     }
 }
 
-extension Environment: Equatable {
-    
+extension Domain: Equatable {}
+
+extension URL: ExpressibleByStringLiteral {
+    public init(stringLiteral value: StaticString) {
+        self = URL(string: "\(value)")!
+    }
 }

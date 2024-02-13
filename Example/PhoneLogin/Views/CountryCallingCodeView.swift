@@ -8,46 +8,48 @@
 import SwiftUI
 import SnabblePhoneAuth
 
-public struct CountryCallingCodeView: View {
-    var country: CountryCallingCode
-    @State private var showMenu = false
-    @State private var selectedCountry: CountryCallingCode = CountryCallingCodes.defaultCountry
-    @EnvironmentObject var loginModel: PhoneLoginModel
-
-    init(country: CountryCallingCode) {
-        self.country = country
+extension CountryCallingCode {
+    var name: String {
+        Locale.current.localizedString(forRegionCode: countryCode) ?? "n/a"
     }
+}
 
-    public var body: some View {
+struct CountryCallingCodeView: View {
+    let codes: [CountryCallingCode]
+    @Binding var selectedCode: CountryCallingCode
+    
+    @State private var showMenu = false
+    
+    var body: some View {
         HStack {
-            if let flag = country.countryCode.countryFlagSymbol {
+            if let flag = selectedCode.flagSymbol {
                 Text(flag)
             }
             Button(action: {
                 showMenu = true
             }) {
-                Text("+\(country.callingCode)")
+                Text("+\(selectedCode.callingCode)")
             }
+            .foregroundColor(.primary)
         }
-        .sheet(isPresented: $showMenu, onDismiss: {
-            loginModel.country = selectedCountry
-        }) {
-            CountryCallingCodeListView(selectedCountry: $selectedCountry)
+        .sheet(isPresented: $showMenu, onDismiss: {}) {
+            CountryCallingCodeListView(codes: codes, selectedCode: $selectedCode)
         }
     }
 }
 
-public struct CountryCallingCodeListView: View {
-    @Binding var selectedCountry: CountryCallingCode
+private struct CountryCallingCodeListView: View {
+    @State var codes: [CountryCallingCode]
+    @Binding var selectedCode: CountryCallingCode
+
     @Environment(\.dismiss) var dismiss
 
     public var body: some View {
         List {
-            ForEach(CountryCallingCodes.countries, id: \.id) { country in
-                CountryCallingCodeRow(country: country)
-                    .listRowBackground(UserDefaults.selectedCountry == country.countryCode ? Color.accentColor : Color.clear)
+            ForEach(codes, id: \.countryCode) { value in
+                CountryCallingCodeRow(code: value, isSelected: value == selectedCode)
                     .onTapGesture {
-                        selectedCountry = country
+                        self.selectedCode = value
                         dismiss()
                     }
             }
@@ -55,20 +57,25 @@ public struct CountryCallingCodeListView: View {
     }
 }
 
-public struct CountryCallingCodeRow: View {
-    var country: CountryCallingCode
-    
+private struct CountryCallingCodeRow: View {
+    let code: CountryCallingCode
+    let isSelected: Bool
+
     public var body: some View {
             HStack {
-                if let flag = country.countryCode.countryFlagSymbol {
+                if let flag = code.flagSymbol {
                     Text(flag)
                         .font(.largeTitle)
                 }
                 VStack(alignment: .leading) {
-                    Text("+\(country.callingCode)")
-                    Text(country.countryName)
+                    Text("+\(code.callingCode)")
+                    Text(code.name)
                         .foregroundColor(.secondary)
                         .font(.footnote)
+                }
+                Spacer()
+                if isSelected {
+                    Image(systemName: "checkmark")
                 }
             }
     }
