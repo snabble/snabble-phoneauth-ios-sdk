@@ -30,7 +30,7 @@ struct CodeView: View {
     var body: some View {
         VStack(spacing: 16) {
             VStack(spacing: 24) {
-                Text("Bitte gib deinen Code ein:")
+                Text("Please enter your code:")
                     .multilineTextAlignment(.center)
                     .minimumScaleFactor(0.5)
                 TextField("Code", text: $otp)
@@ -50,7 +50,7 @@ struct CodeView: View {
             }
             
             ProgressButtonView(
-                title: "Weiter",
+                title: "Continue",
                 showProgress: $showProgress,
                 action: {
                     verifyCode(otp, phoneNumber)
@@ -59,7 +59,7 @@ struct CodeView: View {
             .disabled(!isEnabled)
             
             LockedButtonView(
-                title: "Code erneut anfordern",
+                title: "Request code again",
                 action: {
                     rerequestCode(phoneNumber)
                 })

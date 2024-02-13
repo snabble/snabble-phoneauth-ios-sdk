@@ -90,7 +90,7 @@ struct PhoneAuthScreen: View {
                 codeView
             })
         }.alert(isPresented: $showingAlert) {
-            Alert(title: Text("Erfolgreich angemeldet"))
+            Alert(title: Text("Logged in successfully"))
         }
     }
     

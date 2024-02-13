@@ -48,7 +48,7 @@ struct NumberView: View {
     var body: some View {
         VStack(spacing: 8) {
             VStack(spacing: 16) {
-                Text("Bitte gib deine Telefonnummer ein:")
+                Text("Please enter your phone number:")
                     .multilineTextAlignment(.center)
                     .padding(.bottom, 8)
             }
@@ -62,7 +62,7 @@ struct NumberView: View {
                         .background(.quaternary)
                         .clipShape(RoundedRectangle(cornerRadius: 6))
                     
-                    TextField("Telefonnummer", text: $number)
+                    TextField("Phone number", text: $number)
                         .keyboardType(.phonePad)
                         .focused($focusedField, equals: .phoneNumber)
                         .submitLabel(.continue)
@@ -77,7 +77,7 @@ struct NumberView: View {
                 .padding(.horizontal, 24)
                 
                 ProgressButtonView(
-                    title: "Weiter",
+                    title: "Continue",
                     showProgress: $showProgress,
                     action: {
                         submit()
@@ -99,7 +99,7 @@ struct NumberView: View {
         .onAppear {
             focusedField = .phoneNumber
         }
-        .navigationTitle("Anmelden")
+        .navigationTitle("Sign in")
     }
     
     private func submit() {
