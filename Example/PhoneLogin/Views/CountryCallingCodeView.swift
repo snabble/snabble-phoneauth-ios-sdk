@@ -46,7 +46,7 @@ private struct CountryCallingCodeListView: View {
 
     public var body: some View {
         List {
-            ForEach(codes, id: \.countryCode) { value in
+            ForEach(codes.sorted(by: { $0.name < $1.name }), id: \.countryCode) { value in
                 CountryCallingCodeRow(code: value, isSelected: value == selectedCode)
                     .onTapGesture {
                         self.selectedCode = value
