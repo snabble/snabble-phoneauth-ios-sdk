@@ -22,12 +22,12 @@ struct CountryCallingCodeView: View {
     
     var body: some View {
         HStack {
-            if let flag = selectedCode.flagSymbol {
-                Text(flag)
-            }
             Button(action: {
                 showMenu = true
             }) {
+                if let flag = selectedCode.flagSymbol {
+                    Text(flag)
+                }
                 Text("+\(selectedCode.callingCode)")
             }
             .foregroundColor(.primary)
@@ -39,19 +39,28 @@ struct CountryCallingCodeView: View {
 }
 
 private struct CountryCallingCodeListView: View {
-    @State var codes: [CountryCallingCode]
+    let codes: [CountryCallingCode]
     @Binding var selectedCode: CountryCallingCode
+    @State private var selection: String?
 
     @Environment(\.dismiss) var dismiss
-
+    
     public var body: some View {
-        List {
-            ForEach(codes.sorted(by: { $0.name < $1.name }), id: \.countryCode) { value in
+        ScrollViewReader { proxy in
+            List(codes.sorted(by: { $0.name < $1.name }), id: \.countryCode, selection: $selection) { value in
                 CountryCallingCodeRow(code: value, isSelected: value == selectedCode)
+                    .id(value.name)
                     .onTapGesture {
                         self.selectedCode = value
+                        selection = value.name
                         dismiss()
                     }
+            }
+            .onAppear {
+                selection = selectedCode.name
+                withAnimation {
+                    proxy.scrollTo(selection, anchor: .center)
+                }
             }
         }
     }
