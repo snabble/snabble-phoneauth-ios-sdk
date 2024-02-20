@@ -16,8 +16,8 @@ public enum HTTPError: LocalizedError {
     public var errorDescription: String? {
         switch self {
         case let .invalid(response, clientError):
-            if let error = clientError {
-                return error.message
+            if let clientError {
+                return clientError.message
             } else {
                 return "Error: statusCode: \(response.httpStatusCode.rawValue)"
             }
