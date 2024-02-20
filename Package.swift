@@ -16,7 +16,8 @@ let package = Package(
             targets: ["SnabblePhoneAuth"]),
     ],
     dependencies: [
-        .package(name: "SnabbleNetwork", url: "https://github.com/snabble/snabble-network-ios-sdk", from: "1.0.0"),
+//        .package(name: "SnabbleNetwork", url: "https://github.com/snabble/snabble-network-ios-sdk", branch: "apps-1336"),
+        .package(name: "SnabbleNetwork", path: "../snabble-network-ios-sdk")
     ],
     targets: [
         .target(

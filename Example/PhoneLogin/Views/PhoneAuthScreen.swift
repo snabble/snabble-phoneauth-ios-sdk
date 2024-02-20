@@ -124,12 +124,12 @@ struct PhoneAuthScreen: View {
                     dismiss()
                 }
             } catch {
-                if case let HTTPError.invalid(response) = error {
-                    if response.httpStatusCode == .forbidden {
-                        errorMessage = "Falscher Code"
+                if case let HTTPError.invalid(_, clientError) = error {
+                    if let clientError = clientError {
+                        errorMessage = clientError.message
+                    } else {
+                        errorMessage = error.localizedDescription
                     }
-                } else {
-                    errorMessage = error.localizedDescription
                 }
             }
             showProgress = false
