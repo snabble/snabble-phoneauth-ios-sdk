@@ -1,6 +1,15 @@
 {
   "pins" : [
     {
+      "identity" : "snabble-network-ios-sdk",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/snabble/snabble-network-ios-sdk",
+      "state" : {
+        "branch" : "main",
+        "revision" : "cdbf0b47069e1336f084685bf1274dfff136e6b7"
+      }
+    },
+    {
       "identity" : "swift-crypto",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-crypto.git",
