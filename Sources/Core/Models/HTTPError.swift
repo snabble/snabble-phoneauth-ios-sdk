@@ -28,7 +28,7 @@ public enum HTTPError: LocalizedError {
 extension SnabbleNetwork.HTTPError {
     func fromDTO() -> HTTPError {
         switch self {
-        case .invalid(let response):
+        case .invalid(let response, _):
             return .invalid(response)
         case .unknown(let reponse):
             return .unknown(reponse)
