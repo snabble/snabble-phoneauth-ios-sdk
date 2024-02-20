@@ -21,26 +21,32 @@ public protocol PhoneAuthDelegate: AnyObject {
 
 public protocol PhoneAuthDataSource: AnyObject {
     func appUserId(forConfiguration configuration: Configuration) -> AppUser?
+    func projectId(forConfiguration configuration: Configuration) -> String?
 }
 
 public class PhoneAuth {
-    public var configuration: Configuration
     public weak var delegate: PhoneAuthDelegate?
     public weak var dataSource: PhoneAuthDataSource?
     
     private let networkManager: NetworkManager
     
+    public var configuration: Configuration {
+        networkManager.configuration.fromDTO()
+    }
+    
     public init(configuration: Configuration, urlSession: URLSession = .shared) {
-        self.configuration = configuration
-        self.networkManager = NetworkManager(urlSession: urlSession)
-        self.networkManager.authenticator.delegate = self
+        self.networkManager = NetworkManager(
+            configuration: configuration.toDTO(),
+            urlSession: urlSession
+        )
+        self.networkManager.delegate = self
     }
 }
 
 extension PhoneAuth: PhoneAuthProviding {
     public func startAuthorization(phoneNumber: String) async throws -> String {
         let endpoint = Endpoints.Phone.auth(
-            configuration: configuration.toDTO(),
+            appId: configuration.appId,
             phoneNumber: phoneNumber
         )
         
@@ -67,7 +73,7 @@ extension PhoneAuth: PhoneAuthProviding {
     @discardableResult
     public func login(phoneNumber: String, OTP: String) async throws -> AppUser? {
         let endpoint = Endpoints.Phone.login(
-            configuration: configuration.toDTO(),
+            appId: configuration.appId,
             phoneNumber: phoneNumber,
             OTP: OTP
         )
@@ -94,7 +100,7 @@ extension PhoneAuth: PhoneAuthProviding {
     
     public func delete(phoneNumber: String) async throws {
         let endpoint = Endpoints.Phone.delete(
-            configuration: configuration.toDTO(),
+            appId: configuration.appId,
             phoneNumber: phoneNumber
         )
         
@@ -131,16 +137,16 @@ extension Publisher {
     }
 }
 
-extension PhoneAuth: AuthenticatorDelegate {
-    public func authenticator(_ authenticator: SnabbleNetwork.Authenticator, appUserForConfiguration configuration: SnabbleNetwork.Configuration) -> SnabbleNetwork.AppUser? {
+extension PhoneAuth: NetworkManagerDelegate {
+    public func networkManager(_ networkManager: SnabbleNetwork.NetworkManager, appUserForConfiguration configuration: SnabbleNetwork.Configuration) -> SnabbleNetwork.AppUser? {
         dataSource?.appUserId(forConfiguration: configuration.fromDTO())?.toDTO()
     }
     
-    public func authenticator(_ authenticator: SnabbleNetwork.Authenticator, appUserUpdated appUser: SnabbleNetwork.AppUser) {
+    public func networkManager(_ networkManager: SnabbleNetwork.NetworkManager, appUserUpdated appUser: SnabbleNetwork.AppUser) {
         delegate?.phoneAuth(self, didReceiveAppUser: appUser.fromDTO())
     }
     
-    public func authenticator(_ authenticator: SnabbleNetwork.Authenticator, projectIdForConfiguration configuration: SnabbleNetwork.Configuration) -> String {
-        configuration.projectId
+    public func networkManager(_ networkManager: SnabbleNetwork.NetworkManager, projectIdForConfiguration configuration: SnabbleNetwork.Configuration) -> String? {
+        dataSource?.projectId(forConfiguration: configuration.fromDTO())
     }
 }

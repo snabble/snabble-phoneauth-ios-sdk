@@ -22,6 +22,10 @@ class PhoneAuthScreenViewModel {
 }
 
 extension PhoneAuthScreenViewModel: PhoneAuthDataSource {
+    func projectId(forConfiguration configuration: SnabblePhoneAuth.Configuration) -> String? {
+        Configuration.projectId
+    }
+    
     func appUserId(forConfiguration configuration: SnabblePhoneAuth.Configuration) -> SnabblePhoneAuth.AppUser? {
         appUser
     }
