@@ -23,8 +23,7 @@ extension Configuration {
         return .init(
             appId: appId,
             appSecret: "BWXJ2BFC2JRKRNW4QBASQCF2TTANPTVPOXQJM57JDIECZJQHZWOQ====",
-            domain: .testing,
-            projectId: Self.projectId
+            domain: .testing
         )
     }
     
@@ -32,8 +31,7 @@ extension Configuration {
         return .init(
             appId: appId,
             appSecret: "P3SZXAPPVAZA5JWYXVKFSGGBN4ZV7CKCWJPQDMXSUMNPZ5IPB6NQ====",
-            domain: .staging,
-            projectId: Self.projectId
+            domain: .staging
         )
     }
 
@@ -41,8 +39,7 @@ extension Configuration {
         return .init(
             appId: appId,
             appSecret: "2TKKEG5KXWY6DFOGTZKDUIBTNIRVCYKFZBY32FFRUUWIUAFEIBHQ====",
-            domain: .production,
-            projectId: Self.projectId
+            domain: .production
         )
     }
 
