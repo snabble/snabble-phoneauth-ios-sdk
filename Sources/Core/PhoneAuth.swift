@@ -46,7 +46,6 @@ public class PhoneAuth {
 extension PhoneAuth: PhoneAuthProviding {
     public func startAuthorization(phoneNumber: String) async throws -> String {
         let endpoint = Endpoints.Phone.auth(
-            appId: configuration.appId,
             phoneNumber: phoneNumber
         )
         
@@ -73,7 +72,6 @@ extension PhoneAuth: PhoneAuthProviding {
     @discardableResult
     public func login(phoneNumber: String, OTP: String) async throws -> AppUser? {
         let endpoint = Endpoints.Phone.login(
-            appId: configuration.appId,
             phoneNumber: phoneNumber,
             OTP: OTP
         )
@@ -99,10 +97,7 @@ extension PhoneAuth: PhoneAuthProviding {
     }
     
     public func delete(phoneNumber: String) async throws {
-        let endpoint = Endpoints.Phone.delete(
-            appId: configuration.appId,
-            phoneNumber: phoneNumber
-        )
+        let endpoint = Endpoints.Phone.delete()
         
         return try await withCheckedThrowingContinuation { continuation in
             var cancellable: AnyCancellable?
