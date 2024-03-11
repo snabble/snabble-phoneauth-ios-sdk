@@ -1,0 +1,2739 @@
+{
+  "countries" : [
+    {
+      "label" : "Afghanistan",
+      "code" : "AF",
+      "callingCode" : 93
+    },
+    {
+      "code" : "AL",
+      "label" : "Albania",
+      "callingCode" : 355
+    },
+    {
+      "code" : "DZ",
+      "callingCode" : 13,
+      "label" : "Algeria"
+    },
+    {
+      "label" : "American Samoa",
+      "code" : "AS",
+      "callingCode" : 1
+    },
+    {
+      "code" : "AD",
+      "callingCode" : 376,
+      "label" : "Andorra"
+    },
+    {
+      "callingCode" : 244,
+      "code" : "AO",
+      "label" : "Angola"
+    },
+    {
+      "code" : "AI",
+      "label" : "Anguilla",
+      "callingCode" : 1
+    },
+    {
+      "code" : "AQ",
+      "callingCode" : 672,
+      "label" : "Antarctica"
+    },
+    {
+      "callingCode" : 1,
+      "label" : "Antigua And Barbuda",
+      "code" : "AG"
+    },
+    {
+      "code" : "AR",
+      "label" : "Argentina",
+      "callingCode" : 54
+    },
+    {
+      "label" : "Armenia",
+      "code" : "AM",
+      "callingCode" : 374
+    },
+    {
+      "callingCode" : 297,
+      "code" : "AW",
+      "label" : "Aruba"
+    },
+    {
+      "code" : "AU",
+      "label" : "Australia",
+      "callingCode" : 61
+    },
+    {
+      "callingCode" : 43,
+      "label" : "Austria",
+      "code" : "AT"
+    },
+    {
+      "label" : "Azerbaijan",
+      "callingCode" : 994,
+      "code" : "AZ"
+    },
+    {
+      "label" : "Bahamas",
+      "code" : "BS",
+      "callingCode" : 1
+    },
+    {
+      "code" : "BH",
+      "label" : "Bahrain",
+      "callingCode" : 973
+    },
+    {
+      "code" : "BD",
+      "label" : "Bangladesh",
+      "callingCode" : 880
+    },
+    {
+      "code" : "BB",
+      "label" : "Barbados",
+      "callingCode" : 1
+    },
+    {
+      "code" : "BY",
+      "label" : "Belarus",
+      "callingCode" : 375
+    },
+    {
+      "label" : "Belgium",
+      "callingCode" : 32,
+      "code" : "BE"
+    },
+    {
+      "label" : "Belize",
+      "code" : "BZ",
+      "callingCode" : 501
+    },
+    {
+      "code" : "BJ",
+      "label" : "Benin",
+      "callingCode" : 229
+    },
+    {
+      "label" : "Bermuda",
+      "code" : "BM",
+      "callingCode" : 1
+    },
+    {
+      "code" : "BT",
+      "callingCode" : 975,
+      "label" : "Bhutan"
+    },
+    {
+      "label" : "Bolivia",
+      "code" : "BO",
+      "callingCode" : 591
+    },
+    {
+      "label" : "Bonaire, Sint Eustatius and Saba",
+      "code" : "BQ",
+      "callingCode" : 599
+    },
+    {
+      "label" : "Bosnia And Herzegowina (Herzegowina)",
+      "callingCode" : 387,
+      "code" : "BA"
+    },
+    {
+      "code" : "BW",
+      "label" : "Botswana",
+      "callingCode" : 267
+    },
+    {
+      "code" : "BV",
+      "label" : "Bouvet Island",
+      "callingCode" : 47
+    },
+    {
+      "label" : "Brazil",
+      "callingCode" : 55,
+      "code" : "BR"
+    },
+    {
+      "callingCode" : 246,
+      "code" : "IO",
+      "label" : "British Indian Ocean Territory"
+    },
+    {
+      "code" : "BN",
+      "label" : "Brunei Darussalam",
+      "callingCode" : 673
+    },
+    {
+      "label" : "Bulgaria",
+      "code" : "BG",
+      "callingCode" : 359
+    },
+    {
+      "code" : "BF",
+      "label" : "Burkina Faso",
+      "callingCode" : 226
+    },
+    {
+      "label" : "Burundi",
+      "callingCode" : 257,
+      "code" : "BI"
+    },
+    {
+      "label" : "Cambodia",
+      "callingCode" : 855,
+      "code" : "KH"
+    },
+    {
+      "callingCode" : 237,
+      "label" : "Cameroon",
+      "code" : "CM"
+    },
+    {
+      "label" : "Canada",
+      "callingCode" : 1,
+      "code" : "CA"
+    },
+    {
+      "label" : "Cape Verde",
+      "code" : "CV",
+      "callingCode" : 238
+    },
+    {
+      "label" : "Cayman Islands",
+      "code" : "KY",
+      "callingCode" : 1
+    },
+    {
+      "code" : "CF",
+      "label" : "Central African Republic",
+      "callingCode" : 236
+    },
+    {
+      "callingCode" : 235,
+      "code" : "TD",
+      "label" : "Chad"
+    },
+    {
+      "callingCode" : 56,
+      "label" : "Chile",
+      "code" : "CL"
+    },
+    {
+      "label" : "China",
+      "code" : "CN",
+      "callingCode" : 86
+    },
+    {
+      "callingCode" : 599,
+      "label" : "Curaçao",
+      "code" : "CW"
+    },
+    {
+      "label" : "Christmas Island",
+      "callingCode" : 61,
+      "code" : "CX"
+    },
+    {
+      "code" : "CC",
+      "label" : "Cocos (Keeling) Islands",
+      "callingCode" : 61
+    },
+    {
+      "code" : "CO",
+      "callingCode" : 57,
+      "label" : "Colombia"
+    },
+    {
+      "callingCode" : 269,
+      "label" : "Comoros",
+      "code" : "KM"
+    },
+    {
+      "callingCode" : 242,
+      "code" : "CG",
+      "label" : "Congo"
+    },
+    {
+      "code" : "CK",
+      "label" : "Cook Islands",
+      "callingCode" : 682
+    },
+    {
+      "code" : "CR",
+      "label" : "Costa Rica",
+      "callingCode" : 506
+    },
+    {
+      "code" : "CI",
+      "label" : "Cote d'Ivoire",
+      "callingCode" : 225
+    },
+    {
+      "code" : "HR",
+      "label" : "Croatia (local name: Hrvatska)",
+      "callingCode" : 385
+    },
+    {
+      "code" : "CU",
+      "label" : "Cuba",
+      "callingCode" : 53
+    },
+    {
+      "code" : "CY",
+      "callingCode" : 357,
+      "label" : "Cyprus"
+    },
+    {
+      "label" : "Czech Republic",
+      "callingCode" : 420,
+      "code" : "CZ"
+    },
+    {
+      "code" : "DK",
+      "label" : "Denmark",
+      "callingCode" : 45
+    },
+    {
+      "code" : "DJ",
+      "callingCode" : 253,
+      "label" : "Djibouti"
+    },
+    {
+      "code" : "DM",
+      "label" : "Dominica",
+      "callingCode" : 1
+    },
+    {
+      "label" : "Dominican Republic",
+      "code" : "DO",
+      "callingCode" : 1
+    },
+    {
+      "callingCode" : 670,
+      "code" : "TL",
+      "label" : "Timor-Leste"
+    },
+    {
+      "label" : "Ecuador",
+      "code" : "EC",
+      "callingCode" : 593
+    },
+    {
+      "callingCode" : 20,
+      "label" : "Egypt",
+      "code" : "EG"
+    },
+    {
+      "code" : "SV",
+      "label" : "El Salvador",
+      "callingCode" : 503
+    },
+    {
+      "label" : "Equatorial Guinea",
+      "code" : "GQ",
+      "callingCode" : 240
+    },
+    {
+      "callingCode" : 291,
+      "label" : "Eritrea",
+      "code" : "ER"
+    },
+    {
+      "label" : "Estonia",
+      "callingCode" : 372,
+      "code" : "EE"
+    },
+    {
+      "code" : "ET",
+      "callingCode" : 251,
+      "label" : "Ethiopia"
+    },
+    {
+      "code" : "FK",
+      "label" : "Falkland Islands (Malvinas)",
+      "callingCode" : 500
+    },
+    {
+      "code" : "FO",
+      "label" : "Faroe Islands",
+      "callingCode" : 298
+    },
+    {
+      "label" : "Fiji",
+      "code" : "FJ",
+      "callingCode" : 679
+    },
+    {
+      "callingCode" : 358,
+      "code" : "FI",
+      "label" : "Finland"
+    },
+    {
+      "label" : "France",
+      "callingCode" : 33,
+      "code" : "FR"
+    },
+    {
+      "label" : "French Guiana",
+      "callingCode" : 594,
+      "code" : "GF"
+    },
+    {
+      "callingCode" : 689,
+      "label" : "French Polynesia",
+      "code" : "PF"
+    },
+    {
+      "code" : "TF",
+      "label" : "French Southern Territories",
+      "callingCode" : 262
+    },
+    {
+      "callingCode" : 241,
+      "label" : "Gabon",
+      "code" : "GA"
+    },
+    {
+      "label" : "Gambia",
+      "code" : "GM",
+      "callingCode" : 220
+    },
+    {
+      "code" : "GE",
+      "label" : "Georgia",
+      "callingCode" : 995
+    },
+    {
+      "code" : "DE",
+      "callingCode" : 49,
+      "label" : "Germany"
+    },
+    {
+      "label" : "Ghana",
+      "callingCode" : 233,
+      "code" : "GH"
+    },
+    {
+      "callingCode" : 350,
+      "code" : "GI",
+      "label" : "Gibraltar"
+    },
+    {
+      "code" : "GR",
+      "label" : "Greece",
+      "callingCode" : 30
+    },
+    {
+      "code" : "GL",
+      "callingCode" : 299,
+      "label" : "Greenland"
+    },
+    {
+      "code" : "GD",
+      "label" : "Grenada",
+      "callingCode" : 1
+    },
+    {
+      "code" : "GP",
+      "label" : "Guadeloupe",
+      "callingCode" : 590
+    },
+    {
+      "callingCode" : 1,
+      "label" : "Guam",
+      "code" : "GU"
+    },
+    {
+      "code" : "GT",
+      "label" : "Guatemala",
+      "callingCode" : 502
+    },
+    {
+      "label" : "Guinea",
+      "code" : "GN",
+      "callingCode" : 224
+    },
+    {
+      "callingCode" : 245,
+      "code" : "GW",
+      "label" : "Guinea-Bissau"
+    },
+    {
+      "code" : "GY",
+      "label" : "Guyana",
+      "callingCode" : 592
+    },
+    {
+      "label" : "Haiti",
+      "code" : "HT",
+      "callingCode" : 509
+    },
+    {
+      "code" : "HM",
+      "callingCode" : 672,
+      "label" : "Heard And Mc Donald Islands"
+    },
+    {
+      "label" : "Honduras",
+      "callingCode" : 504,
+      "code" : "HN"
+    },
+    {
+      "label" : "Hong Kong",
+      "callingCode" : 852,
+      "code" : "HK"
+    },
+    {
+      "code" : "HU",
+      "label" : "Hungary",
+      "callingCode" : 36
+    },
+    {
+      "callingCode" : 354,
+      "code" : "IS",
+      "label" : "Iceland"
+    },
+    {
+      "label" : "India",
+      "code" : "IN",
+      "callingCode" : 91
+    },
+    {
+      "code" : "ID",
+      "label" : "Indonesia",
+      "callingCode" : 62
+    },
+    {
+      "code" : "IR",
+      "label" : "Iran (Islamic Republic Of)",
+      "callingCode" : 98
+    },
+    {
+      "callingCode" : 964,
+      "code" : "IQ",
+      "label" : "Iraq"
+    },
+    {
+      "callingCode" : 353,
+      "code" : "IE",
+      "label" : "Ireland"
+    },
+    {
+      "code" : "IL",
+      "label" : "Israel",
+      "callingCode" : 972
+    },
+    {
+      "callingCode" : 39,
+      "code" : "IT",
+      "label" : "Italy"
+    },
+    {
+      "label" : "Jamaica",
+      "code" : "JM",
+      "callingCode" : 1
+    },
+    {
+      "label" : "Japan",
+      "code" : "JP",
+      "callingCode" : 81
+    },
+    {
+      "label" : "Jordan",
+      "callingCode" : 962,
+      "code" : "JO"
+    },
+    {
+      "code" : "KZ",
+      "label" : "Kazakhstan",
+      "callingCode" : 7
+    },
+    {
+      "code" : "KE",
+      "label" : "Kenya",
+      "callingCode" : 254
+    },
+    {
+      "callingCode" : 686,
+      "label" : "Kiribati",
+      "code" : "KI"
+    },
+    {
+      "code" : "KP",
+      "callingCode" : 850,
+      "label" : "Korea, Democratic People's Republic Of"
+    },
+    {
+      "label" : "Korea, Republic Of",
+      "callingCode" : 82,
+      "code" : "KR"
+    },
+    {
+      "code" : "KW",
+      "label" : "Kuwait",
+      "callingCode" : 965
+    },
+    {
+      "code" : "KG",
+      "label" : "Kyrgyzstan",
+      "callingCode" : 996
+    },
+    {
+      "callingCode" : 856,
+      "code" : "LA",
+      "label" : "Lao People's Democratic Republic"
+    },
+    {
+      "callingCode" : 371,
+      "code" : "LV",
+      "label" : "Latvia"
+    },
+    {
+      "label" : "Lebanon",
+      "callingCode" : 961,
+      "code" : "LB"
+    },
+    {
+      "label" : "Lesotho",
+      "callingCode" : 266,
+      "code" : "LS"
+    },
+    {
+      "label" : "Liberia",
+      "code" : "LR",
+      "callingCode" : 231
+    },
+    {
+      "label" : "Libyan Arab Jamahiriya",
+      "code" : "LY",
+      "callingCode" : 218
+    },
+    {
+      "code" : "LI",
+      "callingCode" : 423,
+      "label" : "Liechtenstein"
+    },
+    {
+      "label" : "Lithuania",
+      "callingCode" : 370,
+      "code" : "LT"
+    },
+    {
+      "code" : "LU",
+      "callingCode" : 352,
+      "label" : "Luxembourg"
+    },
+    {
+      "callingCode" : 853,
+      "label" : "Macau",
+      "code" : "MO"
+    },
+    {
+      "label" : "Madagascar",
+      "callingCode" : 261,
+      "code" : "MG"
+    },
+    {
+      "label" : "Malawi",
+      "callingCode" : 265,
+      "code" : "MW"
+    },
+    {
+      "code" : "MY",
+      "label" : "Malaysia",
+      "callingCode" : 60
+    },
+    {
+      "callingCode" : 960,
+      "label" : "Maldives",
+      "code" : "MV"
+    },
+    {
+      "code" : "ML",
+      "label" : "Mali",
+      "callingCode" : 223
+    },
+    {
+      "label" : "Malta",
+      "callingCode" : 356,
+      "code" : "MT"
+    },
+    {
+      "label" : "Marshall Islands",
+      "callingCode" : 692,
+      "code" : "MH"
+    },
+    {
+      "code" : "MQ",
+      "label" : "Martinique",
+      "callingCode" : 596
+    },
+    {
+      "code" : "MR",
+      "callingCode" : 222,
+      "label" : "Mauritania"
+    },
+    {
+      "label" : "Mauritius",
+      "callingCode" : 230,
+      "code" : "MU"
+    },
+    {
+      "label" : "Mayotte",
+      "callingCode" : 262,
+      "code" : "YT"
+    },
+    {
+      "code" : "MX",
+      "callingCode" : 52,
+      "label" : "Mexico"
+    },
+    {
+      "callingCode" : 691,
+      "code" : "FM",
+      "label" : "Micronesia, Federated States Of"
+    },
+    {
+      "callingCode" : 373,
+      "code" : "MD",
+      "label" : "Moldova, Republic Of"
+    },
+    {
+      "label" : "Monaco",
+      "callingCode" : 377,
+      "code" : "MC"
+    },
+    {
+      "code" : "MN",
+      "label" : "Mongolia",
+      "callingCode" : 976
+    },
+    {
+      "code" : "MS",
+      "callingCode" : 1,
+      "label" : "Montserrat"
+    },
+    {
+      "label" : "Morocco",
+      "callingCode" : 212,
+      "code" : "MA"
+    },
+    {
+      "code" : "MZ",
+      "label" : "Mozambique",
+      "callingCode" : 258
+    },
+    {
+      "callingCode" : 95,
+      "code" : "MM",
+      "label" : "Myanmar"
+    },
+    {
+      "code" : "NA",
+      "callingCode" : 264,
+      "label" : "Namibia"
+    },
+    {
+      "callingCode" : 674,
+      "code" : "NR",
+      "label" : "Nauru"
+    },
+    {
+      "code" : "NP",
+      "label" : "Nepal",
+      "callingCode" : 977
+    },
+    {
+      "callingCode" : 31,
+      "label" : "Netherlands",
+      "code" : "NL"
+    },
+    {
+      "label" : "New Caledonia",
+      "callingCode" : 687,
+      "code" : "NC"
+    },
+    {
+      "label" : "New Zealand",
+      "code" : "NZ",
+      "callingCode" : 64
+    },
+    {
+      "code" : "NI",
+      "callingCode" : 505,
+      "label" : "Nicaragua"
+    },
+    {
+      "callingCode" : 227,
+      "label" : "Niger",
+      "code" : "NE"
+    },
+    {
+      "label" : "Nigeria",
+      "callingCode" : 234,
+      "code" : "NG"
+    },
+    {
+      "label" : "Niue",
+      "callingCode" : 683,
+      "code" : "NU"
+    },
+    {
+      "callingCode" : 672,
+      "code" : "NF",
+      "label" : "Norfolk Island"
+    },
+    {
+      "code" : "MP",
+      "callingCode" : 1,
+      "label" : "Northern Mariana Islands"
+    },
+    {
+      "code" : "NO",
+      "label" : "Norway",
+      "callingCode" : 47
+    },
+    {
+      "code" : "OM",
+      "label" : "Oman",
+      "callingCode" : 968
+    },
+    {
+      "label" : "Pakistan",
+      "code" : "PK",
+      "callingCode" : 92
+    },
+    {
+      "callingCode" : 680,
+      "label" : "Palau",
+      "code" : "PW"
+    },
+    {
+      "callingCode" : 507,
+      "code" : "PA",
+      "label" : "Panama"
+    },
+    {
+      "callingCode" : 675,
+      "code" : "PG",
+      "label" : "Papua New Guinea"
+    },
+    {
+      "label" : "Paraguay",
+      "callingCode" : 595,
+      "code" : "PY"
+    },
+    {
+      "callingCode" : 51,
+      "code" : "PE",
+      "label" : "Peru"
+    },
+    {
+      "callingCode" : 63,
+      "code" : "PH",
+      "label" : "Philippines"
+    },
+    {
+      "label" : "Pitcairn",
+      "callingCode" : 64,
+      "code" : "PN"
+    },
+    {
+      "label" : "Poland",
+      "callingCode" : 48,
+      "code" : "PL"
+    },
+    {
+      "label" : "Portugal",
+      "code" : "PT",
+      "callingCode" : 351
+    },
+    {
+      "callingCode" : 1,
+      "code" : "PR",
+      "label" : "Puerto Rico"
+    },
+    {
+      "callingCode" : 974,
+      "code" : "QA",
+      "label" : "Qatar"
+    },
+    {
+      "label" : "Republic Of Macedonia (The Former Yugoslav)",
+      "callingCode" : 389,
+      "code" : "MK"
+    },
+    {
+      "callingCode" : 262,
+      "code" : "RE",
+      "label" : "Reunion"
+    },
+    {
+      "label" : "Romania",
+      "code" : "RO",
+      "callingCode" : 40
+    },
+    {
+      "label" : "Russian Federation",
+      "callingCode" : 7,
+      "code" : "RU"
+    },
+    {
+      "code" : "RW",
+      "label" : "Rwanda",
+      "callingCode" : 250
+    },
+    {
+      "label" : "Saint Kitts And Nevis",
+      "callingCode" : 1,
+      "code" : "KN"
+    },
+    {
+      "code" : "LC",
+      "callingCode" : 1,
+      "label" : "Saint Lucia"
+    },
+    {
+      "label" : "Saint Vincent And The Grenadines",
+      "callingCode" : 1,
+      "code" : "VC"
+    },
+    {
+      "callingCode" : 685,
+      "code" : "WS",
+      "label" : "Samoa"
+    },
+    {
+      "code" : "SM",
+      "label" : "San Marino",
+      "callingCode" : 378
+    },
+    {
+      "label" : "Sao Tome And Principe",
+      "callingCode" : 239,
+      "code" : "ST"
+    },
+    {
+      "code" : "SA",
+      "label" : "Saudi Arabia",
+      "callingCode" : 966
+    },
+    {
+      "code" : "SN",
+      "label" : "Senegal",
+      "callingCode" : 221
+    },
+    {
+      "label" : "Seychelles",
+      "code" : "SC",
+      "callingCode" : 248
+    },
+    {
+      "label" : "Sierra Leone",
+      "callingCode" : 232,
+      "code" : "SL"
+    },
+    {
+      "callingCode" : 65,
+      "label" : "Singapore",
+      "code" : "SG"
+    },
+    {
+      "callingCode" : 421,
+      "code" : "SK",
+      "label" : "Slovakia (Slovak Republic)"
+    },
+    {
+      "callingCode" : 386,
+      "label" : "Slovenia",
+      "code" : "SI"
+    },
+    {
+      "code" : "SB",
+      "label" : "Solomon Islands",
+      "callingCode" : 677
+    },
+    {
+      "callingCode" : 252,
+      "label" : "Somalia",
+      "code" : "SO"
+    },
+    {
+      "code" : "SX",
+      "label" : "Sint Maarten",
+      "callingCode" : 1
+    },
+    {
+      "code" : "ZA",
+      "label" : "South Africa",
+      "callingCode" : 27
+    },
+    {
+      "code" : "GS",
+      "label" : "South Georgia And The South Sandwich Islands",
+      "callingCode" : 500
+    },
+    {
+      "label" : "Spain",
+      "callingCode" : 34,
+      "code" : "ES"
+    },
+    {
+      "label" : "Sri Lanka",
+      "code" : "LK",
+      "callingCode" : 94
+    },
+    {
+      "code" : "SH",
+      "label" : "St. Helena",
+      "callingCode" : 290
+    },
+    {
+      "callingCode" : 508,
+      "label" : "St. Pierre And Miquelon",
+      "code" : "PM"
+    },
+    {
+      "code" : "SD",
+      "label" : "Sudan",
+      "callingCode" : 249
+    },
+    {
+      "label" : "Suriname",
+      "code" : "SR",
+      "callingCode" : 597
+    },
+    {
+      "label" : "Svalbard And Jan Mayen Islands",
+      "code" : "SJ",
+      "callingCode" : 47
+    },
+    {
+      "code" : "SZ",
+      "callingCode" : 268,
+      "label" : "Swaziland"
+    },
+    {
+      "code" : "SE",
+      "label" : "Sweden",
+      "callingCode" : 46
+    },
+    {
+      "label" : "Switzerland",
+      "code" : "CH",
+      "callingCode" : 41
+    },
+    {
+      "callingCode" : 963,
+      "label" : "Syrian Arab Republic",
+      "code" : "SY"
+    },
+    {
+      "label" : "Taiwan, Province Of China",
+      "callingCode" : 886,
+      "code" : "TW"
+    },
+    {
+      "label" : "Tajikistan",
+      "code" : "TJ",
+      "callingCode" : 992
+    },
+    {
+      "label" : "Tanzania, United Republic Of",
+      "callingCode" : 255,
+      "code" : "TZ"
+    },
+    {
+      "code" : "TH",
+      "callingCode" : 66,
+      "label" : "Thailand"
+    },
+    {
+      "callingCode" : 228,
+      "code" : "TG",
+      "label" : "Togo"
+    },
+    {
+      "callingCode" : 690,
+      "code" : "TK",
+      "label" : "Tokelau"
+    },
+    {
+      "callingCode" : 676,
+      "label" : "Tonga",
+      "code" : "TO"
+    },
+    {
+      "callingCode" : 1,
+      "code" : "TT",
+      "label" : "Trinidad And Tobago"
+    },
+    {
+      "callingCode" : 216,
+      "label" : "Tunisia",
+      "code" : "TN"
+    },
+    {
+      "code" : "TR",
+      "label" : "Turkey",
+      "callingCode" : 90
+    },
+    {
+      "label" : "Turkmenistan",
+      "callingCode" : 993,
+      "code" : "TM"
+    },
+    {
+      "code" : "TC",
+      "label" : "Turks And Caicos Islands",
+      "callingCode" : 1
+    },
+    {
+      "label" : "Tuvalu",
+      "callingCode" : 688,
+      "code" : "TV"
+    },
+    {
+      "label" : "Uganda",
+      "code" : "UG",
+      "callingCode" : 256
+    },
+    {
+      "callingCode" : 380,
+      "code" : "UA",
+      "label" : "Ukraine"
+    },
+    {
+      "callingCode" : 971,
+      "code" : "AE",
+      "label" : "United Arab Emirates"
+    },
+    {
+      "label" : "United Kingdom (UK)",
+      "callingCode" : 44,
+      "code" : "GB"
+    },
+    {
+      "code" : "US",
+      "label" : "United States",
+      "callingCode" : 1
+    },
+    {
+      "code" : "UY",
+      "callingCode" : 598,
+      "label" : "Uruguay"
+    },
+    {
+      "callingCode" : 998,
+      "code" : "UZ",
+      "label" : "Uzbekistan"
+    },
+    {
+      "label" : "Vanuatu",
+      "code" : "VU",
+      "callingCode" : 678
+    },
+    {
+      "label" : "Vatican City State (Holy See)",
+      "callingCode" : 39,
+      "code" : "VA"
+    },
+    {
+      "code" : "VE",
+      "callingCode" : 58,
+      "label" : "Venezuela"
+    },
+    {
+      "code" : "VN",
+      "callingCode" : 84,
+      "label" : "Vietnam"
+    },
+    {
+      "code" : "VG",
+      "label" : "Virgin Islands (British)",
+      "callingCode" : 1
+    },
+    {
+      "label" : "Virgin Islands (U.S.)",
+      "callingCode" : 1,
+      "code" : "VI"
+    },
+    {
+      "code" : "WF",
+      "label" : "Wallis And Futuna Islands",
+      "callingCode" : 681
+    },
+    {
+      "code" : "YE",
+      "label" : "Yemen",
+      "callingCode" : 967
+    },
+    {
+      "label" : "Congo",
+      "callingCode" : 243,
+      "code" : "CD"
+    },
+    {
+      "label" : "Zambia",
+      "callingCode" : 260,
+      "code" : "ZM"
+    },
+    {
+      "code" : "ZW",
+      "label" : "Zimbabwe",
+      "callingCode" : 263
+    }
+  ],
+  "subdivisions" : {
+    "TH" : [
+      {
+        "label" : "Amnat Charoen",
+        "code" : "37"
+      },
+      {
+        "code" : "15",
+        "label" : "Ang Thong"
+      },
+      {
+        "label" : "Bueng Kan",
+        "code" : "38"
+      },
+      {
+        "code" : "31",
+        "label" : "Buri Ram"
+      },
+      {
+        "label" : "Chachoengsao",
+        "code" : "24"
+      },
+      {
+        "code" : "18",
+        "label" : "Chai Nat"
+      },
+      {
+        "code" : "36",
+        "label" : "Chaiyaphum"
+      },
+      {
+        "code" : "22",
+        "label" : "Chanthaburi"
+      },
+      {
+        "code" : "50",
+        "label" : "Chiang Mai"
+      },
+      {
+        "label" : "Chiang Rai",
+        "code" : "57"
+      },
+      {
+        "code" : "20",
+        "label" : "Chon Buri"
+      },
+      {
+        "code" : "86",
+        "label" : "Chumphon"
+      },
+      {
+        "code" : "46",
+        "label" : "Kalasin"
+      },
+      {
+        "code" : "62",
+        "label" : "Kamphaeng Phet"
+      },
+      {
+        "code" : "71",
+        "label" : "Kanchanaburi"
+      },
+      {
+        "code" : "40",
+        "label" : "Khon Kaen"
+      },
+      {
+        "code" : "81",
+        "label" : "Krabi"
+      },
+      {
+        "label" : "Krung Thep Maha Nakhon [Bangkok]",
+        "code" : "10"
+      },
+      {
+        "code" : "52",
+        "label" : "Lampang"
+      },
+      {
+        "label" : "Lamphun",
+        "code" : "51"
+      },
+      {
+        "code" : "42",
+        "label" : "Loei"
+      },
+      {
+        "label" : "Lop Buri",
+        "code" : "16"
+      },
+      {
+        "code" : "58",
+        "label" : "Mae Hong Son"
+      },
+      {
+        "label" : "Maha Sarakham",
+        "code" : "44"
+      },
+      {
+        "code" : "49",
+        "label" : "Mukdahan"
+      },
+      {
+        "code" : "26",
+        "label" : "Nakhon Nayok"
+      },
+      {
+        "label" : "Nakhon Pathom",
+        "code" : "73"
+      },
+      {
+        "code" : "48",
+        "label" : "Nakhon Phanom"
+      },
+      {
+        "code" : "30",
+        "label" : "Nakhon Ratchasima"
+      },
+      {
+        "label" : "Nakhon Sawan",
+        "code" : "60"
+      },
+      {
+        "code" : "80",
+        "label" : "Nakhon Si Thammarat"
+      },
+      {
+        "label" : "Nan",
+        "code" : "55"
+      },
+      {
+        "label" : "Narathiwat",
+        "code" : "96"
+      },
+      {
+        "label" : "Nong Bua Lam Phu",
+        "code" : "39"
+      },
+      {
+        "code" : "43",
+        "label" : "Nong Khai"
+      },
+      {
+        "code" : "12",
+        "label" : "Nonthaburi"
+      },
+      {
+        "code" : "13",
+        "label" : "Pathum Thani"
+      },
+      {
+        "label" : "Pattani",
+        "code" : "94"
+      },
+      {
+        "code" : "82",
+        "label" : "Phangnga"
+      },
+      {
+        "code" : "93",
+        "label" : "Phatthalung"
+      },
+      {
+        "code" : "S",
+        "label" : "Phatthaya"
+      },
+      {
+        "code" : "56",
+        "label" : "Phayao"
+      },
+      {
+        "label" : "Phetchabun",
+        "code" : "67"
+      },
+      {
+        "label" : "Phetchaburi",
+        "code" : "76"
+      },
+      {
+        "code" : "66",
+        "label" : "Phichit"
+      },
+      {
+        "label" : "Phitsanulok",
+        "code" : "65"
+      },
+      {
+        "code" : "14",
+        "label" : "Phra Nakhon Si Ayutthaya"
+      },
+      {
+        "label" : "Phrae",
+        "code" : "54"
+      },
+      {
+        "code" : "83",
+        "label" : "Phuket"
+      },
+      {
+        "code" : "25",
+        "label" : "Prachin Buri"
+      },
+      {
+        "code" : "77",
+        "label" : "Prachuap Khiri Khan"
+      },
+      {
+        "code" : "85",
+        "label" : "Ranong"
+      },
+      {
+        "code" : "70",
+        "label" : "Ratchaburi"
+      },
+      {
+        "code" : "21",
+        "label" : "Rayong"
+      },
+      {
+        "code" : "45",
+        "label" : "Roi Et"
+      },
+      {
+        "code" : "27",
+        "label" : "Sa Kaeo"
+      },
+      {
+        "code" : "47",
+        "label" : "Sakon Nakhon"
+      },
+      {
+        "code" : "11",
+        "label" : "Samut Prakan"
+      },
+      {
+        "code" : "74",
+        "label" : "Samut Sakhon"
+      },
+      {
+        "label" : "Samut Songkhram",
+        "code" : "75"
+      },
+      {
+        "label" : "Saraburi",
+        "code" : "19"
+      },
+      {
+        "code" : "91",
+        "label" : "Satun"
+      },
+      {
+        "label" : "Si Sa Ket",
+        "code" : "33"
+      },
+      {
+        "label" : "Sing Buri",
+        "code" : "17"
+      },
+      {
+        "label" : "Songkhla",
+        "code" : "90"
+      },
+      {
+        "code" : "64",
+        "label" : "Sukhothai"
+      },
+      {
+        "label" : "Suphan Buri",
+        "code" : "72"
+      },
+      {
+        "code" : "84",
+        "label" : "Surat Thani"
+      },
+      {
+        "label" : "Surin",
+        "code" : "32"
+      },
+      {
+        "code" : "63",
+        "label" : "Tak"
+      },
+      {
+        "code" : "92",
+        "label" : "Trang"
+      },
+      {
+        "label" : "Trat",
+        "code" : "23"
+      },
+      {
+        "code" : "34",
+        "label" : "Ubon Ratchathani"
+      },
+      {
+        "label" : "Udon Thani",
+        "code" : "41"
+      },
+      {
+        "code" : "61",
+        "label" : "Uthai Thani"
+      },
+      {
+        "code" : "53",
+        "label" : "Uttaradit"
+      },
+      {
+        "code" : "95",
+        "label" : "Yala"
+      },
+      {
+        "code" : "35",
+        "label" : "Yasothon"
+      }
+    ],
+    "JP" : [
+      {
+        "label" : "Aiti (Aichi)",
+        "code" : "23"
+      },
+      {
+        "code" : "05",
+        "label" : "Akita"
+      },
+      {
+        "code" : "02",
+        "label" : "Aomori"
+      },
+      {
+        "label" : "Ehime",
+        "code" : "38"
+      },
+      {
+        "code" : "21",
+        "label" : "Gihu (Gifu)"
+      },
+      {
+        "code" : "10",
+        "label" : "Gunma"
+      },
+      {
+        "label" : "Hirosima (Hiroshima)",
+        "code" : "34"
+      },
+      {
+        "label" : "Hokkaidô (Hokkaido)",
+        "code" : "01"
+      },
+      {
+        "code" : "18",
+        "label" : "Hukui (Fukui)"
+      },
+      {
+        "label" : "Hukuoka (Fukuoka)",
+        "code" : "40"
+      },
+      {
+        "code" : "07",
+        "label" : "Hukusima (Fukushima)"
+      },
+      {
+        "label" : "Hyôgo (Hyogo)",
+        "code" : "28"
+      },
+      {
+        "label" : "Ibaraki",
+        "code" : "08"
+      },
+      {
+        "code" : "17",
+        "label" : "Isikawa (Ishikawa)"
+      },
+      {
+        "label" : "Iwate",
+        "code" : "03"
+      },
+      {
+        "label" : "Kagawa",
+        "code" : "37"
+      },
+      {
+        "code" : "46",
+        "label" : "Kagosima (Kagoshima)"
+      },
+      {
+        "label" : "Kanagawa",
+        "code" : "14"
+      },
+      {
+        "code" : "43",
+        "label" : "Kumamoto"
+      },
+      {
+        "label" : "Kyôto (Kyoto)",
+        "code" : "26"
+      },
+      {
+        "code" : "39",
+        "label" : "Kôti (Kochi)"
+      },
+      {
+        "code" : "24",
+        "label" : "Mie"
+      },
+      {
+        "label" : "Miyagi",
+        "code" : "04"
+      },
+      {
+        "label" : "Miyazaki",
+        "code" : "45"
+      },
+      {
+        "code" : "20",
+        "label" : "Nagano"
+      },
+      {
+        "code" : "42",
+        "label" : "Nagasaki"
+      },
+      {
+        "code" : "29",
+        "label" : "Nara"
+      },
+      {
+        "code" : "15",
+        "label" : "Niigata"
+      },
+      {
+        "code" : "33",
+        "label" : "Okayama"
+      },
+      {
+        "label" : "Okinawa",
+        "code" : "47"
+      },
+      {
+        "label" : "Saga",
+        "code" : "41"
+      },
+      {
+        "code" : "11",
+        "label" : "Saitama"
+      },
+      {
+        "label" : "Siga (Shiga)",
+        "code" : "25"
+      },
+      {
+        "label" : "Simane (Shimane)",
+        "code" : "32"
+      },
+      {
+        "label" : "Sizuoka (Shizuoka)",
+        "code" : "22"
+      },
+      {
+        "label" : "Tiba (Chiba)",
+        "code" : "12"
+      },
+      {
+        "label" : "Tokusima (Tokushima)",
+        "code" : "36"
+      },
+      {
+        "label" : "Totigi (Tochigi)",
+        "code" : "09"
+      },
+      {
+        "label" : "Tottori",
+        "code" : "31"
+      },
+      {
+        "code" : "16",
+        "label" : "Toyama"
+      },
+      {
+        "code" : "13",
+        "label" : "Tôkyô (Tokyo)"
+      },
+      {
+        "label" : "Wakayama",
+        "code" : "30"
+      },
+      {
+        "code" : "06",
+        "label" : "Yamagata"
+      },
+      {
+        "label" : "Yamaguti (Yamaguchi)",
+        "code" : "35"
+      },
+      {
+        "label" : "Yamanasi (Yamanashi)",
+        "code" : "19"
+      },
+      {
+        "label" : "Ôita (Oita)",
+        "code" : "44"
+      },
+      {
+        "code" : "27",
+        "label" : "Ôsaka (Osaka)"
+      }
+    ],
+    "AR" : [
+      {
+        "label" : "Buenos Aires",
+        "code" : "B"
+      },
+      {
+        "label" : "Catamarca",
+        "code" : "K"
+      },
+      {
+        "label" : "Chaco",
+        "code" : "H"
+      },
+      {
+        "code" : "U",
+        "label" : "Chubut"
+      },
+      {
+        "code" : "C",
+        "label" : "Ciudad Autónoma de Buenos Aires"
+      },
+      {
+        "code" : "W",
+        "label" : "Corrientes"
+      },
+      {
+        "code" : "X",
+        "label" : "Córdoba"
+      },
+      {
+        "code" : "E",
+        "label" : "Entre Ríos"
+      },
+      {
+        "label" : "Formosa",
+        "code" : "P"
+      },
+      {
+        "code" : "Y",
+        "label" : "Jujuy"
+      },
+      {
+        "code" : "L",
+        "label" : "La Pampa"
+      },
+      {
+        "code" : "F",
+        "label" : "La Rioja"
+      },
+      {
+        "code" : "M",
+        "label" : "Mendoza"
+      },
+      {
+        "label" : "Misiones",
+        "code" : "N"
+      },
+      {
+        "code" : "Q",
+        "label" : "Neuquén"
+      },
+      {
+        "label" : "Río Negro",
+        "code" : "R"
+      },
+      {
+        "code" : "A",
+        "label" : "Salta"
+      },
+      {
+        "label" : "San Juan",
+        "code" : "J"
+      },
+      {
+        "label" : "San Luis",
+        "code" : "D"
+      },
+      {
+        "code" : "Z",
+        "label" : "Santa Cruz"
+      },
+      {
+        "code" : "S",
+        "label" : "Santa Fe"
+      },
+      {
+        "code" : "G",
+        "label" : "Santiago del Estero"
+      },
+      {
+        "code" : "V",
+        "label" : "Tierra del Fuego"
+      },
+      {
+        "code" : "T",
+        "label" : "Tucumán"
+      }
+    ],
+    "CA" : [
+      {
+        "label" : "Alberta",
+        "code" : "AB"
+      },
+      {
+        "label" : "British Columbia",
+        "code" : "BC"
+      },
+      {
+        "label" : "Manitoba",
+        "code" : "MB"
+      },
+      {
+        "label" : "New Brunswick",
+        "code" : "NB"
+      },
+      {
+        "code" : "NL",
+        "label" : "Newfoundland and Labrador"
+      },
+      {
+        "label" : "Northwest Territories",
+        "code" : "NT"
+      },
+      {
+        "code" : "NS",
+        "label" : "Nova Scotia"
+      },
+      {
+        "code" : "NU",
+        "label" : "Nunavut"
+      },
+      {
+        "label" : "Ontario",
+        "code" : "ON"
+      },
+      {
+        "label" : "Prince Edward Island",
+        "code" : "PE"
+      },
+      {
+        "label" : "Quebec",
+        "code" : "QC"
+      },
+      {
+        "code" : "SK",
+        "label" : "Saskatchewan"
+      },
+      {
+        "label" : "Yukon",
+        "code" : "YT"
+      }
+    ],
+    "CN" : [
+      {
+        "label" : "Beijing",
+        "code" : "11"
+      },
+      {
+        "label" : "Hunan",
+        "code" : "43"
+      },
+      {
+        "code" : "12",
+        "label" : "Tianjin"
+      },
+      {
+        "label" : "Guangdong",
+        "code" : "44"
+      },
+      {
+        "code" : "13",
+        "label" : "Hebei"
+      },
+      {
+        "label" : "Guangxi",
+        "code" : "45"
+      },
+      {
+        "label" : "Shanxi",
+        "code" : "14"
+      },
+      {
+        "code" : "46",
+        "label" : "Hainan"
+      },
+      {
+        "label" : "Nei Mongol (mn), (Inner Mongolia)",
+        "code" : "15"
+      },
+      {
+        "label" : "Chongqing",
+        "code" : "50"
+      },
+      {
+        "code" : "21",
+        "label" : "Liaoning"
+      },
+      {
+        "label" : "Sichuan",
+        "code" : "51"
+      },
+      {
+        "label" : "Jilin",
+        "code" : "22"
+      },
+      {
+        "label" : "Guizhou",
+        "code" : "52"
+      },
+      {
+        "label" : "Heilongjiang",
+        "code" : "23"
+      },
+      {
+        "code" : "53",
+        "label" : "Yunnan"
+      },
+      {
+        "code" : "31",
+        "label" : "Shanghai"
+      },
+      {
+        "label" : "Xizang (Tibet)",
+        "code" : "54"
+      },
+      {
+        "code" : "32",
+        "label" : "Jiangsu"
+      },
+      {
+        "code" : "61",
+        "label" : "Shaanxi"
+      },
+      {
+        "code" : "33",
+        "label" : "Zhejiang"
+      },
+      {
+        "label" : "Gansu",
+        "code" : "62"
+      },
+      {
+        "label" : "Anhui",
+        "code" : "34"
+      },
+      {
+        "code" : "63",
+        "label" : "Qinghai"
+      },
+      {
+        "code" : "35",
+        "label" : "Fujian"
+      },
+      {
+        "label" : "Ningxia",
+        "code" : "64"
+      },
+      {
+        "label" : "Jiangxi",
+        "code" : "36"
+      },
+      {
+        "code" : "65",
+        "label" : "Xinjiang"
+      },
+      {
+        "code" : "37",
+        "label" : "Shandong"
+      },
+      {
+        "code" : "71",
+        "label" : "Taiwan"
+      },
+      {
+        "code" : "41",
+        "label" : "Henan"
+      },
+      {
+        "code" : "91",
+        "label" : "Hong Kong (en) Xianggang (zh)"
+      },
+      {
+        "label" : "Hubei",
+        "code" : "42"
+      },
+      {
+        "code" : "92",
+        "label" : "Macao (en) Aomen (zh)"
+      }
+    ],
+    "MX" : [
+      {
+        "label" : "Aguascalientes",
+        "code" : "AGU"
+      },
+      {
+        "label" : "Baja California",
+        "code" : "BCN"
+      },
+      {
+        "code" : "BCS",
+        "label" : "Baja California Sur"
+      },
+      {
+        "label" : "Campeche",
+        "code" : "CAM"
+      },
+      {
+        "code" : "CHP",
+        "label" : "Chiapas"
+      },
+      {
+        "code" : "CHH",
+        "label" : "Chihuahua"
+      },
+      {
+        "label" : "Coahuila",
+        "code" : "COA"
+      },
+      {
+        "label" : "Colima",
+        "code" : "COL"
+      },
+      {
+        "code" : "DIF",
+        "label" : "Distrito Federal"
+      },
+      {
+        "code" : "DUR",
+        "label" : "Durango"
+      },
+      {
+        "code" : "GUA",
+        "label" : "Guanajuato"
+      },
+      {
+        "label" : "Guerrero",
+        "code" : "GRO"
+      },
+      {
+        "label" : "Hidalgo",
+        "code" : "HID"
+      },
+      {
+        "code" : "JAL",
+        "label" : "Jalisco"
+      },
+      {
+        "label" : "Michoacán",
+        "code" : "MIC"
+      },
+      {
+        "code" : "MOR",
+        "label" : "Morelos"
+      },
+      {
+        "code" : "MEX",
+        "label" : "México"
+      },
+      {
+        "label" : "Nayarit",
+        "code" : "NAY"
+      },
+      {
+        "label" : "Nuevo León",
+        "code" : "NLE"
+      },
+      {
+        "label" : "Oaxaca",
+        "code" : "OAX"
+      },
+      {
+        "code" : "PUE",
+        "label" : "Puebla"
+      },
+      {
+        "code" : "QUE",
+        "label" : "Querétaro"
+      },
+      {
+        "label" : "Quintana Roo",
+        "code" : "ROO"
+      },
+      {
+        "code" : "SLP",
+        "label" : "San Luis Potosí"
+      },
+      {
+        "code" : "SIN",
+        "label" : "Sinaloa"
+      },
+      {
+        "code" : "SON",
+        "label" : "Sonora"
+      },
+      {
+        "code" : "TAB",
+        "label" : "Tabasco"
+      },
+      {
+        "code" : "TAM",
+        "label" : "Tamaulipas"
+      },
+      {
+        "label" : "Tlaxcala",
+        "code" : "TLA"
+      },
+      {
+        "label" : "Veracruz",
+        "code" : "VER"
+      },
+      {
+        "label" : "Yucatán",
+        "code" : "YUC"
+      },
+      {
+        "code" : "ZAC",
+        "label" : "Zacatecas"
+      }
+    ],
+    "IN" : [
+      {
+        "code" : "AN",
+        "label" : "Andaman and Nicobar Islands"
+      },
+      {
+        "label" : "Andhra Pradesh",
+        "code" : "AP"
+      },
+      {
+        "code" : "AR",
+        "label" : "Arunachal Pradesh"
+      },
+      {
+        "code" : "AS",
+        "label" : "Assam"
+      },
+      {
+        "code" : "BR",
+        "label" : "Bihar"
+      },
+      {
+        "label" : "Chandigarh",
+        "code" : "CH"
+      },
+      {
+        "code" : "CT",
+        "label" : "Chhattisgarh"
+      },
+      {
+        "code" : "DN",
+        "label" : "Dadra and Nagar Haveli"
+      },
+      {
+        "code" : "DD",
+        "label" : "Daman and Diu"
+      },
+      {
+        "label" : "Delhi",
+        "code" : "DL"
+      },
+      {
+        "label" : "Goa",
+        "code" : "GA"
+      },
+      {
+        "code" : "GJ",
+        "label" : "Gujarat"
+      },
+      {
+        "label" : "Haryana",
+        "code" : "HR"
+      },
+      {
+        "code" : "HP",
+        "label" : "Himachal Pradesh"
+      },
+      {
+        "code" : "JK",
+        "label" : "Jammu and Kashmir"
+      },
+      {
+        "code" : "JH",
+        "label" : "Jharkhand"
+      },
+      {
+        "label" : "Karnataka",
+        "code" : "KA"
+      },
+      {
+        "label" : "Kerala",
+        "code" : "KL"
+      },
+      {
+        "code" : "LD",
+        "label" : "Lakshadweep"
+      },
+      {
+        "label" : "Madhya Pradesh",
+        "code" : "MP"
+      },
+      {
+        "code" : "MH",
+        "label" : "Maharashtra"
+      },
+      {
+        "code" : "MN",
+        "label" : "Manipur"
+      },
+      {
+        "code" : "ML",
+        "label" : "Meghalaya"
+      },
+      {
+        "code" : "MZ",
+        "label" : "Mizoram"
+      },
+      {
+        "code" : "NL",
+        "label" : "Nagaland"
+      },
+      {
+        "label" : "Odisha",
+        "code" : "OR"
+      },
+      {
+        "code" : "PY",
+        "label" : "Puducherry"
+      },
+      {
+        "label" : "Punjab",
+        "code" : "PB"
+      },
+      {
+        "code" : "RJ",
+        "label" : "Rajasthan"
+      },
+      {
+        "label" : "Sikkim",
+        "code" : "SK"
+      },
+      {
+        "code" : "TN",
+        "label" : "Tamil Nadu"
+      },
+      {
+        "code" : "TG",
+        "label" : "Telangana"
+      },
+      {
+        "code" : "TR",
+        "label" : "Tripura"
+      },
+      {
+        "code" : "UP",
+        "label" : "Uttar Pradesh"
+      },
+      {
+        "label" : "Uttarakhand",
+        "code" : "UT"
+      },
+      {
+        "label" : "West Bengal",
+        "code" : "WB"
+      }
+    ],
+    "BR" : [
+      {
+        "label" : "Acre",
+        "code" : "AC"
+      },
+      {
+        "code" : "AL",
+        "label" : "Alagoas"
+      },
+      {
+        "label" : "Amapá",
+        "code" : "AP"
+      },
+      {
+        "label" : "Amazonas",
+        "code" : "AM"
+      },
+      {
+        "label" : "Bahia",
+        "code" : "BA"
+      },
+      {
+        "code" : "CE",
+        "label" : "Ceará"
+      },
+      {
+        "code" : "DF",
+        "label" : "Distrito Federal"
+      },
+      {
+        "code" : "ES",
+        "label" : "Espírito Santo"
+      },
+      {
+        "code" : "GO",
+        "label" : "Goiás"
+      },
+      {
+        "label" : "Maranhão",
+        "code" : "MA"
+      },
+      {
+        "label" : "Mato Grosso",
+        "code" : "MT"
+      },
+      {
+        "label" : "Mato Grosso do Sul",
+        "code" : "MS"
+      },
+      {
+        "code" : "MG",
+        "label" : "Minas Gerais"
+      },
+      {
+        "label" : "Paraná",
+        "code" : "PR"
+      },
+      {
+        "code" : "PB",
+        "label" : "Paraíba"
+      },
+      {
+        "code" : "PA",
+        "label" : "Pará"
+      },
+      {
+        "code" : "PE",
+        "label" : "Pernambuco"
+      },
+      {
+        "label" : "Piauí",
+        "code" : "PI"
+      },
+      {
+        "label" : "Rio Grande do Norte",
+        "code" : "RN"
+      },
+      {
+        "label" : "Rio Grande do Sul",
+        "code" : "RS"
+      },
+      {
+        "code" : "RJ",
+        "label" : "Rio de Janeiro"
+      },
+      {
+        "label" : "Rondônia",
+        "code" : "RO"
+      },
+      {
+        "code" : "RR",
+        "label" : "Roraima"
+      },
+      {
+        "code" : "SC",
+        "label" : "Santa Catarina"
+      },
+      {
+        "code" : "SE",
+        "label" : "Sergipe"
+      },
+      {
+        "code" : "SP",
+        "label" : "São Paulo"
+      },
+      {
+        "code" : "TO",
+        "label" : "Tocantins"
+      }
+    ],
+    "ID" : [
+      {
+        "code" : "AC",
+        "label" : "Aceh, Aceh"
+      },
+      {
+        "label" : "Bali, Bali",
+        "code" : "BA"
+      },
+      {
+        "code" : "BB",
+        "label" : "Bangka Belitung, Bangka-Belitung Islands"
+      },
+      {
+        "label" : "Banten, Banten",
+        "code" : "BT"
+      },
+      {
+        "code" : "BE",
+        "label" : "Bengkulu, Bengkulu"
+      },
+      {
+        "code" : "GO",
+        "label" : "Gorontalo, Gorontalo"
+      },
+      {
+        "label" : "Jakarta Raya, Jakarta",
+        "code" : "JK"
+      },
+      {
+        "label" : "Jambi, Jambi",
+        "code" : "JA"
+      },
+      {
+        "code" : "JB",
+        "label" : "Jawa Barat, West Java"
+      },
+      {
+        "label" : "Jawa Tengah, Central Java",
+        "code" : "JT"
+      },
+      {
+        "code" : "JI",
+        "label" : "Jawa Timur, East Java"
+      },
+      {
+        "label" : "Kalimantan Baratm, West Kalimantan",
+        "code" : "KB"
+      },
+      {
+        "code" : "KS",
+        "label" : "Kalimantan Selatan, South Kalimantan"
+      },
+      {
+        "code" : "KT",
+        "label" : "Kalimantan Tengah, Central Kalimantan"
+      },
+      {
+        "label" : "Kalimantan Timur, East Kalimantan",
+        "code" : "KI"
+      },
+      {
+        "code" : "KU",
+        "label" : "Kalimantan Utara, North Kalimantan"
+      },
+      {
+        "code" : "KR",
+        "label" : "Kepulauan Riau, Riau Islands"
+      },
+      {
+        "label" : "Lampung, Lampung",
+        "code" : "LA"
+      },
+      {
+        "code" : "MU",
+        "label" : "Maluku Utara, North Maluku"
+      },
+      {
+        "label" : "Maluku, Maluku",
+        "code" : "MA"
+      },
+      {
+        "code" : "NB",
+        "label" : "Nusa Tenggara Barat, West Nusa Tenggara"
+      },
+      {
+        "label" : "Nusa Tenggara Timur, East Nusa Tenggara",
+        "code" : "NT"
+      },
+      {
+        "label" : "Papua Barat, West Papua",
+        "code" : "PB"
+      },
+      {
+        "code" : "PA",
+        "label" : "Papua, Papua"
+      },
+      {
+        "label" : "Riau, Riau",
+        "code" : "RI"
+      },
+      {
+        "code" : "SR",
+        "label" : "Sulawesi Barat, West Sulawesi"
+      },
+      {
+        "label" : "Sulawesi Selatan, South Sulawesi",
+        "code" : "SN"
+      },
+      {
+        "label" : "Sulawesi Tengah, Central Sulawesi",
+        "code" : "ST"
+      },
+      {
+        "code" : "SG",
+        "label" : "Sulawesi Tenggara, Southeast Sulawesi"
+      },
+      {
+        "code" : "SA",
+        "label" : "Sulawesi Utara, North Sulawesi"
+      },
+      {
+        "label" : "Sumatera Barat, West Sumatra",
+        "code" : "SB"
+      },
+      {
+        "code" : "SS",
+        "label" : "Sumatera Selatan, South Sumatra"
+      },
+      {
+        "code" : "SU",
+        "label" : "Sumatera Utara, North Sumatra"
+      },
+      {
+        "code" : "YO",
+        "label" : "Yogyakarta, Yogyakarta"
+      }
+    ],
+    "US" : [
+      {
+        "code" : "AL",
+        "label" : "Alabama"
+      },
+      {
+        "code" : "AK",
+        "label" : "Alaska"
+      },
+      {
+        "code" : "AS",
+        "label" : "American Samoa"
+      },
+      {
+        "code" : "AZ",
+        "label" : "Arizona"
+      },
+      {
+        "label" : "Arkansas",
+        "code" : "AR"
+      },
+      {
+        "code" : "CA",
+        "label" : "California"
+      },
+      {
+        "code" : "CO",
+        "label" : "Colorado"
+      },
+      {
+        "label" : "Connecticut",
+        "code" : "CT"
+      },
+      {
+        "code" : "DE",
+        "label" : "Delaware"
+      },
+      {
+        "code" : "DC",
+        "label" : "District of Columbia"
+      },
+      {
+        "code" : "FL",
+        "label" : "Florida"
+      },
+      {
+        "code" : "GA",
+        "label" : "Georgia"
+      },
+      {
+        "label" : "Guam",
+        "code" : "GU"
+      },
+      {
+        "code" : "HI",
+        "label" : "Hawaii"
+      },
+      {
+        "label" : "Idaho",
+        "code" : "ID"
+      },
+      {
+        "code" : "IL",
+        "label" : "Illinois"
+      },
+      {
+        "label" : "Indiana",
+        "code" : "IN"
+      },
+      {
+        "code" : "IA",
+        "label" : "Iowa"
+      },
+      {
+        "label" : "Kansas",
+        "code" : "KS"
+      },
+      {
+        "label" : "Kentucky",
+        "code" : "KY"
+      },
+      {
+        "code" : "LA",
+        "label" : "Louisiana"
+      },
+      {
+        "label" : "Maine",
+        "code" : "ME"
+      },
+      {
+        "label" : "Maryland",
+        "code" : "MD"
+      },
+      {
+        "code" : "MA",
+        "label" : "Massachusetts"
+      },
+      {
+        "code" : "MI",
+        "label" : "Michigan"
+      },
+      {
+        "code" : "MN",
+        "label" : "Minnesota"
+      },
+      {
+        "code" : "MS",
+        "label" : "Mississippi"
+      },
+      {
+        "label" : "Missouri",
+        "code" : "MO"
+      },
+      {
+        "code" : "MT",
+        "label" : "Montana"
+      },
+      {
+        "code" : "NE",
+        "label" : "Nebraska"
+      },
+      {
+        "label" : "Nevada",
+        "code" : "NV"
+      },
+      {
+        "label" : "New Hampshire",
+        "code" : "NH"
+      },
+      {
+        "code" : "NJ",
+        "label" : "New Jersey"
+      },
+      {
+        "code" : "NM",
+        "label" : "New Mexico"
+      },
+      {
+        "label" : "New York",
+        "code" : "NY"
+      },
+      {
+        "code" : "NC",
+        "label" : "North Carolina"
+      },
+      {
+        "code" : "ND",
+        "label" : "North Dakota"
+      },
+      {
+        "label" : "Northern Mariana Islands",
+        "code" : "MP"
+      },
+      {
+        "label" : "Ohio",
+        "code" : "OH"
+      },
+      {
+        "code" : "OK",
+        "label" : "Oklahoma"
+      },
+      {
+        "code" : "OR",
+        "label" : "Oregon"
+      },
+      {
+        "code" : "PA",
+        "label" : "Pennsylvania"
+      },
+      {
+        "label" : "Puerto Rico",
+        "code" : "PR"
+      },
+      {
+        "code" : "RI",
+        "label" : "Rhode Island"
+      },
+      {
+        "label" : "South Carolina",
+        "code" : "SC"
+      },
+      {
+        "label" : "South Dakota",
+        "code" : "SD"
+      },
+      {
+        "code" : "TN",
+        "label" : "Tennessee"
+      },
+      {
+        "code" : "TX",
+        "label" : "Texas"
+      },
+      {
+        "label" : "United States Minor",
+        "code" : "UM"
+      },
+      {
+        "code" : "UT",
+        "label" : "Utah"
+      },
+      {
+        "code" : "VT",
+        "label" : "Vermont"
+      },
+      {
+        "label" : "Virgin Islands, U.S.",
+        "code" : "VI"
+      },
+      {
+        "label" : "Virginia",
+        "code" : "VA"
+      },
+      {
+        "label" : "Washington",
+        "code" : "WA"
+      },
+      {
+        "code" : "WV",
+        "label" : "West Virginia"
+      },
+      {
+        "code" : "WI",
+        "label" : "Wisconsin"
+      },
+      {
+        "label" : "Wyoming",
+        "code" : "WY"
+      }
+    ]
+  }
+}
