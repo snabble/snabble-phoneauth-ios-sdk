@@ -25,9 +25,9 @@ private struct LabelWithImageAccent: View {
 }
 
 struct NumberView: View {
-    let countries: [CountryCallingCode] = CountryCallingCode.default
+    let countries: [Country] = Countries.default.countries
     
-    @State var country: CountryCallingCode = CountryCallingCode(countryCode: "DE", callingCode: 49)
+    @State var country: Country = Country(code: "DE", label: "Germany", callingCode: 49)
     @State var number: String = ""
     
     @Binding var showProgress: Bool
@@ -57,7 +57,7 @@ struct NumberView: View {
             
             VStack(spacing: 16) {
                 HStack {
-                    CountryCallingCodeView(codes: countries, selectedCode: $country)
+                    CountryCallingCodeButtonView(countries: countries, selectedCountry: $country)
                         .padding(12)
                         .background(.quaternary)
                         .clipShape(RoundedRectangle(cornerRadius: 6))
@@ -103,6 +103,9 @@ struct NumberView: View {
     }
     
     private func submit() {
-        callback("+\(country.callingCode)\(number)")
+        guard let code = country.callingCode else {
+            return
+        }
+        callback("+\(code)\(number)")
     }
 }
