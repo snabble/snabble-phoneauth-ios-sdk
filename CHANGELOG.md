@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 * Added international calling codes #APPS-1334
+* Change country structure #APPS-1350
 
 ### Updated 
 * snabble/snabble-network-ios-sdk ccec74fe151de032cfb95272c1e412b3853ac716 (was 1.0.0)
