@@ -8,45 +8,38 @@
 import Foundation
 
 public struct Country {
+    public static var `default`: [Country] = loadJSON("Countries")
+
     public let code: String
     public let label: String
-    public var callingCode: UInt?
-    
-    public var flagSymbol: String? {
-        code.flagSymbol
+    public let callingCode: UInt
+    public let states: [State]?
+
+    public struct State {
+        public let code: String
+        public let label: String
     }
-    public init(code: String, label: String, callingCode: UInt? = nil) {
+    public init(code: String, label: String, callingCode: UInt, states: [State]? = nil) {
         self.code = code
         self.label = label
         self.callingCode = callingCode
+        self.states = states
+    }
+    public var flagSymbol: String? {
+        code.flagSymbol
     }
 }
 
-public struct Countries {
-    public static var `default`: Countries = loadJSON("Countries")
-    
-    public let countries: [Country]
-    public let subdivisions: [String: [Country]]
-    
-    public init(
-        countries: [Country],
-        subdivisions: [String: [Country]]
-    ) {
-        self.countries = countries
-        self.subdivisions = subdivisions
-    }
-}
-
-extension Countries: Decodable {
+extension Country.State: Decodable {
     private enum CodingKeys: String, CodingKey {
-        case countries
-        case subdivisions
+        case code
+        case label
     }
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.countries = try container.decode([Country].self, forKey: .countries)
-        self.subdivisions = try container.decode([String: [Country]].self, forKey: .subdivisions)
-    }
+        self.code = try container.decode(String.self, forKey: .code)
+        self.label = try container.decode(String.self, forKey: .label)
+   }
 }
 
 extension Country: Decodable {
@@ -54,12 +47,14 @@ extension Country: Decodable {
         case code
         case label
         case callingCode
+        case states
     }
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.code = try container.decode(String.self, forKey: .code)
         self.label = try container.decode(String.self, forKey: .label)
-        self.callingCode = try container.decodeIfPresent(UInt.self, forKey: .callingCode)
+        self.callingCode = try container.decode(UInt.self, forKey: .callingCode)
+        self.states = try container.decodeIfPresent([State].self, forKey: .states)
    }
 }
 
@@ -69,7 +64,18 @@ extension Country: Identifiable {
     }
 }
 
+extension Country.State: Identifiable {
+    public var id: String {
+        code
+    }
+}
+
 extension Country: Hashable {
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+}
+extension Country.State: Hashable {
     public func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }

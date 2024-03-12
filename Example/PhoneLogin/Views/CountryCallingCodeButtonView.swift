@@ -22,26 +22,29 @@ struct CountryCallingCodeButtonView: View {
     @State private var showMenu = false
     
     var body: some View {
-        HStack {
-            Button(action: {
-                showMenu = true
-            }) {
+        Button(action: {
+            showMenu = true
+        }) {
+            HStack {
                 if let flag = selectedCountry.flagSymbol {
                     Text(flag)
                 }
-                if let code = selectedCountry.callingCode {
-                    Text("+\(code)")
-                }
+                Text("+\(selectedCountry.callingCode)")
+                Spacer()
             }
-            .foregroundColor(.primary)
         }
+        .countryButtonStyle()
+
         .sheet(isPresented: $showMenu, onDismiss: {}) {
             CountryCallingCodeListView(countries: countries, selection: $selection)
         }
-        .onChange(of: selection) { value in
+        .onChange(of: selection) { _, value in
             if let value, let country = countries.country(forCode: value) {
                 selectedCountry = country
-            }
+           }
+        }
+        .onChange(of: selectedCountry) { _, value in
+            selection = selectedCountry.id
         }
         .onAppear {
             selection = selectedCountry.id
@@ -59,7 +62,7 @@ private struct CountryCallingCodeListView: View {
     public var body: some View {
         ScrollViewReader { proxy in
             NavigationStack {
-                List(searchResults, selection: $selection) { value in
+                List(searchResults.sorted(by: { $0.name < $1.name }), selection: $selection) { value in
                     CountryCallingCodeRow(country: value)
                         .id(value.id)
                         .onTapGesture {
@@ -71,6 +74,7 @@ private struct CountryCallingCodeListView: View {
                 .navigationTitle("Choose your country")
                 .navigationBarTitleDisplayMode(.inline)
             }
+            
             .onAppear {
                 proxy.scrollTo(selection, anchor: .center)
             }
@@ -95,9 +99,7 @@ private struct CountryCallingCodeRow: View {
                     .font(.largeTitle)
             }
             VStack(alignment: .leading) {
-                if let code = country.callingCode {
-                    Text("+\(code)")
-                }
+                Text("+\(country.callingCode)")
                 Text(country.name)
                     .foregroundColor(.secondary)
                     .font(.footnote)
