@@ -25,7 +25,7 @@ private struct LabelWithImageAccent: View {
 }
 
 struct NumberView: View {
-    let countries: [Country] = Countries.default.countries
+    let countries: [Country] = Country.default
     
     @State var country: Country = Country(code: "DE", label: "Germany", callingCode: 49)
     @State var number: String = ""
@@ -103,9 +103,6 @@ struct NumberView: View {
     }
     
     private func submit() {
-        guard let code = country.callingCode else {
-            return
-        }
-        callback("+\(code)\(number)")
+        callback("+\(country.callingCode)\(number)")
     }
 }

@@ -30,20 +30,19 @@ struct CountryCallingCodeButtonView: View {
                     Text(flag)
                 }
                 Text("+\(selectedCountry.callingCode)")
-                Spacer()
             }
         }
-        .countryButtonStyle()
+        .foregroundColor(.primary)
 
         .sheet(isPresented: $showMenu, onDismiss: {}) {
             CountryCallingCodeListView(countries: countries, selection: $selection)
         }
-        .onChange(of: selection) { _, value in
+        .onChange(of: selection) { value in
             if let value, let country = countries.country(forCode: value) {
                 selectedCountry = country
            }
         }
-        .onChange(of: selectedCountry) { _, value in
+        .onChange(of: selectedCountry) { _ in
             selection = selectedCountry.id
         }
         .onAppear {
