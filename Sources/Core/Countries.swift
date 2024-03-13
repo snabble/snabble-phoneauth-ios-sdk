@@ -20,29 +20,17 @@ public struct Country: Decodable {
         public let code: String
         public let label: String
     }
-    private enum CodingKeys: String, CodingKey {
-        case code
-        case label
-        case callingCode
-        case states
-    }
+    
     public init(code: String, label: String, callingCode: UInt, states: [State]? = nil) {
         self.code = code
         self.label = label
         self.callingCode = callingCode
         self.states = states
     }
+    
     public var flagSymbol: String? {
         code.flagSymbol
     }
-    
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.code = try container.decode(String.self, forKey: .code)
-        self.label = try container.decode(String.self, forKey: .label)
-        self.callingCode = try container.decode(UInt.self, forKey: .callingCode)
-        self.states = try container.decodeIfPresent([State].self, forKey: .states)
-   }
 }
 
 extension Country: Identifiable {
