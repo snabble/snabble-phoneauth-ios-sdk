@@ -8,9 +8,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 * Added international calling codes #APPS-1334
+* Change country structure #APPS-1350
 
 ### Updated 
-* snabble/snabble-network-ios-sdk ccec74fe151de032cfb95272c1e412b3853ac716 (was 1.0.0)
+* snabble/snabble-network-ios-sdk 02e5385545d79294f405e8aa657ff7e231f7c16e (was 1.0.0)
 * apple/swift-crypto.git 3.2.0
 
 ## [1.1.0]
