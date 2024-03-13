@@ -7,17 +7,24 @@
 
 import Foundation
 
-public struct Country {
-    public static var `default`: [Country] = loadJSON("Countries")
-
+public struct Country: Decodable {
+    public static var all: [Country] = loadJSON("Countries")
+    public static var germany: Country = Country(code: "DE", label: "Germany", callingCode: 49)
+    
     public let code: String
     public let label: String
     public let callingCode: UInt
     public let states: [State]?
 
-    public struct State {
+    public struct State: Decodable {
         public let code: String
         public let label: String
+    }
+    private enum CodingKeys: String, CodingKey {
+        case code
+        case label
+        case callingCode
+        case states
     }
     public init(code: String, label: String, callingCode: UInt, states: [State]? = nil) {
         self.code = code
@@ -28,27 +35,7 @@ public struct Country {
     public var flagSymbol: String? {
         code.flagSymbol
     }
-}
-
-extension Country.State: Decodable {
-    private enum CodingKeys: String, CodingKey {
-        case code
-        case label
-    }
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.code = try container.decode(String.self, forKey: .code)
-        self.label = try container.decode(String.self, forKey: .label)
-   }
-}
-
-extension Country: Decodable {
-    private enum CodingKeys: String, CodingKey {
-        case code
-        case label
-        case callingCode
-        case states
-    }
+    
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.code = try container.decode(String.self, forKey: .code)

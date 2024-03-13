@@ -25,9 +25,9 @@ private struct LabelWithImageAccent: View {
 }
 
 struct NumberView: View {
-    let countries: [Country] = Country.default
+    let countries: [Country] = Country.all
     
-    @State var country: Country = Country(code: "DE", label: "Germany", callingCode: 49)
+    @State var country: Country = Country.germany
     @State var number: String = ""
     
     @Binding var showProgress: Bool
