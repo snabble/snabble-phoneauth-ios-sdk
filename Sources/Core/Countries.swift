@@ -13,11 +13,6 @@ public struct Country: Decodable {
     
     public let code: String
     public let callingCode: UInt
-
-    public struct State: Decodable {
-        public let code: String
-        public let label: String
-    }
     
     public init(code: String, callingCode: UInt) {
         self.code = code
@@ -35,18 +30,7 @@ extension Country: Identifiable {
     }
 }
 
-extension Country.State: Identifiable {
-    public var id: String {
-        code
-    }
-}
-
 extension Country: Hashable {
-    public func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
-    }
-}
-extension Country.State: Hashable {
     public func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }
