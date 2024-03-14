@@ -9,23 +9,14 @@ import Foundation
 
 public struct Country: Decodable {
     public static var all: [Country] = loadJSON("Countries")
-    public static var germany: Country = Country(code: "DE", label: "Germany", callingCode: 49)
+    public static var germany: Country = Country(code: "DE", callingCode: 49)
     
     public let code: String
-    public let label: String
     public let callingCode: UInt
-    public let states: [State]?
-
-    public struct State: Decodable {
-        public let code: String
-        public let label: String
-    }
     
-    public init(code: String, label: String, callingCode: UInt, states: [State]? = nil) {
+    public init(code: String, callingCode: UInt) {
         self.code = code
-        self.label = label
         self.callingCode = callingCode
-        self.states = states
     }
     
     public var flagSymbol: String? {
@@ -39,18 +30,7 @@ extension Country: Identifiable {
     }
 }
 
-extension Country.State: Identifiable {
-    public var id: String {
-        code
-    }
-}
-
 extension Country: Hashable {
-    public func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
-    }
-}
-extension Country.State: Hashable {
     public func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }
