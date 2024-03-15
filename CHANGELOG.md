@@ -11,8 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Change country structure #APPS-1350
 
 ### Updated 
-* snabble/snabble-network-ios-sdk 02e5385545d79294f405e8aa657ff7e231f7c16e (was 1.0.0)
-* apple/swift-crypto.git 3.2.0
+* snabble/snabble-network-ios-sdk 169bb0b2d41bc964c7d1a0f2565e3d75d5b5b756 (was 1.0.0)
+* apple/swift-crypto.git 3.3.0 (was 3.2.0)
 
 ## [1.1.0]
 
