@@ -11,7 +11,7 @@ import Combine
 
 public protocol PhoneAuthProviding {
     func startAuthorization(phoneNumber: String) async throws -> String
-    func login(phoneNumber: String, OTP: String) async throws -> AppUser?
+    func login(phoneNumber: String, OTP: String, intention: Intention) async throws -> AppUser?
     func delete(phoneNumber: String) async throws
 }
 
@@ -70,10 +70,11 @@ extension PhoneAuth: PhoneAuthProviding {
     }
     
     @discardableResult
-    public func login(phoneNumber: String, OTP: String) async throws -> AppUser? {
+    public func login(phoneNumber: String, OTP: String, intention: Intention = .signIn) async throws -> AppUser? {
         let endpoint = Endpoints.Phone.login(
             phoneNumber: phoneNumber,
-            OTP: OTP
+            OTP: OTP,
+            intention: intention.toDTO()
         )
         
         return try await withCheckedThrowingContinuation { continuation in
