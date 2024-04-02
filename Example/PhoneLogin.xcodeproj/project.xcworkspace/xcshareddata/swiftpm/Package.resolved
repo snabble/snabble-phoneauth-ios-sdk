@@ -5,8 +5,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/snabble/snabble-network-ios-sdk",
       "state" : {
-        "branch" : "intention",
-        "revision" : "06c99cd476782a897cfe32386049a5dc3756ddb6"
+        "branch" : "main",
+        "revision" : "0e922ece15299ae7a9839675da6e553abdd74c44"
       }
     },
     {
