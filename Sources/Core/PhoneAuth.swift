@@ -11,7 +11,8 @@ import Combine
 
 public protocol PhoneAuthProviding {
     func startAuthorization(phoneNumber: String) async throws -> String
-    func login(phoneNumber: String, OTP: String, intention: Intention) async throws -> AppUser?
+    func signIn(phoneNumber: String, OTP: String) async throws -> AppUser?
+    func changePhoneNumber(phoneNumber: String, OTP: String) async throws -> AppUser?
     func delete(phoneNumber: String) async throws
 }
 
@@ -70,11 +71,37 @@ extension PhoneAuth: PhoneAuthProviding {
     }
     
     @discardableResult
-    public func login(phoneNumber: String, OTP: String, intention: Intention = .signIn) async throws -> AppUser? {
-        let endpoint = Endpoints.Phone.login(
+    public func signIn(phoneNumber: String, OTP: String) async throws -> AppUser? {
+        let endpoint = Endpoints.Phone.signIn(
             phoneNumber: phoneNumber,
-            OTP: OTP,
-            intention: intention.toDTO()
+            OTP: OTP
+        )
+        
+        return try await withCheckedThrowingContinuation { continuation in
+            var cancellable: AnyCancellable?
+            cancellable = networkManager.publisher(for: endpoint)
+                .mapHTTPErrorIfPossible()
+                .receive(on: RunLoop.main)
+                .sink { completion in
+                    switch completion {
+                    case .finished:
+                        break
+                    case let .failure(error):
+                        continuation.resume(throwing: error)
+                    }
+                    cancellable?.cancel()
+
+                } receiveValue: { value in
+                    continuation.resume(with: .success(value?.fromDTO()))
+                }
+        }
+    }
+    
+    @discardableResult
+    public func changePhoneNumber(phoneNumber: String, OTP: String) async throws -> AppUser? {
+        let endpoint = Endpoints.Phone.changePhoneNumber(
+            phoneNumber: phoneNumber,
+            OTP: OTP
         )
         
         return try await withCheckedThrowingContinuation { continuation in
