@@ -121,7 +121,7 @@ struct PhoneAuthScreen: View {
         Task {
             do {
                 startLoading()
-                appUser = try await viewModel.phoneAuth.login(phoneNumber: phoneNumber, OTP: OTP)
+                appUser = try await viewModel.phoneAuth.signIn(phoneNumber: phoneNumber, OTP: OTP)
                 showingAlert = true
                 
                 DispatchQueue.main.sync {
