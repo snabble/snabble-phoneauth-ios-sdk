@@ -32,11 +32,11 @@ opt_in_rules:
  - yoda_condition
 
 nesting:
-  type_level: 2
+ type_level: 2
 
 type_name:
-  min_length: 2
-  max_length: 45
+ min_length: 2
+ max_length: 45
 
 identifier_name:
-  min_length: 2
+ min_length: 2
