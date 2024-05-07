@@ -19,7 +19,6 @@ public struct Configuration {
         self.domain = domain
     }
     
-    
 }
 
 extension Configuration: Equatable {}
