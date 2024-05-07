@@ -12,7 +12,7 @@ public enum HTTPError: LocalizedError {
     case invalid(HTTPURLResponse, ClientError?)
     case unknown(URLResponse)
     case unexpected(Error)
-    
+
     public var errorDescription: String? {
         switch self {
         case let .invalid(response, clientError):

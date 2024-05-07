@@ -10,15 +10,15 @@ import Foundation
 public struct Country: Decodable {
     public static var all: [Country] = loadJSON("Countries")
     public static var germany: Country = Country(code: "DE", callingCode: 49)
-    
+
     public let code: String
     public let callingCode: UInt
-    
+
     public init(code: String, callingCode: UInt) {
         self.code = code
         self.callingCode = callingCode
     }
-    
+
     public var flagSymbol: String? {
         code.flagSymbol
     }
@@ -40,7 +40,7 @@ public extension Array where Element == Country {
     var countryCodes: [String] {
         compactMap({ $0.code })
     }
-    
+
     func country(forCode code: String) -> Element? {
         first(where: { $0.code.lowercased() == code.lowercased()})
     }

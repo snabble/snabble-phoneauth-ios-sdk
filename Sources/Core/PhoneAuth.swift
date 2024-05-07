@@ -28,13 +28,13 @@ public protocol PhoneAuthDataSource: AnyObject {
 public class PhoneAuth {
     public weak var delegate: PhoneAuthDelegate?
     public weak var dataSource: PhoneAuthDataSource?
-    
+
     private let networkManager: NetworkManager
-    
+
     public var configuration: Configuration {
         networkManager.configuration.fromDTO()
     }
-    
+
     public init(configuration: Configuration, urlSession: URLSession = .shared) {
         self.networkManager = NetworkManager(
             configuration: configuration.toDTO(),
@@ -45,7 +45,7 @@ public class PhoneAuth {
 }
 
 extension PhoneAuth: PhoneAuthProviding {
-    
+
     private func useContinuation<Value, Response>(endpoint: Endpoint<Response>, receiveValue: @escaping (Response, CheckedContinuation<Value, any Error>) -> Void) async throws -> Value {
         return try await withCheckedThrowingContinuation { continuation in
             var cancellable: AnyCancellable?
@@ -70,39 +70,39 @@ extension PhoneAuth: PhoneAuthProviding {
         let endpoint = Endpoints.Phone.auth(
             phoneNumber: phoneNumber
         )
-        
+
         return try await useContinuation(endpoint: endpoint) { _, continuation in
             continuation.resume(with: .success(phoneNumber))
         }
     }
-    
+
     @discardableResult
     public func signIn(phoneNumber: String, OTP: String) async throws -> AppUser? {
         let endpoint = Endpoints.Phone.signIn(
             phoneNumber: phoneNumber,
             OTP: OTP
         )
-        
+
         return try await useContinuation(endpoint: endpoint) { response, continuation in
             continuation.resume(with: .success(response?.fromDTO()))
         }
     }
-    
+
     @discardableResult
     public func changePhoneNumber(phoneNumber: String, OTP: String) async throws -> AppUser? {
         let endpoint = Endpoints.Phone.changePhoneNumber(
             phoneNumber: phoneNumber,
             OTP: OTP
         )
-        
+
         return try await useContinuation(endpoint: endpoint) { response, continuation in
             continuation.resume(with: .success(response?.fromDTO()))
         }
     }
-    
+
     public func delete(phoneNumber: String) async throws {
         let endpoint = Endpoints.Phone.delete()
-        
+
         return try await useContinuation(endpoint: endpoint) { response, continuation in
             continuation.resume(with: .success(response))
         }
@@ -125,11 +125,11 @@ extension PhoneAuth: NetworkManagerDelegate {
     public func networkManager(_ networkManager: SnabbleNetwork.NetworkManager, appUserForConfiguration configuration: SnabbleNetwork.Configuration) -> SnabbleNetwork.AppUser? {
         dataSource?.appUserId(forConfiguration: configuration.fromDTO())?.toDTO()
     }
-    
+
     public func networkManager(_ networkManager: SnabbleNetwork.NetworkManager, appUserUpdated appUser: SnabbleNetwork.AppUser) {
         delegate?.phoneAuth(self, didReceiveAppUser: appUser.fromDTO())
     }
-    
+
     public func networkManager(_ networkManager: SnabbleNetwork.NetworkManager, projectIdForConfiguration configuration: SnabbleNetwork.Configuration) -> String? {
         dataSource?.projectId(forConfiguration: configuration.fromDTO())
     }
