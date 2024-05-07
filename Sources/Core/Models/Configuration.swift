@@ -18,6 +18,8 @@ public struct Configuration {
         self.appSecret = appSecret
         self.domain = domain
     }
+    
+    
 }
 
 extension Configuration: Equatable {}
